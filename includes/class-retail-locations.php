@@ -742,10 +742,13 @@ class Retail_Locations {
                 $categories = get_the_terms( get_the_ID(), 'location_category' );
                 $cat_names = array();
                 if ( $categories && ! is_wp_error( $categories ) ) {
-                    $cat_names = wp_list_pluck( $categories, 'name' );
+                    $cat_names = array_values( wp_list_pluck( $categories, 'name' ) );
                 }
                 
                 $hours = get_post_meta( get_the_ID(), '_location_hours', true ) ?: array();
+                if ( is_array( $hours ) ) {
+                    $hours = array_values( $hours );
+                }
                 
                 $markers[] = array(
                     'id'         => get_the_ID(),

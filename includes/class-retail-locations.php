@@ -135,15 +135,17 @@ class Retail_Locations {
 
         register_block_type( 'retail-locations/stores', array(
             'attributes' => array(
-                'category'          => array( 'type' => 'string', 'default' => '' ),
-                'posts_per_page'    => array( 'type' => 'string', 'default' => '-1' ),
-                'layout'            => array( 'type' => 'string', 'default' => 'fullwidth' ),
-                'show_hours'        => array( 'type' => 'string', 'default' => 'yes' ),
-                'show_contact'      => array( 'type' => 'string', 'default' => 'yes' ),
-                'show_description'  => array( 'type' => 'string', 'default' => 'yes' ),
-                'show_image'        => array( 'type' => 'string', 'default' => 'yes' ),
-                'group_by_category' => array( 'type' => 'string', 'default' => 'no' ),
-                'group_by_area'     => array( 'type' => 'string', 'default' => 'no' ),
+                'category'            => array( 'type' => 'string', 'default' => '' ),
+                'posts_per_page'      => array( 'type' => 'string', 'default' => '-1' ),
+                'layout'              => array( 'type' => 'string', 'default' => 'fullwidth' ),
+                'show_hours'          => array( 'type' => 'string', 'default' => 'yes' ),
+                'show_contact'        => array( 'type' => 'string', 'default' => 'yes' ),
+                'show_description'    => array( 'type' => 'string', 'default' => 'yes' ),
+                'show_image'          => array( 'type' => 'string', 'default' => 'yes' ),
+                'group_by_category'   => array( 'type' => 'string', 'default' => 'no' ),
+                'group_by_area'       => array( 'type' => 'string', 'default' => 'no' ),
+                'collapsible'         => array( 'type' => 'string', 'default' => 'no' ),
+                'exclusive_accordion' => array( 'type' => 'string', 'default' => 'no' ),
             ),
             'render_callback' => array( $this, 'render_stores' ),
         ));
@@ -768,15 +770,17 @@ class Retail_Locations {
 
     public function render_stores( $atts ) {
         $atts = shortcode_atts( array(
-            'category'          => '',
-            'posts_per_page'    => -1,
-            'layout'            => 'fullwidth',
-            'show_hours'        => 'yes',
-            'show_contact'      => 'yes',
-            'show_description'  => 'yes',
-            'show_image'        => 'yes',
-            'group_by_category' => 'no',
-            'group_by_area'     => 'no',
+            'category'            => '',
+            'posts_per_page'      => -1,
+            'layout'              => 'fullwidth',
+            'show_hours'          => 'yes',
+            'show_contact'        => 'yes',
+            'show_description'    => 'yes',
+            'show_image'          => 'yes',
+            'group_by_category'   => 'no',
+            'group_by_area'       => 'no',
+            'collapsible'         => 'no',
+            'exclusive_accordion' => 'no',
         ), $atts );
 
         $args = array(
@@ -848,28 +852,51 @@ class Retail_Locations {
         }
         wp_reset_postdata();
 
+        $is_collapsible = $atts['collapsible'] === 'yes';
+        $is_exclusive = $atts['exclusive_accordion'] === 'yes';
+        
+        $list_classes = 'retail-locations-list layout-' . esc_attr( $atts['layout'] ) . ' grouped-by-area';
+        $list_attrs = '';
+        if ( $is_collapsible ) {
+            $list_attrs .= ' data-collapsible="yes"';
+            if ( $is_exclusive ) {
+                $list_attrs .= ' data-exclusive="yes"';
+            }
+        }
+
         ob_start();
         ?>
-        <div class="retail-locations-list layout-<?php echo esc_attr( $atts['layout'] ); ?> grouped-by-area">
-            <?php foreach ( $grouped as $slug => $group ) : ?>
-                <div class="retail-locations-group" data-area="<?php echo esc_attr( $slug ); ?>">
+        <div class="<?php echo $list_classes; ?>"<?php echo $list_attrs; ?>>
+            <?php foreach ( $grouped as $slug => $group ) : 
+                $group_classes = 'retail-locations-group';
+                if ( $is_collapsible ) {
+                    $group_classes .= ' is-collapsed';
+                }
+            ?>
+                <div class="<?php echo esc_attr( $group_classes ); ?>" data-area="<?php echo esc_attr( $slug ); ?>">
                     <h2 class="retail-locations-group-title"
                         <?php if ( ! empty( $group['meta']['lat'] ) && ! empty( $group['meta']['lng'] ) ) : ?>
                         data-lat="<?php echo esc_attr( $group['meta']['lat'] ); ?>"
                         data-lng="<?php echo esc_attr( $group['meta']['lng'] ); ?>"
                         data-zoom="<?php echo esc_attr( $group['meta']['zoom'] ); ?>"
-                        style="cursor:pointer;"
                         title="<?php _e( 'Click to focus map', 'retail-locations' ); ?>"
                         <?php endif; ?>
+                        <?php if ( $is_collapsible ) : ?>
+                        aria-expanded="false"
+                        role="button"
+                        tabindex="0"
+                        <?php endif; ?>
                     ><?php echo esc_html( $group['name'] ); ?></h2>
-                    <?php foreach ( $group['posts'] as $location_post ) : ?>
-                        <?php 
-                        global $post;
-                        $post = $location_post;
-                        setup_postdata( $post );
-                        $this->render_store_item( $atts );
-                        ?>
-                    <?php endforeach; ?>
+                    <div class="retail-locations-group-content">
+                        <?php foreach ( $group['posts'] as $location_post ) : ?>
+                            <?php 
+                            global $post;
+                            $post = $location_post;
+                            setup_postdata( $post );
+                            $this->render_store_item( $atts );
+                            ?>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             <?php endforeach; wp_reset_postdata(); ?>
         </div>
@@ -902,20 +929,45 @@ class Retail_Locations {
         }
         wp_reset_postdata();
 
+        $is_collapsible = $atts['collapsible'] === 'yes';
+        $is_exclusive = $atts['exclusive_accordion'] === 'yes';
+        
+        $list_classes = 'retail-locations-list layout-' . esc_attr( $atts['layout'] ) . ' grouped-by-category';
+        $list_attrs = '';
+        if ( $is_collapsible ) {
+            $list_attrs .= ' data-collapsible="yes"';
+            if ( $is_exclusive ) {
+                $list_attrs .= ' data-exclusive="yes"';
+            }
+        }
+
         ob_start();
         ?>
-        <div class="retail-locations-list layout-<?php echo esc_attr( $atts['layout'] ); ?> grouped-by-category">
-            <?php foreach ( $grouped as $slug => $group ) : ?>
-                <div class="retail-locations-group" data-category="<?php echo esc_attr( $slug ); ?>">
-                    <h2 class="retail-locations-group-title"><?php echo esc_html( $group['name'] ); ?></h2>
-                    <?php foreach ( $group['posts'] as $location_post ) : ?>
-                        <?php 
-                        global $post;
-                        $post = $location_post;
-                        setup_postdata( $post );
-                        $this->render_store_item( $atts );
-                        ?>
-                    <?php endforeach; ?>
+        <div class="<?php echo $list_classes; ?>"<?php echo $list_attrs; ?>>
+            <?php foreach ( $grouped as $slug => $group ) : 
+                $group_classes = 'retail-locations-group';
+                if ( $is_collapsible ) {
+                    $group_classes .= ' is-collapsed';
+                }
+            ?>
+                <div class="<?php echo esc_attr( $group_classes ); ?>" data-category="<?php echo esc_attr( $slug ); ?>">
+                    <h2 class="retail-locations-group-title"
+                        <?php if ( $is_collapsible ) : ?>
+                        aria-expanded="false"
+                        role="button"
+                        tabindex="0"
+                        <?php endif; ?>
+                    ><?php echo esc_html( $group['name'] ); ?></h2>
+                    <div class="retail-locations-group-content">
+                        <?php foreach ( $group['posts'] as $location_post ) : ?>
+                            <?php 
+                            global $post;
+                            $post = $location_post;
+                            setup_postdata( $post );
+                            $this->render_store_item( $atts );
+                            ?>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             <?php endforeach; wp_reset_postdata(); ?>
         </div>

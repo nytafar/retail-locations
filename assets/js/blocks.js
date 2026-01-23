@@ -111,12 +111,16 @@
             show_description: { type: 'string', default: 'yes' },
             show_image: { type: 'string', default: 'yes' },
             group_by_category: { type: 'string', default: 'no' },
-            group_by_area: { type: 'string', default: 'no' }
+            group_by_area: { type: 'string', default: 'no' },
+            collapsible: { type: 'string', default: 'no' },
+            exclusive_accordion: { type: 'string', default: 'no' }
         },
 
         edit: function(props) {
             var attributes = props.attributes;
             var setAttributes = props.setAttributes;
+            var isGrouped = attributes.group_by_area === 'yes' || attributes.group_by_category === 'yes';
+            var isCollapsible = attributes.collapsible === 'yes';
 
             return el('div', { className: 'retail-locations-block-wrapper' },
                 el(InspectorControls, {},
@@ -170,13 +174,40 @@
                         el(ToggleControl, {
                             label: __('Group by Area', 'retail-locations'),
                             checked: attributes.group_by_area === 'yes',
-                            onChange: function(val) { setAttributes({ group_by_area: val ? 'yes' : 'no' }); },
+                            onChange: function(val) { 
+                                setAttributes({ group_by_area: val ? 'yes' : 'no' }); 
+                                if (!val && attributes.group_by_category !== 'yes') {
+                                    setAttributes({ collapsible: 'no', exclusive_accordion: 'no' });
+                                }
+                            },
                             help: __('Group stores by geographic area', 'retail-locations')
                         }),
                         el(ToggleControl, {
                             label: __('Group by Category', 'retail-locations'),
                             checked: attributes.group_by_category === 'yes',
-                            onChange: function(val) { setAttributes({ group_by_category: val ? 'yes' : 'no' }); }
+                            onChange: function(val) { 
+                                setAttributes({ group_by_category: val ? 'yes' : 'no' }); 
+                                if (!val && attributes.group_by_area !== 'yes') {
+                                    setAttributes({ collapsible: 'no', exclusive_accordion: 'no' });
+                                }
+                            }
+                        }),
+                        isGrouped && el(ToggleControl, {
+                            label: __('Collapsible Groups', 'retail-locations'),
+                            checked: isCollapsible,
+                            onChange: function(val) { 
+                                setAttributes({ collapsible: val ? 'yes' : 'no' });
+                                if (!val) {
+                                    setAttributes({ exclusive_accordion: 'no' });
+                                }
+                            },
+                            help: __('Click group titles to expand/collapse', 'retail-locations')
+                        }),
+                        isGrouped && isCollapsible && el(ToggleControl, {
+                            label: __('Exclusive Accordion', 'retail-locations'),
+                            checked: attributes.exclusive_accordion === 'yes',
+                            onChange: function(val) { setAttributes({ exclusive_accordion: val ? 'yes' : 'no' }); },
+                            help: __('Only one group open at a time', 'retail-locations')
                         })
                     )
                 ),
@@ -194,8 +225,8 @@
                     el('span', { className: 'dashicons dashicons-list-view', style: { fontSize: '32px', color: '#666' } }),
                     el('p', { style: { fontWeight: 'bold', margin: '10px 0 5px' } }, __('Locations List', 'retail-locations')),
                     el('small', { style: { color: '#666' } },
-                        attributes.group_by_area === 'yes' ? __('Grouped by Area', 'retail-locations') :
-                        attributes.group_by_category === 'yes' ? __('Grouped by Category', 'retail-locations') :
+                        attributes.group_by_area === 'yes' ? __('Grouped by Area', 'retail-locations') + (isCollapsible ? ' (Collapsible)' : '') :
+                        attributes.group_by_category === 'yes' ? __('Grouped by Category', 'retail-locations') + (isCollapsible ? ' (Collapsible)' : '') :
                         __('Layout: ', 'retail-locations') + attributes.layout
                     )
                 )

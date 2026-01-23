@@ -65,6 +65,7 @@
 }
 
 @media (max-width: 768px) {
+
     .retail-locations-list.layout-grid2,
     .retail-locations-list.layout-grid3,
     .retail-locations-list.layout-grid4 {
@@ -223,4 +224,57 @@
     .retail-locations-map--sticky {
         position: static;
     }
+}
+
+/* Accordion / Collapsible Groups */
+.retail-locations-group-content {
+    overflow: hidden;
+    transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.35s ease;
+    max-height: 5000px;
+    opacity: 1;
+}
+
+.retail-locations-group.is-collapsed .retail-locations-group-content {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/* Collapsible title styling */
+.retail-locations-list[data-collapsible="yes"] .retail-locations-group-title {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.retail-locations-list[data-collapsible="yes"] .retail-locations-group-title:hover {
+    opacity: 0.8;
+}
+
+.retail-locations-list[data-collapsible="yes"] .retail-locations-group-title:focus {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+/* Toggle indicator */
+.retail-locations-list[data-collapsible="yes"] .retail-locations-group-title::after {
+    content: '+';
+    font-size: 1.2em;
+    font-weight: 400;
+    line-height: 1;
+    margin-left: 10px;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.retail-locations-group:not(.is-collapsed)>.retail-locations-group-title::after {
+    content: '−';
+}
+
+/* Override cursor pointer from area focus when collapsible */
+.retail-locations-list[data-collapsible="yes"] .retail-locations-group-title[data-lat] {
+    cursor: pointer;
 }

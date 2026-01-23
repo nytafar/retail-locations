@@ -235,8 +235,8 @@
     /* Align icon */
 }
 
-/* Show only on iPhone via JS class */
-body.is-iphone .retail-location-apple-link {
+/* Show only on Apple devices via JS class */
+body.has-apple-maps .retail-location-apple-link {
     display: inline-block;
 }
 

@@ -163,9 +163,13 @@ class Retail_Locations {
         $js_file = RETAIL_LOCATIONS_DIR . 'assets/js/frontend.js';
         $css_file = RETAIL_LOCATIONS_DIR . 'assets/css/frontend.css';
 
+        // Use DEMO_MAP_ID for AdvancedMarkerElement if no custom style ID is maintained. 
+        // In production, user should generate one. For now this enables the feature.
+        $map_id = get_option( 'retail_locations_map_id', 'DEMO_MAP_ID' ); 
+
         wp_enqueue_script(
             'google-maps',
-            'https://maps.googleapis.com/maps/api/js?key=' . $api_key . '&libraries=places',
+            'https://maps.googleapis.com/maps/api/js?key=' . $api_key . '&libraries=places,marker&loading=async&map_ids=' . $map_id,
             array(),
             null,
             true
@@ -182,6 +186,7 @@ class Retail_Locations {
         wp_localize_script( 'retail-locations', 'retailLocations', array(
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
             'apiKey'  => $api_key,
+            'mapId'   => $map_id,
         ));
 
         wp_enqueue_style(

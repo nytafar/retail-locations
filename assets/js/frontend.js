@@ -8,22 +8,33 @@
         geocoder: null,
         geocodeQueue: [],
         isGeocoding: false,
+        mapId: null, // Will be set from localized data
 
-        init: function () {
-            this.initMaps();
+        init: async function () {
+            this.mapId = retailLocations.mapId || 'DEMO_MAP_ID';
+            await this.initMaps();
             this.bindEvents();
         },
 
-        initMaps: function () {
+        initMaps: async function () {
             var self = this;
-            $('.retail-locations-map').each(function () {
+            var $maps = $('.retail-locations-map');
+
+            if (!$maps.length) return;
+
+            // Load libraries
+            const { Map } = await google.maps.importLibrary("maps");
+            const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+            self.AdvancedMarkerElement = AdvancedMarkerElement; // Store for later use
+
+            $maps.each(function () {
                 var $container = $(this);
                 if ($container.data('initialized')) return;
 
                 var settings = $container.data('settings') || {};
                 var $canvas = $container.find('.retail-locations-map-canvas');
 
-                if (!$canvas.length || typeof google === 'undefined') return;
+                if (!$canvas.length) return;
 
                 var mapOptions = {
                     zoom: 12,
@@ -31,9 +42,10 @@
                     disableDefaultUI: !settings.mapControls,
                     scrollwheel: settings.scrollwheel,
                     draggable: self.isMobile() ? settings.mobileDraggable : true,
+                    mapId: self.mapId, // Required for AdvancedMarkerElement
                 };
 
-                var map = new google.maps.Map($canvas[0], mapOptions);
+                var map = new Map($canvas[0], mapOptions);
                 self.maps.push(map);
                 $container.data('map', map);
                 $container.data('initialized', true);
@@ -90,11 +102,11 @@
             var self = this;
             var position = { lat: parseFloat(data.lat), lng: parseFloat(data.lng) };
 
-            var marker = new google.maps.Marker({
-                position: position,
+            // AdvancedMarkerElement usage
+            var marker = new self.AdvancedMarkerElement({
                 map: map,
+                position: position,
                 title: data.title,
-                animation: google.maps.Animation.DROP
             });
 
             // Build category tags
@@ -138,12 +150,16 @@
 
             var infoWindow = new google.maps.InfoWindow({
                 content: infoContent,
-                maxWidth: 320
+                maxWidth: 320,
+                ariaLabel: data.title
             });
 
             marker.addListener('click', function () {
                 self.closeAllInfoWindows();
-                infoWindow.open(map, marker);
+                infoWindow.open({
+                    anchor: marker,
+                    map: map,
+                });
             });
 
             self.markers.push({ marker: marker, infoWindow: infoWindow });
@@ -211,22 +227,8 @@
         openMarker: function (id) {
             var item = this.markersMap[id];
             if (item) {
-                var map = item.marker.getMap();
-                // map.setCenter(item.marker.getPosition()); // Don't recenter aggressively? User said "Keep it on the area, but open the marker". 
-                // Wait, user said "I did not mean to focus the map, keep it on the area... Like when you click the marker."
-                // When you click a marker, it just opens the info window. It doesn't usually recenter unless programmed to.
-                // However, if the marker is off-screen, it should probably pan to it?
-                // Default google maps behavior for marker click is just open info window.
-                // Let's just trigger click.
-
-                // Actually, ensure it's in view?
-                // Let's just stick to "open info window". 
-                // But usually, "Show on map" implies seeing it.
-                // I will center it, as that's safer for usability found from list.
-                // Re-reading: "keep it on the area" might mean "don't zoom out to show everything"? 
-                // Or "don't change the bounds"?
-                // Let's panTo.
-                map.panTo(item.marker.getPosition());
+                var map = item.marker.map; // AdvancedMarkerElement property
+                map.panTo(item.marker.position); // AdvancedMarkerElement position property
                 map.setZoom(15);
                 google.maps.event.trigger(item.marker, 'click');
             }

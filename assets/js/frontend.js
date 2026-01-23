@@ -192,12 +192,18 @@
             var self = this;
 
             // Area focus click (only when not in collapsible mode)
-            $(document).on('click', '.retail-locations-group-title[data-lat]', function (e) {
+            $(document).on('click', '.retail-locations-group-title[data-lat], .js-focus-location', function (e) {
                 var $list = $(this).closest('.retail-locations-list');
-                // If collapsible, the accordion handler takes precedence - don't focus map on accordion toggle
-                if ($list.attr('data-collapsible') === 'yes') {
+                // If collapsible, only the title header (group title) should be ignored if it's the accordion trigger
+                // But .js-focus-location is inside the content, so it should always work.
+                // However, the original code had a check for group title click not triggering if collapsible.
+
+                // If it is the group title, check collapsible
+                if ($(this).hasClass('retail-locations-group-title') && $list.attr('data-collapsible') === 'yes') {
                     return; // Let the accordion handler below deal with it
                 }
+
+                e.preventDefault();
                 var $el = $(this);
                 self.focusArea($el.data('lat'), $el.data('lng'), $el.data('zoom'));
             });

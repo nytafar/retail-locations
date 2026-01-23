@@ -1021,6 +1021,8 @@ class Retail_Locations {
         $address    = get_post_meta( get_the_ID(), '_location_address', true );
         $website    = get_post_meta( get_the_ID(), '_location_website', true );
         $instagram  = get_post_meta( get_the_ID(), '_location_instagram', true );
+        $lat        = get_post_meta( get_the_ID(), '_location_lat', true );
+        $lng        = get_post_meta( get_the_ID(), '_location_lng', true );
         $categories = get_the_terms( get_the_ID(), 'location_category' );
         ?>
         <article class="retail-location-item">
@@ -1032,7 +1034,12 @@ class Retail_Locations {
             
             <div class="retail-location-content">
                 <h3 class="retail-location-title">
-                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                    <?php if ( $lat && $lng ) : ?>
+                        <a href="#" class="js-focus-location" data-lat="<?php echo esc_attr( $lat ); ?>" data-lng="<?php echo esc_attr( $lng ); ?>" data-zoom="15"><?php the_title(); ?></a>
+                    <?php else : ?>
+                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                    <?php endif; ?>
+
                     <?php if ( $categories && ! is_wp_error( $categories ) ) : ?>
                         <span class="retail-location-tags">
                             <?php foreach ( $categories as $cat ) : ?>
@@ -1059,7 +1066,7 @@ class Retail_Locations {
                     <?php if ( $instagram ) : ?>
                         <a href="https://instagram.com/<?php echo esc_attr( $instagram ); ?>" class="retail-location-link retail-location-link--instagram" target="_blank" rel="noopener noreferrer">
                             <?php echo retail_locations_icon_instagram(); ?>
-                            <span>@<?php echo esc_html( $instagram ); ?></span>
+                            <span><?php echo esc_html( $instagram ); ?></span>
                         </a>
                     <?php endif; ?>
                 </div>

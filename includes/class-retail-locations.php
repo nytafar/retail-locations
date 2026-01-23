@@ -1035,9 +1035,9 @@ class Retail_Locations {
             <div class="retail-location-content">
                 <h3 class="retail-location-title">
                     <?php if ( $lat && $lng ) : ?>
-                        <a href="#" class="js-focus-location" data-lat="<?php echo esc_attr( $lat ); ?>" data-lng="<?php echo esc_attr( $lng ); ?>" data-zoom="15"><?php the_title(); ?></a>
+                        <a href="#" class="js-focus-location" data-id="<?php echo get_the_ID(); ?>" data-lat="<?php echo esc_attr( $lat ); ?>" data-lng="<?php echo esc_attr( $lng ); ?>" data-zoom="15"><?php the_title(); ?></a>
                     <?php else : ?>
-                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        <a href="#" class="js-focus-location" data-id="<?php echo get_the_ID(); ?>" data-address="<?php echo esc_attr( $address ); ?>"><?php the_title(); ?></a>
                     <?php endif; ?>
 
                     <?php if ( $categories && ! is_wp_error( $categories ) ) : ?>

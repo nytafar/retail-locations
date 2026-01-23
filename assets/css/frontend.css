@@ -111,6 +111,23 @@
 
 .retail-locations-info-link:hover {
     background: #555;
+    text-decoration: none;
+}
+
+.retail-locations-info-actions {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5em;
+}
+
+.retail-locations-info-link-secondary {
+    color: #0073aa;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.retail-locations-info-link-secondary:hover {
+    text-decoration: underline;
 }
 
 /* ==========================================================================

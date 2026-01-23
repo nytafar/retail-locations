@@ -1,12 +1,13 @@
-/**
- * Retail Locations - Frontend JavaScript
- */
 (function ($) {
     'use strict';
 
     window.RetailLocations = {
         maps: [],
         markers: [],
+        markersMap: {},
+        geocoder: null,
+        geocodeQueue: [],
+        isGeocoding: false,
 
         init: function () {
             this.initMaps();
@@ -62,70 +63,135 @@
         addMarkers: function (map, markersData) {
             var self = this;
             var bounds = new google.maps.LatLngBounds();
+            var hasBounds = false;
 
             markersData.forEach(function (data) {
-                var position = { lat: data.lat, lng: data.lng };
-
-                var marker = new google.maps.Marker({
-                    position: position,
-                    map: map,
-                    title: data.title,
-                    animation: google.maps.Animation.DROP
-                });
-
-                // Build category tags
-                var categoryHtml = '';
-                if (data.categories && data.categories.length > 0) {
-                    categoryHtml = '<div class="retail-locations-info-tags">';
-                    data.categories.forEach(function (cat) {
-                        categoryHtml += '<span class="retail-locations-info-tag">' + cat + '</span>';
-                    });
-                    categoryHtml += '</div>';
+                // Determine position or queue for geocoding
+                if (data.lat && data.lng) {
+                    self.createMarker(map, data, bounds);
+                    hasBounds = true;
+                } else if (data.address) {
+                    // No coords, but address exists. Queue it.
+                    self.queueGeocode(map, data);
                 }
-
-                // Build hours
-                var hoursHtml = '';
-                if (data.hours && data.hours.length > 0) {
-                    hoursHtml = '<div class="retail-locations-info-hours">';
-                    data.hours.forEach(function (hour) {
-                        if (hour.day || hour.open) { // Only show if data exists
-                            hoursHtml += '<div class="retail-locations-info-hour">' +
-                                '<span class="hour-day">' + hour.day + '</span> ' +
-                                '<span class="hour-time">' + hour.open + ' – ' + hour.close + '</span>' +
-                                '</div>';
-                        }
-                    });
-                    hoursHtml += '</div>';
-                }
-
-                var infoContent = '<div class="retail-locations-info">' +
-                    '<h4>' + data.title + '</h4>' +
-                    categoryHtml +
-                    (data.address ? '<p class="retail-locations-info-address">' + data.address + '</p>' : '') +
-                    hoursHtml +
-                    '<a href="' + data.link + '" class="retail-locations-info-link">' + 'View Details →' + '</a>' +
-                    '</div>';
-
-                var infoWindow = new google.maps.InfoWindow({
-                    content: infoContent,
-                    maxWidth: 320
-                });
-
-                marker.addListener('click', function () {
-                    self.closeAllInfoWindows();
-                    infoWindow.open(map, marker);
-                });
-
-                self.markers.push({ marker: marker, infoWindow: infoWindow });
-                bounds.extend(position);
             });
 
-            if (markersData.length > 0) {
+            if (hasBounds) {
                 map.fitBounds(bounds);
-                if (markersData.length === 1) {
-                    map.setZoom(15);
-                }
+                // Avoid too much zoom if only one marker
+                var listener = google.maps.event.addListener(map, "idle", function () {
+                    if (map.getZoom() > 15) map.setZoom(15);
+                    google.maps.event.removeListener(listener);
+                });
             }
+        },
+
+        createMarker: function (map, data, bounds) {
+            var self = this;
+            var position = { lat: parseFloat(data.lat), lng: parseFloat(data.lng) };
+
+            var marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                title: data.title,
+                animation: google.maps.Animation.DROP
+            });
+
+            // Build category tags
+            var categoryHtml = '';
+            if (data.categories && data.categories.length > 0) {
+                categoryHtml = '<div class="retail-locations-info-tags">';
+                data.categories.forEach(function (cat) {
+                    categoryHtml += '<span class="retail-locations-info-tag">' + cat + '</span>';
+                });
+                categoryHtml += '</div>';
+            }
+
+            // Build hours
+            var hoursHtml = '';
+            if (data.hours && data.hours.length > 0) {
+                hoursHtml = '<div class="retail-locations-info-hours">';
+                data.hours.forEach(function (hour) {
+                    if (hour.day || hour.open) {
+                        hoursHtml += '<div class="retail-locations-info-hour">' +
+                            '<span class="hour-day">' + hour.day + '</span> ' +
+                            '<span class="hour-time">' + hour.open + ' – ' + hour.close + '</span>' +
+                            '</div>';
+                    }
+                });
+                hoursHtml += '</div>';
+            }
+
+            // Directions link
+            var directionsUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(data.address || (data.lat + ',' + data.lng));
+
+            var infoContent = '<div class="retail-locations-info">' +
+                '<h4>' + data.title + '</h4>' +
+                categoryHtml +
+                (data.address ? '<p class="retail-locations-info-address">' + data.address + '</p>' : '') +
+                hoursHtml +
+                '<div class="retail-locations-info-actions">' +
+                '<a href="' + directionsUrl + '" class="retail-locations-info-link" target="_blank" rel="noopener noreferrer">' + 'Get Directions' + '</a>' +
+                (data.link ? ' <a href="' + data.link + '" class="retail-locations-info-link-secondary" style="margin-left:8px;font-size:0.9em;">' + 'View Details' + '</a>' : '') +
+                '</div>' +
+                '</div>';
+
+            var infoWindow = new google.maps.InfoWindow({
+                content: infoContent,
+                maxWidth: 320
+            });
+
+            marker.addListener('click', function () {
+                self.closeAllInfoWindows();
+                infoWindow.open(map, marker);
+            });
+
+            self.markers.push({ marker: marker, infoWindow: infoWindow });
+
+            // Store by ID for external access
+            if (data.id) {
+                self.markersMap[data.id] = { marker: marker, infoWindow: infoWindow };
+            }
+
+            if (bounds) {
+                bounds.extend(position);
+            }
+        },
+
+        queueGeocode: function (map, data) {
+            this.geocodeQueue.push({ map: map, data: data });
+            this.processGeocodeQueue();
+        },
+
+        processGeocodeQueue: function () {
+            var self = this;
+            if (self.isGeocoding || self.geocodeQueue.length === 0) return;
+
+            self.isGeocoding = true;
+            var item = self.geocodeQueue.shift();
+
+            if (!self.geocoder) {
+                self.geocoder = new google.maps.Geocoder();
+            }
+
+            self.geocoder.geocode({ 'address': item.data.address }, function (results, status) {
+                if (status === 'OK') {
+                    var location = results[0].geometry.location;
+                    item.data.lat = location.lat();
+                    item.data.lng = location.lng();
+
+                    // Create marker seamlessly
+                    self.createMarker(item.map, item.data, null);
+                } else {
+                    console.warn('Geocode was not successful for the following reason: ' + status);
+                }
+
+                // Rate limiting - wait a bit before next request
+                setTimeout(function () {
+                    self.isGeocoding = false;
+                    self.processGeocodeQueue();
+                }, 600);
+            });
         },
 
         closeAllInfoWindows: function () {
@@ -142,45 +208,52 @@
             }
         },
 
+        openMarker: function (id) {
+            var item = this.markersMap[id];
+            if (item) {
+                var map = item.marker.getMap();
+                // map.setCenter(item.marker.getPosition()); // Don't recenter aggressively? User said "Keep it on the area, but open the marker". 
+                // Wait, user said "I did not mean to focus the map, keep it on the area... Like when you click the marker."
+                // When you click a marker, it just opens the info window. It doesn't usually recenter unless programmed to.
+                // However, if the marker is off-screen, it should probably pan to it?
+                // Default google maps behavior for marker click is just open info window.
+                // Let's just trigger click.
+
+                // Actually, ensure it's in view?
+                // Let's just stick to "open info window". 
+                // But usually, "Show on map" implies seeing it.
+                // I will center it, as that's safer for usability found from list.
+                // Re-reading: "keep it on the area" might mean "don't zoom out to show everything"? 
+                // Or "don't change the bounds"?
+                // Let's panTo.
+                map.panTo(item.marker.getPosition());
+                map.setZoom(15);
+                google.maps.event.trigger(item.marker, 'click');
+            }
+        },
+
         isMobile: function () {
             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         },
 
-        // Animate accordion open/close with smooth height transition
         animateAccordion: function ($content, expanding, callback) {
             if (expanding) {
-                // Expanding: behavior depends on current state
-                // If it was "hidden" via class, we need to prepare it for animation
                 $content.css('height', '0');
-
-                // Get the natural height by temporarily setting auto
                 var currentStyle = $content.attr('style');
                 $content.css({ position: 'absolute', visibility: 'hidden', height: 'auto', display: 'block' });
                 var targetHeight = $content.outerHeight();
-
-                // Reset to start state
                 $content.attr('style', currentStyle || '');
                 $content.css('height', '0');
-                // Ensure display block is set if the class removal didn't trigger it yet
-                // But we handle class removal in the caller usually.
-                // If CSS hides it via display:none, we need to show it.
-                // Our CSS currently uses height:0, so it's already "visible" but 0 height.
-
-                // Force reflow
                 $content[0].offsetHeight;
-
-                // Animate
                 $content.css('height', targetHeight + 'px');
-
                 setTimeout(function () {
                     $content.css('height', 'auto');
                     if (callback) callback();
                 }, 350);
             } else {
-                // Collapsing
                 var currentHeight = $content.outerHeight();
                 $content.css('height', currentHeight + 'px');
-                $content[0].offsetHeight; // Force reflow
+                $content[0].offsetHeight;
                 $content.css('height', 0);
                 setTimeout(function () {
                     if (callback) callback();
@@ -191,32 +264,44 @@
         bindEvents: function () {
             var self = this;
 
-            // Area focus click (only when not in collapsible mode)
             $(document).on('click', '.retail-locations-group-title[data-lat], .js-focus-location', function (e) {
-                var $list = $(this).closest('.retail-locations-list');
-                // If collapsible, only the title header (group title) should be ignored if it's the accordion trigger
-                // But .js-focus-location is inside the content, so it should always work.
-                // However, the original code had a check for group title click not triggering if collapsible.
+                var $el = $(this);
+                var $list = $el.closest('.retail-locations-list');
 
-                // If it is the group title, check collapsible
-                if ($(this).hasClass('retail-locations-group-title') && $list.attr('data-collapsible') === 'yes') {
-                    return; // Let the accordion handler below deal with it
+                if ($el.hasClass('retail-locations-group-title') && $list.attr('data-collapsible') === 'yes') {
+                    return;
                 }
 
                 e.preventDefault();
-                var $el = $(this);
-                self.focusArea($el.data('lat'), $el.data('lng'), $el.data('zoom'));
+
+                var id = $el.data('id');
+                if (id && self.markersMap[id]) {
+                    self.openMarker(id);
+                } else if ($el.data('lat') && $el.data('lng')) {
+                    self.focusArea($el.data('lat'), $el.data('lng'), $el.data('zoom'));
+                } else if ($el.data('address')) {
+                    // Start geocode process handled in addMarkers queue?
+                    // If it's in the list, it's already queued. 
+                    // We can just wait a bit or alert user?
+                    // Silently try to find it after a delay.
+                    if (id) {
+                        $el.css('opacity', '0.5'); // visual feedback?
+                        var check = setInterval(function () {
+                            if (self.markersMap[id]) {
+                                clearInterval(check);
+                                $el.css('opacity', '1');
+                                self.openMarker(id);
+                            }
+                        }, 500);
+                        // timeout after 5s
+                        setTimeout(function () { clearInterval(check); $el.css('opacity', '1'); }, 5000);
+                    }
+                }
             });
 
-            // Accordion toggle for collapsible groups
             $(document).on('click keydown', '.retail-locations-list[data-collapsible="yes"] .retail-locations-group-title', function (e) {
-                // For keydown, only respond to Enter or Space
-                if (e.type === 'keydown' && e.keyCode !== 13 && e.keyCode !== 32) {
-                    return;
-                }
-                if (e.type === 'keydown') {
-                    e.preventDefault();
-                }
+                if (e.type === 'keydown' && e.keyCode !== 13 && e.keyCode !== 32) return;
+                if (e.type === 'keydown') e.preventDefault();
 
                 var $title = $(this);
                 var $group = $title.closest('.retail-locations-group');
@@ -226,12 +311,10 @@
                 var isCollapsed = $group.hasClass('is-collapsed');
                 var willExpand = isCollapsed;
 
-                // If exclusive mode and we're expanding, collapse all others first
                 if (isExclusive && willExpand) {
                     $list.find('.retail-locations-group').not($group).each(function () {
                         var $otherGroup = $(this);
                         if (!$otherGroup.hasClass('is-collapsed')) {
-                            // Collapse other group
                             self.animateAccordion($otherGroup.find('.retail-locations-group-content'), false, function () {
                                 $otherGroup.addClass('is-collapsed');
                             });
@@ -241,21 +324,10 @@
                 }
 
                 if (willExpand) {
-                    // EXPANDING:
-                    // 1. Remove collapsed class immediately so content is theoretically visible (height: auto via CSS if not overwritten)
-                    // But our JS animateAccordion handles setting it to 0 first.
                     $group.removeClass('is-collapsed');
                     $title.attr('aria-expanded', 'true');
                     self.animateAccordion($content, true);
-
-                    // If this has map coordinates, focus the map
-                    if ($title.data('lat') && $title.data('lng')) {
-                        self.focusArea($title.data('lat'), $title.data('lng'), $title.data('zoom'));
-                    }
                 } else {
-                    // COLLAPSING:
-                    // 1. Animate to 0
-                    // 2. Add class after animation
                     $title.attr('aria-expanded', 'false');
                     self.animateAccordion($content, false, function () {
                         $group.addClass('is-collapsed');

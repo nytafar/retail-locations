@@ -1,0 +1,68 @@
+/**
+ * Retail Locations - Admin Styles
+ */
+
+.retail-location-meta {
+    padding: 10px 0;
+}
+
+.retail-location-meta label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.retail-location-meta textarea,
+.retail-location-meta input[type="text"],
+.retail-location-meta input[type="url"] {
+    width: 100%;
+}
+
+#location-map-preview {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Repeater Fields */
+.contact-row,
+.hours-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.contact-row input,
+.hours-row input {
+    flex: 1;
+}
+
+.contact-row .remove-row,
+.hours-row .remove-row {
+    flex: 0 0 auto;
+    color: #a00;
+    border-color: #a00;
+}
+
+.contact-row .remove-row:hover,
+.hours-row .remove-row:hover {
+    background: #a00;
+    color: #fff;
+}
+
+#add-contact,
+#add-hours {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+/* Meta Box Headings */
+.retail-location-meta h4 {
+    margin: 20px 0 10px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.retail-location-meta h4:first-of-type {
+    border-top: none;
+    padding-top: 0;
+}

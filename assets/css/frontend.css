@@ -1,0 +1,193 @@
+/**
+ * Retail Locations - Frontend Styles
+ */
+
+/* Map Container */
+.retail-locations-map {
+    position: relative;
+    width: 100%;
+}
+
+.retail-locations-map-canvas {
+    width: 100%;
+    min-height: 300px;
+}
+
+/* Info Window */
+.retail-locations-info {
+    padding: 5px;
+    max-width: 280px;
+}
+
+.retail-locations-info h4 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.retail-locations-info p {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.retail-locations-info a {
+    color: #0073aa;
+    text-decoration: none;
+}
+
+.retail-locations-info a:hover {
+    text-decoration: underline;
+}
+
+/* Locations List */
+.retail-locations-list {
+    width: 100%;
+}
+
+.retail-locations-list.layout-grid2,
+.retail-locations-list.layout-grid3,
+.retail-locations-list.layout-grid4 {
+    display: grid;
+    gap: 20px;
+}
+
+.retail-locations-list.layout-grid2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.retail-locations-list.layout-grid3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.retail-locations-list.layout-grid4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 768px) {
+    .retail-locations-list.layout-grid2,
+    .retail-locations-list.layout-grid3,
+    .retail-locations-list.layout-grid4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Location Item */
+.retail-location-item {
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.retail-location-item:last-child {
+    border-bottom: none;
+}
+
+.retail-location-image {
+    margin: 0 0 15px;
+}
+
+.retail-location-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.retail-location-title {
+    margin: 0 0 10px;
+    font-size: 1.25em;
+}
+
+.retail-location-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.retail-location-title a:hover {
+    color: #0073aa;
+}
+
+.retail-location-address {
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.retail-location-description {
+    margin-bottom: 15px;
+}
+
+/* Contacts */
+.retail-location-contacts {
+    margin-bottom: 15px;
+}
+
+.retail-location-contact {
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+.retail-location-contact .contact-label {
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+.retail-location-contact a {
+    color: #0073aa;
+}
+
+/* Hours */
+.retail-location-hours {
+    font-size: 0.9em;
+}
+
+.retail-location-hour {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 3px;
+}
+
+.retail-location-hour .hour-day {
+    font-weight: 600;
+    min-width: 100px;
+}
+
+/* Grouped Lists */
+.retail-locations-group {
+    margin-bottom: 30px;
+}
+
+.retail-locations-group-title {
+    font-size: 1.5em;
+    margin: 0 0 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #333;
+}
+
+.retail-locations-group-title[data-lat] {
+    color: #0073aa;
+    cursor: pointer;
+}
+
+.retail-locations-group-title[data-lat]:hover {
+    text-decoration: underline;
+}
+
+/* Grouped layouts reset grid for items within groups */
+.retail-locations-list.grouped-by-area .retail-locations-group,
+.retail-locations-list.grouped-by-category .retail-locations-group {
+    display: block;
+}
+
+.retail-locations-list.grouped-by-area.layout-grid2 .retail-location-item,
+.retail-locations-list.grouped-by-category.layout-grid2 .retail-location-item {
+    display: inline-block;
+    width: calc(50% - 10px);
+    vertical-align: top;
+}
+
+.retail-locations-list.grouped-by-area.layout-grid3 .retail-location-item,
+.retail-locations-list.grouped-by-category.layout-grid3 .retail-location-item {
+    display: inline-block;
+    width: calc(33.333% - 14px);
+    vertical-align: top;
+}

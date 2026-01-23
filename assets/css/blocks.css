@@ -1,0 +1,26 @@
+/**
+ * Retail Locations - Block Editor Styles
+ */
+
+.retail-locations-block-wrapper {
+    width: 100%;
+}
+
+.retail-locations-map-preview,
+.retail-locations-list-preview {
+    text-align: center;
+}
+
+.retail-locations-map-preview .dashicons,
+.retail-locations-list-preview .dashicons {
+    display: block;
+    margin: 0 auto 10px;
+}
+
+.wp-block[data-type="retail-locations/map"] .retail-locations-map-preview {
+    min-height: 200px;
+}
+
+.wp-block[data-type="retail-locations/stores"] .retail-locations-list-preview {
+    min-height: 150px;
+}

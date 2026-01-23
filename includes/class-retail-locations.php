@@ -252,6 +252,15 @@ class Retail_Locations {
             'retail-locations-settings',
             array( $this, 'settings_page' )
         );
+        
+        add_submenu_page(
+            'edit.php?post_type=' . $this->post_type,
+            __( 'Export Taxonomies', 'retail-locations' ),
+            __( 'Export', 'retail-locations' ),
+            'manage_options',
+            'retail-locations-export',
+            array( $this, 'export_page' )
+        );
     }
 
     public function register_settings() {
@@ -285,6 +294,236 @@ class Retail_Locations {
             </form>
         </div>
         <?php
+    }
+
+    public function export_page() {
+        // Handle import action
+        if ( isset( $_POST['retail_locations_import'] ) && check_admin_referer( 'retail_locations_import_taxonomies' ) ) {
+            $import_result = $this->import_taxonomies();
+        }
+        
+        // Handle export action
+        if ( isset( $_POST['retail_locations_export'] ) && check_admin_referer( 'retail_locations_export_taxonomies' ) ) {
+            $this->export_taxonomies();
+            return;
+        }
+        
+        ?>
+        <div class="wrap">
+            <h1><?php _e( 'Export Taxonomies', 'retail-locations' ); ?></h1>
+            <p><?php _e( 'Export your location categories and areas to a JSON file for backup or migration to another site.', 'retail-locations' ); ?></p>
+            
+            <form method="post" action="">
+                <?php wp_nonce_field( 'retail_locations_export_taxonomies' ); ?>
+                
+                <table class="form-table">
+                    <tr>
+                        <th scope="row"><?php _e( 'Export Data', 'retail-locations' ); ?></th>
+                        <td>
+                            <p><?php _e( 'This will export:', 'retail-locations' ); ?></p>
+                            <ul style="list-style: disc; margin-left: 20px;">
+                                <li><?php _e( 'All location categories with hierarchy', 'retail-locations' ); ?></li>
+                                <li><?php _e( 'All location areas with coordinates and zoom levels', 'retail-locations' ); ?></li>
+                            </ul>
+                            <p class="description"><?php _e( 'Note: This exports taxonomy terms only. Use WordPress\'s built-in export for location posts.', 'retail-locations' ); ?></p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <?php submit_button( __( 'Download Export File', 'retail-locations' ), 'primary', 'retail_locations_export' ); ?>
+            </form>
+            
+            <hr>
+            
+            <h2><?php _e( 'Import Taxonomies', 'retail-locations' ); ?></h2>
+            
+            <?php if ( isset( $import_result ) ) : ?>
+                <?php if ( $import_result['success'] ) : ?>
+                    <div class="notice notice-success">
+                        <p><strong><?php _e( 'Import successful!', 'retail-locations' ); ?></strong></p>
+                        <ul style="list-style: disc; margin-left: 20px;">
+                            <li><?php printf( __( 'Categories imported: %d', 'retail-locations' ), $import_result['categories'] ); ?></li>
+                            <li><?php printf( __( 'Areas imported: %d', 'retail-locations' ), $import_result['areas'] ); ?></li>
+                        </ul>
+                    </div>
+                <?php else : ?>
+                    <div class="notice notice-error">
+                        <p><strong><?php _e( 'Import failed:', 'retail-locations' ); ?></strong> <?php echo esc_html( $import_result['error'] ); ?></p>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
+            
+            <p><?php _e( 'Upload a JSON file exported from another Retail Locations installation.', 'retail-locations' ); ?></p>
+            
+            <form method="post" action="" enctype="multipart/form-data">
+                <?php wp_nonce_field( 'retail_locations_import_taxonomies' ); ?>
+                
+                <table class="form-table">
+                    <tr>
+                        <th scope="row"><label for="import_file"><?php _e( 'Import File', 'retail-locations' ); ?></label></th>
+                        <td>
+                            <input type="file" name="import_file" id="import_file" accept=".json" required />
+                            <p class="description"><?php _e( 'Select a JSON file exported from Retail Locations.', 'retail-locations' ); ?></p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <?php submit_button( __( 'Import Taxonomies', 'retail-locations' ), 'secondary', 'retail_locations_import' ); ?>
+            </form>
+        </div>
+        <?php
+    }
+
+    private function import_taxonomies() {
+        $result = array( 'success' => false, 'error' => '', 'categories' => 0, 'areas' => 0 );
+        
+        // Check file upload
+        if ( ! isset( $_FILES['import_file'] ) || $_FILES['import_file']['error'] !== UPLOAD_ERR_OK ) {
+            $result['error'] = __( 'No file uploaded or upload error occurred.', 'retail-locations' );
+            return $result;
+        }
+        
+        // Read file contents
+        $json_content = file_get_contents( $_FILES['import_file']['tmp_name'] );
+        $import_data = json_decode( $json_content, true );
+        
+        if ( json_last_error() !== JSON_ERROR_NONE ) {
+            $result['error'] = __( 'Invalid JSON file.', 'retail-locations' );
+            return $result;
+        }
+        
+        // Validate data structure
+        if ( ! isset( $import_data['categories'] ) || ! isset( $import_data['areas'] ) ) {
+            $result['error'] = __( 'Invalid export file format.', 'retail-locations' );
+            return $result;
+        }
+        
+        // Import categories
+        $parent_map = array(); // Map old parent IDs to new ones
+        
+        foreach ( $import_data['categories'] as $category ) {
+            $args = array(
+                'slug' => $category['slug'],
+                'description' => $category['description'],
+            );
+            
+            // Handle parent relationship
+            if ( ! empty( $category['parent'] ) && isset( $parent_map[ $category['parent'] ] ) ) {
+                $args['parent'] = $parent_map[ $category['parent'] ];
+            }
+            
+            $term = wp_insert_term( $category['name'], 'location_category', $args );
+            
+            if ( ! is_wp_error( $term ) ) {
+                $parent_map[ $category['term_id'] ] = $term['term_id'];
+                $result['categories']++;
+            }
+        }
+        
+        // Import areas with meta
+        $area_parent_map = array();
+        
+        foreach ( $import_data['areas'] as $area ) {
+            $args = array(
+                'slug' => $area['slug'],
+                'description' => $area['description'],
+            );
+            
+            // Handle parent relationship
+            if ( ! empty( $area['parent'] ) && isset( $area_parent_map[ $area['parent'] ] ) ) {
+                $args['parent'] = $area_parent_map[ $area['parent'] ];
+            }
+            
+            $term = wp_insert_term( $area['name'], 'location_area', $args );
+            
+            if ( ! is_wp_error( $term ) ) {
+                $area_parent_map[ $area['term_id'] ] = $term['term_id'];
+                
+                // Import meta data
+                if ( isset( $area['meta'] ) ) {
+                    if ( ! empty( $area['meta']['area_lat'] ) ) {
+                        update_term_meta( $term['term_id'], 'area_lat', $area['meta']['area_lat'] );
+                    }
+                    if ( ! empty( $area['meta']['area_lng'] ) ) {
+                        update_term_meta( $term['term_id'], 'area_lng', $area['meta']['area_lng'] );
+                    }
+                    if ( ! empty( $area['meta']['area_zoom'] ) ) {
+                        update_term_meta( $term['term_id'], 'area_zoom', $area['meta']['area_zoom'] );
+                    }
+                }
+                
+                $result['areas']++;
+            }
+        }
+        
+        $result['success'] = true;
+        return $result;
+    }
+
+    private function export_taxonomies() {
+        $export_data = array(
+            'version' => RETAIL_LOCATIONS_VERSION,
+            'export_date' => current_time( 'mysql' ),
+            'site_url' => get_site_url(),
+            'categories' => array(),
+            'areas' => array(),
+        );
+        
+        // Export categories
+        $categories = get_terms( array(
+            'taxonomy' => 'location_category',
+            'hide_empty' => false,
+        ) );
+        
+        if ( ! is_wp_error( $categories ) ) {
+            foreach ( $categories as $term ) {
+                $export_data['categories'][] = array(
+                    'term_id' => $term->term_id,
+                    'name' => $term->name,
+                    'slug' => $term->slug,
+                    'description' => $term->description,
+                    'parent' => $term->parent,
+                    'count' => $term->count,
+                );
+            }
+        }
+        
+        // Export areas with meta
+        $areas = get_terms( array(
+            'taxonomy' => 'location_area',
+            'hide_empty' => false,
+        ) );
+        
+        if ( ! is_wp_error( $areas ) ) {
+            foreach ( $areas as $term ) {
+                $export_data['areas'][] = array(
+                    'term_id' => $term->term_id,
+                    'name' => $term->name,
+                    'slug' => $term->slug,
+                    'description' => $term->description,
+                    'parent' => $term->parent,
+                    'count' => $term->count,
+                    'meta' => array(
+                        'area_lat' => get_term_meta( $term->term_id, 'area_lat', true ),
+                        'area_lng' => get_term_meta( $term->term_id, 'area_lng', true ),
+                        'area_zoom' => get_term_meta( $term->term_id, 'area_zoom', true ),
+                    ),
+                );
+            }
+        }
+        
+        // Generate filename
+        $filename = 'retail-locations-taxonomies-' . date( 'Y-m-d-His' ) . '.json';
+        
+        // Set headers for download
+        header( 'Content-Type: application/json; charset=utf-8' );
+        header( 'Content-Disposition: attachment; filename=' . $filename );
+        header( 'Pragma: no-cache' );
+        header( 'Expires: 0' );
+        
+        // Output JSON
+        echo json_encode( $export_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE );
+        exit;
     }
 
     public function add_meta_boxes() {

@@ -161,7 +161,7 @@ Yes. Add `category="your-category-slug"` to either the map or stores shortcode/b
 == Upgrade Notice ==
 
 = 2.0.0 =
-Major update with new Gutenberg blocks, sticky maps, and improved UX. Fully backward compatible with existing locations and shortcodes.
+Major update with new Gutenberg blocks, sticky maps, and improved UX.
 
 == Shortcode Examples ==
 
@@ -182,4 +182,4 @@ Major update with new Gutenberg blocks, sticky maps, and improved UX. Fully back
 
 == Support ==
 
-For support, documentation, and updates, visit [https://jellum.net/retail-locations](https://jellum.net/retail-locations)
+For support, documentation, and updates, visit https://jellum.net/retail-locations

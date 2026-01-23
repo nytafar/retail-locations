@@ -12,6 +12,12 @@
 
         init: async function () {
             this.mapId = retailLocations.mapId || 'DEMO_MAP_ID';
+
+            // Detect iPhone and add class
+            if (/iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+                document.body.classList.add('is-iphone');
+            }
+
             await this.initMaps();
             this.bindEvents();
         },

@@ -160,8 +160,7 @@
    ========================================================================== */
 
 .retail-location-item {
-    margin: 1.5em 0;
-    padding-bottom: 1.5em;
+    margin: 1em 0;
     border-bottom: 1px solid #eee;
 }
 
@@ -228,6 +227,20 @@
     font-size: 0.95em;
 }
 
+.retail-location-apple-link {
+    display: none;
+    color: inherit;
+    text-decoration: none;
+    line-height: 0;
+    /* Align icon */
+}
+
+/* Show only on iPhone via JS class */
+body.is-iphone .retail-location-apple-link {
+    display: inline-block;
+}
+
+.retail-location-apple-link .retail-locations-icon,
 .retail-location-address .retail-locations-icon {
     width: 1.1em;
     height: 1.1em;
@@ -235,9 +248,14 @@
     flex-shrink: 0;
 }
 
+.retail-location-apple-link .retail-locations-icon {
+    margin-top: 0;
+    /* Reset for link wrapper */
+}
+
 .retail-location-address a {
     color: inherit;
-    text-decoration: underline;
+    font-weight: 300;
 }
 
 .retail-location-address a:hover {
@@ -259,10 +277,12 @@
 .retail-location-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.4em;
-    font-size: 0.9em;
+    gap: 0.5em;
     color: inherit;
-    text-decoration: underline;
+}
+
+.retail-location-link span {
+    font-size: 0.9em;
 }
 
 .retail-location-link:hover {
@@ -339,7 +359,7 @@
    ========================================================================== */
 
 .retail-locations-group {
-    margin-bottom: 2.5em;
+    margin-bottom: 1 .5em;
 }
 
 .retail-locations-group-title {

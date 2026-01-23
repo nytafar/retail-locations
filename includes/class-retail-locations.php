@@ -157,6 +157,9 @@ class Retail_Locations {
         $api_key = get_option( 'retail_locations_api_key', '' );
         if ( empty( $api_key ) ) return;
 
+        $js_file = RETAIL_LOCATIONS_DIR . 'assets/js/frontend.js';
+        $css_file = RETAIL_LOCATIONS_DIR . 'assets/css/frontend.css';
+
         wp_enqueue_script(
             'google-maps',
             'https://maps.googleapis.com/maps/api/js?key=' . $api_key . '&libraries=places',
@@ -169,7 +172,7 @@ class Retail_Locations {
             'retail-locations',
             RETAIL_LOCATIONS_URI . 'assets/js/frontend.js',
             array( 'jquery', 'google-maps' ),
-            RETAIL_LOCATIONS_VERSION,
+            file_exists( $js_file ) ? filemtime( $js_file ) : RETAIL_LOCATIONS_VERSION,
             true
         );
 
@@ -182,16 +185,19 @@ class Retail_Locations {
             'retail-locations',
             RETAIL_LOCATIONS_URI . 'assets/css/frontend.css',
             array(),
-            RETAIL_LOCATIONS_VERSION
+            file_exists( $css_file ) ? filemtime( $css_file ) : RETAIL_LOCATIONS_VERSION
         );
     }
 
     public function enqueue_block_editor() {
+        $js_file = RETAIL_LOCATIONS_DIR . 'assets/js/blocks.js';
+        $css_file = RETAIL_LOCATIONS_DIR . 'assets/css/blocks.css';
+        
         wp_enqueue_script(
             'retail-locations-blocks',
             RETAIL_LOCATIONS_URI . 'assets/js/blocks.js',
             array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-block-editor', 'wp-i18n' ),
-            RETAIL_LOCATIONS_VERSION,
+            file_exists( $js_file ) ? filemtime( $js_file ) : RETAIL_LOCATIONS_VERSION,
             true
         );
 
@@ -199,7 +205,7 @@ class Retail_Locations {
             'retail-locations-blocks',
             RETAIL_LOCATIONS_URI . 'assets/css/blocks.css',
             array(),
-            RETAIL_LOCATIONS_VERSION
+            file_exists( $css_file ) ? filemtime( $css_file ) : RETAIL_LOCATIONS_VERSION
         );
     }
 
@@ -218,11 +224,14 @@ class Retail_Locations {
             );
         }
 
+        $js_file = RETAIL_LOCATIONS_DIR . 'assets/js/admin.js';
+        $css_file = RETAIL_LOCATIONS_DIR . 'assets/css/admin.css';
+
         wp_enqueue_script(
             'retail-locations-admin',
             RETAIL_LOCATIONS_URI . 'assets/js/admin.js',
             array( 'jquery' ),
-            RETAIL_LOCATIONS_VERSION,
+            file_exists( $js_file ) ? filemtime( $js_file ) : RETAIL_LOCATIONS_VERSION,
             true
         );
 
@@ -230,7 +239,7 @@ class Retail_Locations {
             'retail-locations-admin',
             RETAIL_LOCATIONS_URI . 'assets/css/admin.css',
             array(),
-            RETAIL_LOCATIONS_VERSION
+            file_exists( $css_file ) ? filemtime( $css_file ) : RETAIL_LOCATIONS_VERSION
         );
     }
 

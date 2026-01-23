@@ -745,8 +745,10 @@ class Retail_Locations {
                     $cat_names = array_values( wp_list_pluck( $categories, 'name' ) );
                 }
                 
-                $hours = get_post_meta( get_the_ID(), '_location_hours', true ) ?: array();
-                if ( is_array( $hours ) ) {
+                $hours = get_post_meta( get_the_ID(), '_location_hours', true );
+                if ( ! is_array( $hours ) ) {
+                    $hours = array();
+                } else {
                     $hours = array_values( $hours );
                 }
                 

@@ -3,7 +3,7 @@
  * Plugin Name: Retail Locations
  * Plugin URI: https://jellum.net/retail-locations
  * Description: Display retail locations on a Google Map with filtering by category and area.
- * Version: 2.2.0
+ * Version: 2.2.1
  * Author: Lasse Jellum
  * Author URI: https://jellum.net
  * Text Domain: retail-locations
@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('RETAIL_LOCATIONS_VERSION', '2.2.0');
+define('RETAIL_LOCATIONS_VERSION', '2.2.1');
 define('RETAIL_LOCATIONS_FILE', __FILE__);
 define('RETAIL_LOCATIONS_DIR', trailingslashit(plugin_dir_path(__FILE__)));
 define('RETAIL_LOCATIONS_URI', trailingslashit(plugin_dir_url(__FILE__)));

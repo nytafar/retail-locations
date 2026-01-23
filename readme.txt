@@ -4,7 +4,7 @@ Tags: store locator, google maps, locations, stores, map
 Requires at least: 6.0
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 2.0.1
+Stable tag: 2.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -134,7 +134,10 @@ Yes. Add `category="your-category-slug"` to either the map or stores shortcode/b
 
 == Changelog ==
 
-= 2.0.1 =
+= 2.2.1 =
+* Fixed critical bug where map markers failed to load due to data structure issues (enforced array type for hours and categories)
+
+= 2.2.0 =
 * Fixed critical bug where map markers failed to load due to data structure issues
 * Ensured compatibility with non-sequential category IDs
 

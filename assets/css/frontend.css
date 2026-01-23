@@ -1,6 +1,6 @@
 /**
  * Retail Locations - Frontend Styles
- * Using em/rem relative units for better scalability
+ * Simplified and override-friendly
  */
 
 /* ==========================================================================
@@ -25,7 +25,7 @@
 .retail-locations-map-canvas {
     width: 100%;
     min-height: 18.75em;
-    /* 300px at 16px base */
+    /* 300px default */
 }
 
 .retail-locations-map--sticky {
@@ -47,13 +47,12 @@
 .retail-locations-info {
     padding: 0.5em;
     max-width: 20em;
-    font-family: inherit;
 }
 
 .retail-locations-info h4 {
     margin: 0 0 0.5em;
     font-size: 1.1em;
-    font-weight: 600;
+    font-weight: bold;
     line-height: 1.3;
 }
 
@@ -68,24 +67,20 @@
     display: inline-block;
     padding: 0.15em 0.5em;
     font-size: 0.75em;
-    background: #f0f0f0;
-    border-radius: 1em;
-    color: #666;
+    background: #eee;
+    color: #333;
 }
 
 .retail-locations-info-address {
     margin: 0 0 0.5em;
     font-size: 0.9em;
-    color: #666;
 }
 
 .retail-locations-info-hours {
     margin-bottom: 0.75em;
     font-size: 0.85em;
-    color: #555;
     background: #f9f9f9;
     padding: 0.5em;
-    border-radius: 0.25em;
 }
 
 .retail-locations-info-hour {
@@ -95,22 +90,20 @@
 }
 
 .retail-locations-info-hour .hour-day {
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .retail-locations-info-link {
     display: inline-block;
     padding: 0.4em 0.8em;
-    background: #333;
+    background: #000;
     color: #fff;
     text-decoration: none;
-    border-radius: 0.25em;
     font-size: 0.85em;
-    transition: background 0.2s ease;
 }
 
 .retail-locations-info-link:hover {
-    background: #555;
+    opacity: 0.8;
     text-decoration: none;
 }
 
@@ -118,16 +111,12 @@
     display: flex;
     align-items: center;
     margin-top: 0.5em;
+    gap: 0.5em;
 }
 
 .retail-locations-info-link-secondary {
-    color: #0073aa;
-    text-decoration: none;
-    font-size: 0.9em;
-}
-
-.retail-locations-info-link-secondary:hover {
     text-decoration: underline;
+    font-size: 0.9em;
 }
 
 /* ==========================================================================
@@ -142,7 +131,7 @@
 .retail-locations-list.layout-grid3,
 .retail-locations-list.layout-grid4 {
     display: grid;
-    gap: 1.25em;
+    gap: 1.5em;
 }
 
 .retail-locations-list.layout-grid2 {
@@ -171,12 +160,15 @@
    ========================================================================== */
 
 .retail-location-item {
-    margin: 1.25em 0;
+    margin: 1.5em 0;
+    padding-bottom: 1.5em;
     border-bottom: 1px solid #eee;
 }
 
 .retail-location-item:last-child {
     border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .retail-location-image {
@@ -186,17 +178,17 @@
 .retail-location-image img {
     width: 100%;
     height: auto;
-    border-radius: 0.25em;
+    display: block;
 }
 
-/* Title with inline category tags */
+/* Title */
 .retail-location-title {
     margin: 0 0 0.5em;
     font-size: 1.25em;
+    font-weight: bold;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    /* Better alignment */
     gap: 0.5em;
 }
 
@@ -206,7 +198,7 @@
 }
 
 .retail-location-title a:hover {
-    color: #0073aa;
+    text-decoration: underline;
 }
 
 /* Category tags */
@@ -218,14 +210,12 @@
 
 .retail-location-tag {
     display: inline-block;
-    padding: 0.2em 0.6em;
+    padding: 0.2em 0.5em;
     font-size: 0.6em;
-    font-weight: 500;
-    background: #eef1f6;
-    color: #5b6b85;
-    border-radius: 1em;
+    font-weight: bold;
+    background: #eee;
+    color: #333;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
     vertical-align: middle;
 }
 
@@ -233,35 +223,33 @@
 .retail-location-address {
     display: flex;
     align-items: flex-start;
-    gap: 0.4em;
+    gap: 0.5em;
     margin-bottom: 0.75em;
-    font-size: 0.9em;
-    color: #555;
-    line-height: 1.4;
+    font-size: 0.95em;
 }
 
 .retail-location-address .retail-locations-icon {
-    margin-top: 0.15em;
-    opacity: 0.7;
+    width: 1.1em;
+    height: 1.1em;
+    margin-top: 0.1em;
+    flex-shrink: 0;
 }
 
 .retail-location-address a {
     color: inherit;
-    text-decoration: none;
-    border-bottom: 1px dotted rgba(0, 0, 0, 0.3);
+    text-decoration: underline;
 }
 
 .retail-location-address a:hover {
-    color: #0073aa;
-    border-bottom-style: solid;
+    text-decoration: none;
 }
 
 /* Links row (website, instagram) */
 .retail-location-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75em;
-    margin-bottom: 0.75em;
+    gap: 1em;
+    margin-bottom: 1em;
 }
 
 .js-focus-location {
@@ -272,43 +260,33 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4em;
-    font-size: 0.85em;
-    color: #0073aa;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.retail-location-link:hover {
+    font-size: 0.9em;
+    color: inherit;
     text-decoration: underline;
 }
 
-.retail-location-link--instagram {
-    color: #c13584;
+.retail-location-link:hover {
+    text-decoration: none;
 }
 
 .retail-location-description {
     margin-bottom: 1em;
     font-size: 0.95em;
-    color: #444;
 }
 
 /* Contacts */
 .retail-location-contacts {
     margin-bottom: 1em;
-}
-
-.retail-location-contact {
-    margin-bottom: 0.3em;
     font-size: 0.9em;
 }
 
-.retail-location-contact .contact-label {
-    font-weight: 600;
-    margin-right: 0.3em;
+.retail-location-contact {
+    margin-bottom: 0.2em;
 }
 
-.retail-location-contact a {
-    color: #0073aa;
+.retail-location-contact .contact-label {
+    font-weight: bold;
+    margin-right: 0.3em;
 }
 
 /* Hours with icon */
@@ -317,15 +295,14 @@
     align-items: flex-start;
     gap: 0.5em;
     font-size: 0.9em;
-    background: #f9f9f9;
-    padding: 0.75em;
-    border-radius: 0.25em;
+    margin-top: 1em;
 }
 
 .retail-location-hours>.retail-locations-icon {
-    flex-shrink: 0;
+    width: 1.1em;
+    height: 1.1em;
     margin-top: 0.15em;
-    opacity: 0.6;
+    flex-shrink: 0;
 }
 
 .retail-location-hours-list {
@@ -334,18 +311,13 @@
 
 .retail-location-hour {
     display: flex;
-    gap: 0.5em;
+    gap: 1em;
     margin-bottom: 0.2em;
     justify-content: space-between;
-    /* Better alignment for times */
-}
-
-.retail-location-hour:last-child {
-    margin-bottom: 0;
 }
 
 .retail-location-hour .hour-day {
-    font-weight: 500;
+    font-weight: bold;
 }
 
 /* ==========================================================================
@@ -355,7 +327,11 @@
 .retail-locations-icon {
     display: inline-block;
     vertical-align: middle;
-    flex-shrink: 0;
+    width: 1em;
+    height: 1em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
 }
 
 /* ==========================================================================
@@ -363,14 +339,14 @@
    ========================================================================== */
 
 .retail-locations-group {
-    margin-bottom: 2em;
+    margin-bottom: 2.5em;
 }
 
 .retail-locations-group-title {
-    font-size: 1.4em;
-    margin: 0 0 0.75em;
+    font-size: 1.5em;
+    margin: 0 0 1em;
     padding-bottom: 0.5em;
-    border-bottom: 2px solid #eaeaea;
+    border-bottom: 1px solid #ddd;
 }
 
 .retail-locations-group-title[data-lat] {
@@ -378,7 +354,7 @@
 }
 
 .retail-locations-group-title[data-lat]:hover {
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
 /* Grouped layouts reset grid for items within groups */
@@ -390,15 +366,17 @@
 .retail-locations-list.grouped-by-area.layout-grid2 .retail-location-item,
 .retail-locations-list.grouped-by-category.layout-grid2 .retail-location-item {
     display: inline-block;
-    width: calc(50% - 0.625em);
+    width: calc(50% - 0.75em);
     vertical-align: top;
+    margin-bottom: 1.5em;
 }
 
 .retail-locations-list.grouped-by-area.layout-grid3 .retail-location-item,
 .retail-locations-list.grouped-by-category.layout-grid3 .retail-location-item {
     display: inline-block;
-    width: calc(33.333% - 0.875em);
+    width: calc(33.333% - 1em);
     vertical-align: top;
+    margin-bottom: 1.5em;
 }
 
 /* ==========================================================================
@@ -407,16 +385,13 @@
 
 .retail-locations-group-content {
     overflow: hidden;
-    transition: height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: height;
+    transition: height 0.3s ease;
 }
 
-/* Hide content when collapsed by default */
 .retail-locations-group.is-collapsed .retail-locations-group-content {
     height: 0;
 }
 
-/* Collapsible title styling */
 .retail-locations-list[data-collapsible="yes"] .retail-locations-group-title {
     cursor: pointer;
     user-select: none;
@@ -426,53 +401,19 @@
 }
 
 .retail-locations-list[data-collapsible="yes"] .retail-locations-group-title:hover {
-    background: #f9f9f9;
-    /* Subtle hover feedback */
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    margin-left: -0.5em;
-    margin-right: -0.5em;
-    border-radius: 0.25em;
-}
-
-.retail-locations-list[data-collapsible="yes"] .retail-locations-group-title:focus {
-    outline: 2px solid currentColor;
-    outline-offset: 0.15em;
+    background-color: transparent;
+    /* Removed opinionated bg */
+    opacity: 0.8;
 }
 
 /* Toggle indicator */
 .retail-locations-list[data-collapsible="yes"] .retail-locations-group-title::after {
     content: '+';
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.5em;
-    height: 1.5em;
-    font-size: 1.25em;
-    font-weight: 300;
-    line-height: 1;
+    display: inline-block;
+    font-weight: bold;
     margin-left: 0.5em;
-    opacity: 0.4;
-    flex-shrink: 0;
-    transition: all 0.25s ease;
-    border-radius: 50%;
-    background: transparent;
 }
 
 .retail-locations-group:not(.is-collapsed)>.retail-locations-group-title::after {
-    content: '−';
-    background: #f0f0f0;
-    opacity: 1;
-    transform: rotate(0deg);
-}
-
-/* Override cursor pointer from area focus when collapsible */
-.retail-locations-list[data-collapsible="yes"] .retail-locations-group-title[data-lat] {
-    cursor: pointer;
-}
-
-/* Keep title text slightly smaller in groups */
-.retail-locations-group-title {
-    font-weight: 400;
-    letter-spacing: -0.01em;
+    content: '-';
 }

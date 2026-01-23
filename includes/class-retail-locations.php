@@ -160,6 +160,9 @@ class Retail_Locations {
         $api_key = get_option( 'retail_locations_api_key', '' );
         if ( empty( $api_key ) ) return;
 
+        // Output hidden SVG symbols in the footer
+        add_action('wp_footer', 'retail_locations_render_svg_symbols');
+
         $js_file = RETAIL_LOCATIONS_DIR . 'assets/js/frontend.js';
         $css_file = RETAIL_LOCATIONS_DIR . 'assets/css/frontend.css';
 

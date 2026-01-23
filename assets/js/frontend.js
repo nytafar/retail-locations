@@ -13,9 +13,16 @@
         init: async function () {
             this.mapId = retailLocations.mapId || 'DEMO_MAP_ID';
 
-            // Detect iPhone and add class
-            if (/iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
-                document.body.classList.add('is-iphone');
+            // Detect Apple devices (iPhone, iPad, Mac) and add class
+            var isApple = /iPhone|iPod|iPad|Mac/.test(navigator.userAgent);
+
+            // Checking platform for more robust Mac detection (e.g. if UA is generic)
+            if (!isApple && navigator.platform) {
+                isApple = /Mac|iPhone|iPod|iPad/.test(navigator.platform);
+            }
+
+            if (isApple && !window.MSStream) {
+                document.body.classList.add('has-apple-maps');
             }
 
             await this.initMaps();

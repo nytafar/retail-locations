@@ -1059,7 +1059,7 @@ class Retail_Locations {
                 
                 <?php if ( $address ) : ?>
                     <div class="retail-location-address">
-                        <a href="http://maps.apple.com/?q=<?php echo urlencode( $address ); ?>" class="retail-location-apple-link" target="_blank" rel="noopener noreferrer" aria-label="<?php _e( 'Open in Apple Maps', 'retail-locations' ); ?>">
+                        <a href="https://maps.apple.com/?q=<?php echo urlencode( $address ); ?>" class="retail-location-apple-link" target="_blank" rel="noopener noreferrer" aria-label="<?php _e( 'Open in Apple Maps', 'retail-locations' ); ?>">
                             <?php echo retail_locations_icon_apple(); ?>
                         </a>
                         <?php echo retail_locations_icon_map(); ?>

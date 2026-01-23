@@ -127,6 +127,7 @@ class Retail_Locations {
                 'map_controls'   => array( 'type' => 'string', 'default' => 'yes' ),
                 'scrollwheel'    => array( 'type' => 'string', 'default' => 'no' ),
                 'mobile_draggable' => array( 'type' => 'string', 'default' => 'no' ),
+                'sticky'         => array( 'type' => 'string', 'default' => 'no' ),
             ),
             'render_callback' => array( $this, 'render_map' ),
         ));
@@ -487,6 +488,7 @@ class Retail_Locations {
             'map_controls'     => 'yes',
             'scrollwheel'      => 'no',
             'mobile_draggable' => 'no',
+            'sticky'           => 'no',
         ), $atts );
 
         $settings = array(
@@ -496,11 +498,17 @@ class Retail_Locations {
             'mapControls'    => $atts['map_controls'] === 'yes',
             'scrollwheel'    => $atts['scrollwheel'] === 'yes',
             'mobileDraggable' => $atts['mobile_draggable'] === 'yes',
+            'sticky'         => $atts['sticky'] === 'yes',
         );
+
+        $wrapper_class = 'retail-locations-map';
+        if ( $atts['sticky'] === 'yes' ) {
+            $wrapper_class .= ' retail-locations-map--sticky';
+        }
 
         ob_start();
         ?>
-        <div class="retail-locations-map" data-settings="<?php echo esc_attr( json_encode( $settings ) ); ?>">
+        <div class="<?php echo esc_attr( $wrapper_class ); ?>" data-settings="<?php echo esc_attr( json_encode( $settings ) ); ?>">
             <div class="retail-locations-map-canvas" style="width:<?php echo esc_attr( $atts['width'] ); ?>;height:<?php echo esc_attr( $atts['height'] ); ?>;"></div>
         </div>
         <?php
@@ -603,9 +611,10 @@ class Retail_Locations {
                         title="<?php _e( 'Click to focus map', 'retail-locations' ); ?>"
                         <?php endif; ?>
                     ><?php echo esc_html( $group['name'] ); ?></h2>
-                    <?php foreach ( $group['posts'] as $post ) : ?>
+                    <?php foreach ( $group['posts'] as $location_post ) : ?>
                         <?php 
                         global $post;
+                        $post = $location_post;
                         setup_postdata( $post );
                         $this->render_store_item( $atts );
                         ?>
@@ -648,9 +657,10 @@ class Retail_Locations {
             <?php foreach ( $grouped as $slug => $group ) : ?>
                 <div class="retail-locations-group" data-category="<?php echo esc_attr( $slug ); ?>">
                     <h2 class="retail-locations-group-title"><?php echo esc_html( $group['name'] ); ?></h2>
-                    <?php foreach ( $group['posts'] as $post ) : ?>
+                    <?php foreach ( $group['posts'] as $location_post ) : ?>
                         <?php 
                         global $post;
+                        $post = $location_post;
                         setup_postdata( $post );
                         $this->render_store_item( $atts );
                         ?>
@@ -662,10 +672,15 @@ class Retail_Locations {
         return ob_get_clean();
     }
 
+    private function get_google_maps_url( $address ) {
+        return 'https://www.google.com/maps/search/?api=1&query=' . urlencode( $address );
+    }
+
     private function render_store_item( $atts ) {
-        $contacts = get_post_meta( get_the_ID(), '_location_contacts', true ) ?: array();
-        $hours    = get_post_meta( get_the_ID(), '_location_hours', true ) ?: array();
-        $address  = get_post_meta( get_the_ID(), '_location_address', true );
+        $contacts   = get_post_meta( get_the_ID(), '_location_contacts', true ) ?: array();
+        $hours      = get_post_meta( get_the_ID(), '_location_hours', true ) ?: array();
+        $address    = get_post_meta( get_the_ID(), '_location_address', true );
+        $categories = get_the_terms( get_the_ID(), 'location_category' );
         ?>
         <article class="retail-location-item">
             <?php if ( $atts['show_image'] === 'yes' && has_post_thumbnail() ) : ?>
@@ -679,8 +694,16 @@ class Retail_Locations {
                     <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                 </h3>
                 
+                <?php if ( $categories && ! is_wp_error( $categories ) ) : ?>
+                    <div class="retail-location-categories">
+                        <?php echo esc_html( implode( ', ', wp_list_pluck( $categories, 'name' ) ) ); ?>
+                    </div>
+                <?php endif; ?>
+                
                 <?php if ( $address ) : ?>
-                    <div class="retail-location-address"><?php echo esc_html( $address ); ?></div>
+                    <div class="retail-location-address">
+                        <a href="<?php echo esc_url( $this->get_google_maps_url( $address ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $address ); ?></a>
+                    </div>
                 <?php endif; ?>
                 
                 <?php if ( $atts['show_description'] === 'yes' ) : ?>

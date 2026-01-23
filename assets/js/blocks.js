@@ -23,7 +23,8 @@
             height: { type: 'string', default: '500px' },
             map_controls: { type: 'string', default: 'yes' },
             scrollwheel: { type: 'string', default: 'no' },
-            mobile_draggable: { type: 'string', default: 'no' }
+            mobile_draggable: { type: 'string', default: 'no' },
+            sticky: { type: 'string', default: 'no' }
         },
 
         edit: function(props) {
@@ -62,6 +63,12 @@
                             label: __('Mobile Draggable', 'retail-locations'),
                             checked: attributes.mobile_draggable === 'yes',
                             onChange: function(val) { setAttributes({ mobile_draggable: val ? 'yes' : 'no' }); }
+                        }),
+                        el(ToggleControl, {
+                            label: __('Sticky Position', 'retail-locations'),
+                            checked: attributes.sticky === 'yes',
+                            onChange: function(val) { setAttributes({ sticky: val ? 'yes' : 'no' }); },
+                            help: __('Map stays fixed while scrolling the list', 'retail-locations')
                         })
                     )
                 ),

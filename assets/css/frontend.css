@@ -191,3 +191,36 @@
     width: calc(33.333% - 14px);
     vertical-align: top;
 }
+
+/* Categories */
+.retail-location-categories {
+    margin-bottom: 8px;
+    font-size: 0.85em;
+    color: #888;
+    font-style: italic;
+}
+
+/* Address Link */
+.retail-location-address a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px dotted currentColor;
+}
+
+.retail-location-address a:hover {
+    color: #0073aa;
+    border-bottom-style: solid;
+}
+
+/* Sticky Map */
+.retail-locations-map--sticky {
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+}
+
+@media (max-width: 782px) {
+    .retail-locations-map--sticky {
+        position: static;
+    }
+}

@@ -545,11 +545,13 @@ class Retail_Locations {
     public function meta_box_details( $post ) {
         wp_nonce_field( 'retail_location_meta', 'retail_location_nonce' );
         
-        $address  = get_post_meta( $post->ID, '_location_address', true );
-        $lat      = get_post_meta( $post->ID, '_location_lat', true );
-        $lng      = get_post_meta( $post->ID, '_location_lng', true );
-        $contacts = get_post_meta( $post->ID, '_location_contacts', true ) ?: array();
-        $hours    = get_post_meta( $post->ID, '_location_hours', true ) ?: array();
+        $address   = get_post_meta( $post->ID, '_location_address', true );
+        $lat       = get_post_meta( $post->ID, '_location_lat', true );
+        $lng       = get_post_meta( $post->ID, '_location_lng', true );
+        $website   = get_post_meta( $post->ID, '_location_website', true );
+        $instagram = get_post_meta( $post->ID, '_location_instagram', true );
+        $contacts  = get_post_meta( $post->ID, '_location_contacts', true ) ?: array();
+        $hours     = get_post_meta( $post->ID, '_location_hours', true ) ?: array();
         ?>
         <div class="retail-location-meta">
             <p>
@@ -565,6 +567,17 @@ class Retail_Locations {
                 <input type="text" id="location_lng" name="location_lng" value="<?php echo esc_attr( $lng ); ?>" class="regular-text" />
             </p>
             <div id="location-map-preview" style="height:300px;margin:10px 0;background:#f0f0f0;"></div>
+            
+            <h4><?php _e( 'Links', 'retail-locations' ); ?></h4>
+            <p>
+                <label for="location_website"><strong><?php _e( 'Website URL', 'retail-locations' ); ?></strong></label><br>
+                <input type="url" id="location_website" name="location_website" value="<?php echo esc_url( $website ); ?>" class="regular-text" placeholder="https://" />
+            </p>
+            <p>
+                <label for="location_instagram"><strong><?php _e( 'Instagram Handle', 'retail-locations' ); ?></strong></label><br>
+                <input type="text" id="location_instagram" name="location_instagram" value="<?php echo esc_attr( $instagram ); ?>" class="regular-text" placeholder="@username" />
+                <p class="description"><?php _e( 'Enter with or without @', 'retail-locations' ); ?></p>
+            </p>
             
             <h4><?php _e( 'Contact Info', 'retail-locations' ); ?></h4>
             <div id="location-contacts">
@@ -610,6 +623,14 @@ class Retail_Locations {
         }
         if ( isset( $_POST['location_lng'] ) ) {
             update_post_meta( $post_id, '_location_lng', sanitize_text_field( $_POST['location_lng'] ) );
+        }
+        if ( isset( $_POST['location_website'] ) ) {
+            update_post_meta( $post_id, '_location_website', esc_url_raw( $_POST['location_website'] ) );
+        }
+        if ( isset( $_POST['location_instagram'] ) ) {
+            $instagram = sanitize_text_field( $_POST['location_instagram'] );
+            $instagram = ltrim( $instagram, '@' ); // Store without @
+            update_post_meta( $post_id, '_location_instagram', $instagram );
         }
         
         $contacts = array();
@@ -718,13 +739,23 @@ class Retail_Locations {
             $lng = get_post_meta( get_the_ID(), '_location_lng', true );
             
             if ( $lat && $lng ) {
+                $categories = get_the_terms( get_the_ID(), 'location_category' );
+                $cat_names = array();
+                if ( $categories && ! is_wp_error( $categories ) ) {
+                    $cat_names = wp_list_pluck( $categories, 'name' );
+                }
+                
+                $hours = get_post_meta( get_the_ID(), '_location_hours', true ) ?: array();
+                
                 $markers[] = array(
-                    'id'      => get_the_ID(),
-                    'title'   => get_the_title(),
-                    'lat'     => floatval( $lat ),
-                    'lng'     => floatval( $lng ),
-                    'address' => get_post_meta( get_the_ID(), '_location_address', true ),
-                    'link'    => get_permalink(),
+                    'id'         => get_the_ID(),
+                    'title'      => get_the_title(),
+                    'lat'        => floatval( $lat ),
+                    'lng'        => floatval( $lng ),
+                    'address'    => get_post_meta( get_the_ID(), '_location_address', true ),
+                    'link'       => get_permalink(),
+                    'categories' => $cat_names,
+                    'hours'      => $hours,
                 );
             }
         }
@@ -983,6 +1014,8 @@ class Retail_Locations {
         $contacts   = get_post_meta( get_the_ID(), '_location_contacts', true ) ?: array();
         $hours      = get_post_meta( get_the_ID(), '_location_hours', true ) ?: array();
         $address    = get_post_meta( get_the_ID(), '_location_address', true );
+        $website    = get_post_meta( get_the_ID(), '_location_website', true );
+        $instagram  = get_post_meta( get_the_ID(), '_location_instagram', true );
         $categories = get_the_terms( get_the_ID(), 'location_category' );
         ?>
         <article class="retail-location-item">
@@ -995,19 +1028,36 @@ class Retail_Locations {
             <div class="retail-location-content">
                 <h3 class="retail-location-title">
                     <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                    <?php if ( $categories && ! is_wp_error( $categories ) ) : ?>
+                        <span class="retail-location-tags">
+                            <?php foreach ( $categories as $cat ) : ?>
+                                <span class="retail-location-tag"><?php echo esc_html( $cat->name ); ?></span>
+                            <?php endforeach; ?>
+                        </span>
+                    <?php endif; ?>
                 </h3>
-                
-                <?php if ( $categories && ! is_wp_error( $categories ) ) : ?>
-                    <div class="retail-location-categories">
-                        <?php echo esc_html( implode( ', ', wp_list_pluck( $categories, 'name' ) ) ); ?>
-                    </div>
-                <?php endif; ?>
                 
                 <?php if ( $address ) : ?>
                     <div class="retail-location-address">
+                        <?php echo retail_locations_icon_map(); ?>
                         <a href="<?php echo esc_url( $this->get_google_maps_url( $address ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $address ); ?></a>
                     </div>
                 <?php endif; ?>
+                
+                <div class="retail-location-links">
+                    <?php if ( $website ) : ?>
+                        <a href="<?php echo esc_url( $website ); ?>" class="retail-location-link retail-location-link--website" target="_blank" rel="noopener noreferrer">
+                            <?php echo retail_locations_icon_website(); ?>
+                            <span><?php _e( 'Website', 'retail-locations' ); ?></span>
+                        </a>
+                    <?php endif; ?>
+                    <?php if ( $instagram ) : ?>
+                        <a href="https://instagram.com/<?php echo esc_attr( $instagram ); ?>" class="retail-location-link retail-location-link--instagram" target="_blank" rel="noopener noreferrer">
+                            <?php echo retail_locations_icon_instagram(); ?>
+                            <span>@<?php echo esc_html( $instagram ); ?></span>
+                        </a>
+                    <?php endif; ?>
+                </div>
                 
                 <?php if ( $atts['show_description'] === 'yes' ) : ?>
                     <div class="retail-location-description"><?php the_excerpt(); ?></div>
@@ -1028,14 +1078,28 @@ class Retail_Locations {
                     </div>
                 <?php endif; ?>
                 
-                <?php if ( $atts['show_hours'] === 'yes' && ! empty( $hours ) ) : ?>
+                <?php 
+                // Ensure hours is an array
+                if ( ! is_array( $hours ) ) {
+                    $hours = array();
+                }
+
+                // Filter hours to ensure we don't show empty icon
+                $hours = array_filter( $hours, function( $h ) {
+                    return ! empty( $h['day'] ) || ! empty( $h['open'] );
+                });
+                
+                if ( $atts['show_hours'] === 'yes' && ! empty( $hours ) ) : ?>
                     <div class="retail-location-hours">
-                        <?php foreach ( $hours as $hour ) : ?>
-                            <div class="retail-location-hour">
-                                <span class="hour-day"><?php echo esc_html( $hour['day'] ); ?>:</span>
-                                <span class="hour-time"><?php echo esc_html( $hour['open'] ); ?> – <?php echo esc_html( $hour['close'] ); ?></span>
-                            </div>
-                        <?php endforeach; ?>
+                        <?php echo retail_locations_icon_clock(); ?>
+                        <div class="retail-location-hours-list">
+                            <?php foreach ( $hours as $hour ) : ?>
+                                <div class="retail-location-hour">
+                                    <span class="hour-day"><?php echo esc_html( $hour['day'] ); ?></span>
+                                    <span class="hour-time"><?php echo esc_html( $hour['open'] ); ?> – <?php echo esc_html( $hour['close'] ); ?></span>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
                 <?php endif; ?>
             </div>

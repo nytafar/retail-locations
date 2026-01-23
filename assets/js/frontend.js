@@ -73,15 +73,42 @@
                     animation: google.maps.Animation.DROP
                 });
 
+                // Build category tags
+                var categoryHtml = '';
+                if (data.categories && data.categories.length > 0) {
+                    categoryHtml = '<div class="retail-locations-info-tags">';
+                    data.categories.forEach(function (cat) {
+                        categoryHtml += '<span class="retail-locations-info-tag">' + cat + '</span>';
+                    });
+                    categoryHtml += '</div>';
+                }
+
+                // Build hours
+                var hoursHtml = '';
+                if (data.hours && data.hours.length > 0) {
+                    hoursHtml = '<div class="retail-locations-info-hours">';
+                    data.hours.forEach(function (hour) {
+                        if (hour.day || hour.open) { // Only show if data exists
+                            hoursHtml += '<div class="retail-locations-info-hour">' +
+                                '<span class="hour-day">' + hour.day + '</span> ' +
+                                '<span class="hour-time">' + hour.open + ' – ' + hour.close + '</span>' +
+                                '</div>';
+                        }
+                    });
+                    hoursHtml += '</div>';
+                }
+
                 var infoContent = '<div class="retail-locations-info">' +
                     '<h4>' + data.title + '</h4>' +
-                    (data.address ? '<p>' + data.address + '</p>' : '') +
-                    '<a href="' + data.link + '">' + 'View Details' + '</a>' +
+                    categoryHtml +
+                    (data.address ? '<p class="retail-locations-info-address">' + data.address + '</p>' : '') +
+                    hoursHtml +
+                    '<a href="' + data.link + '" class="retail-locations-info-link">' + 'View Details →' + '</a>' +
                     '</div>';
 
                 var infoWindow = new google.maps.InfoWindow({
                     content: infoContent,
-                    maxWidth: 300
+                    maxWidth: 320
                 });
 
                 marker.addListener('click', function () {
@@ -119,6 +146,48 @@
             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         },
 
+        // Animate accordion open/close with smooth height transition
+        animateAccordion: function ($content, expanding, callback) {
+            if (expanding) {
+                // Expanding: behavior depends on current state
+                // If it was "hidden" via class, we need to prepare it for animation
+                $content.css('height', '0');
+
+                // Get the natural height by temporarily setting auto
+                var currentStyle = $content.attr('style');
+                $content.css({ position: 'absolute', visibility: 'hidden', height: 'auto', display: 'block' });
+                var targetHeight = $content.outerHeight();
+
+                // Reset to start state
+                $content.attr('style', currentStyle || '');
+                $content.css('height', '0');
+                // Ensure display block is set if the class removal didn't trigger it yet
+                // But we handle class removal in the caller usually.
+                // If CSS hides it via display:none, we need to show it.
+                // Our CSS currently uses height:0, so it's already "visible" but 0 height.
+
+                // Force reflow
+                $content[0].offsetHeight;
+
+                // Animate
+                $content.css('height', targetHeight + 'px');
+
+                setTimeout(function () {
+                    $content.css('height', 'auto');
+                    if (callback) callback();
+                }, 350);
+            } else {
+                // Collapsing
+                var currentHeight = $content.outerHeight();
+                $content.css('height', currentHeight + 'px');
+                $content[0].offsetHeight; // Force reflow
+                $content.css('height', 0);
+                setTimeout(function () {
+                    if (callback) callback();
+                }, 350);
+            }
+        },
+
         bindEvents: function () {
             var self = this;
 
@@ -145,27 +214,46 @@
 
                 var $title = $(this);
                 var $group = $title.closest('.retail-locations-group');
+                var $content = $group.find('.retail-locations-group-content');
                 var $list = $group.closest('.retail-locations-list');
                 var isExclusive = $list.attr('data-exclusive') === 'yes';
                 var isCollapsed = $group.hasClass('is-collapsed');
+                var willExpand = isCollapsed;
 
                 // If exclusive mode and we're expanding, collapse all others first
-                if (isExclusive && isCollapsed) {
+                if (isExclusive && willExpand) {
                     $list.find('.retail-locations-group').not($group).each(function () {
                         var $otherGroup = $(this);
-                        $otherGroup.addClass('is-collapsed');
-                        $otherGroup.find('.retail-locations-group-title').attr('aria-expanded', 'false');
+                        if (!$otherGroup.hasClass('is-collapsed')) {
+                            // Collapse other group
+                            self.animateAccordion($otherGroup.find('.retail-locations-group-content'), false, function () {
+                                $otherGroup.addClass('is-collapsed');
+                            });
+                            $otherGroup.find('.retail-locations-group-title').attr('aria-expanded', 'false');
+                        }
                     });
                 }
 
-                // Toggle the clicked group
-                $group.toggleClass('is-collapsed');
-                var nowExpanded = !$group.hasClass('is-collapsed');
-                $title.attr('aria-expanded', nowExpanded ? 'true' : 'false');
+                if (willExpand) {
+                    // EXPANDING:
+                    // 1. Remove collapsed class immediately so content is theoretically visible (height: auto via CSS if not overwritten)
+                    // But our JS animateAccordion handles setting it to 0 first.
+                    $group.removeClass('is-collapsed');
+                    $title.attr('aria-expanded', 'true');
+                    self.animateAccordion($content, true);
 
-                // If this has map coordinates and we're expanding, focus the map
-                if (nowExpanded && $title.data('lat') && $title.data('lng')) {
-                    self.focusArea($title.data('lat'), $title.data('lng'), $title.data('zoom'));
+                    // If this has map coordinates, focus the map
+                    if ($title.data('lat') && $title.data('lng')) {
+                        self.focusArea($title.data('lat'), $title.data('lng'), $title.data('zoom'));
+                    }
+                } else {
+                    // COLLAPSING:
+                    // 1. Animate to 0
+                    // 2. Add class after animation
+                    $title.attr('aria-expanded', 'false');
+                    self.animateAccordion($content, false, function () {
+                        $group.addClass('is-collapsed');
+                    });
                 }
             });
         }

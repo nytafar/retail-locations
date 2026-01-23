@@ -37,6 +37,7 @@ class Retail_Locations {
         if ( is_admin() ) {
             add_action( 'admin_menu', array( $this, 'admin_menu' ) );
             add_action( 'admin_init', array( $this, 'register_settings' ) );
+            add_action( 'admin_init', array( $this, 'handle_export_request' ) );
             add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin' ) );
             add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
             add_action( 'save_post_' . $this->post_type, array( $this, 'save_meta' ) );
@@ -296,16 +297,18 @@ class Retail_Locations {
         <?php
     }
 
+    public function handle_export_request() {
+        // Handle export action early, before any HTML output
+        if ( isset( $_POST['retail_locations_export'] ) && check_admin_referer( 'retail_locations_export_taxonomies' ) ) {
+            $this->export_taxonomies();
+            exit;
+        }
+    }
+
     public function export_page() {
         // Handle import action
         if ( isset( $_POST['retail_locations_import'] ) && check_admin_referer( 'retail_locations_import_taxonomies' ) ) {
             $import_result = $this->import_taxonomies();
-        }
-        
-        // Handle export action
-        if ( isset( $_POST['retail_locations_export'] ) && check_admin_referer( 'retail_locations_export_taxonomies' ) ) {
-            $this->export_taxonomies();
-            return;
         }
         
         ?>

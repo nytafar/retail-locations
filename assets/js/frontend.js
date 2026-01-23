@@ -323,6 +323,11 @@
                     });
                 }
 
+                // Always focus map if coordinates exist, regardless of expand/collapse state
+                if ($title.data('lat') && $title.data('lng')) {
+                    self.focusArea($title.data('lat'), $title.data('lng'), $title.data('zoom'));
+                }
+
                 if (willExpand) {
                     $group.removeClass('is-collapsed');
                     $title.attr('aria-expanded', 'true');

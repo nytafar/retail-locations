@@ -25,8 +25,10 @@
 .retail-locations-map-canvas {
     width: 100%;
     min-height: 18.75em;
-    /* 300px default */
+    filter: sepia(0.21);
 }
+
+
 
 .retail-locations-map--sticky {
     position: sticky;
@@ -366,6 +368,7 @@ body.has-apple-maps .retail-location-apple-link {
     font-size: 1.5em;
     padding-bottom: 0.5em;
     border-bottom: 1px solid #ddd;
+    max-width: 90%;
 }
 
 .retail-locations-group-title[data-lat] {

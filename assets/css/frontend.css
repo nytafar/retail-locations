@@ -25,7 +25,6 @@
 .retail-locations-map-canvas {
     width: 100%;
     min-height: 18.75em;
-    filter: sepia(0.21);
 }
 
 
@@ -125,9 +124,9 @@
    Locations List
    ========================================================================== */
 
-.retail-locations-list {
+/* .retail-locations-list {
     width: 100%;
-}
+} */
 
 .retail-locations-list.layout-grid2,
 .retail-locations-list.layout-grid3,

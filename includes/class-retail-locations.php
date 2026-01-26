@@ -166,13 +166,13 @@ class Retail_Locations {
         $js_file = RETAIL_LOCATIONS_DIR . 'assets/js/frontend.js';
         $css_file = RETAIL_LOCATIONS_DIR . 'assets/css/frontend.css';
 
-        // Use DEMO_MAP_ID for AdvancedMarkerElement if no custom style ID is maintained. 
+        // Use DEMO_MAP_ID for AdvancedMarkerElement if no custom style ID is maintained.
         // In production, user should generate one. For now this enables the feature.
-        $map_id = get_option( 'retail_locations_map_id', 'DEMO_MAP_ID' ); 
+        $map_id = get_option( 'retail_locations_map_id', 'DEMO_MAP_ID' );
 
         wp_enqueue_script(
             'google-maps',
-            'https://maps.googleapis.com/maps/api/js?key=' . $api_key . '&libraries=places,marker&loading=async&map_ids=' . $map_id,
+            'https://maps.googleapis.com/maps/api/js?key=' . $api_key . '&libraries=places,marker&map_ids=' . $map_id,
             array(),
             null,
             true
@@ -198,6 +198,17 @@ class Retail_Locations {
             array(),
             file_exists( $css_file ) ? filemtime( $css_file ) : RETAIL_LOCATIONS_VERSION
         );
+
+        // Enqueue fullscreen template styles if on fullscreen page
+        if ( is_page_template( 'page-fullscreen.php' ) ) {
+            $fullscreen_css = RETAIL_LOCATIONS_DIR . 'assets/css/fullscreen.css';
+            wp_enqueue_style(
+                'retail-locations-fullscreen',
+                RETAIL_LOCATIONS_URI . 'assets/css/fullscreen.css',
+                array( 'retail-locations' ),
+                file_exists( $fullscreen_css ) ? filemtime( $fullscreen_css ) : RETAIL_LOCATIONS_VERSION
+            );
+        }
     }
 
     public function enqueue_block_editor() {

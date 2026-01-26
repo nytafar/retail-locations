@@ -10,7 +10,7 @@
         isGeocoding: false,
         mapId: null, // Will be set from localized data
 
-        init: async function () {
+        init: function () {
             this.mapId = retailLocations.mapId || 'DEMO_MAP_ID';
 
             // Detect Apple devices (iPhone, iPad, Mac) and add class
@@ -25,20 +25,15 @@
                 document.body.classList.add('has-apple-maps');
             }
 
-            await this.initMaps();
+            this.initMaps();
             this.bindEvents();
         },
 
-        initMaps: async function () {
+        initMaps: function () {
             var self = this;
             var $maps = $('.retail-locations-map');
 
             if (!$maps.length) return;
-
-            // Load libraries
-            const { Map } = await google.maps.importLibrary("maps");
-            const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-            self.AdvancedMarkerElement = AdvancedMarkerElement; // Store for later use
 
             $maps.each(function () {
                 var $container = $(this);
@@ -58,12 +53,16 @@
                     mapId: self.mapId, // Required for AdvancedMarkerElement
                 };
 
-                var map = new Map($canvas[0], mapOptions);
-                self.maps.push(map);
-                $container.data('map', map);
-                $container.data('initialized', true);
+                try {
+                    var map = new google.maps.Map($canvas[0], mapOptions);
+                    self.maps.push(map);
+                    $container.data('map', map);
+                    $container.data('initialized', true);
 
-                self.loadMarkers(map, settings.category);
+                    self.loadMarkers(map, settings.category);
+                } catch (error) {
+                    console.error('Failed to initialize map:', error);
+                }
             });
         },
 
@@ -116,7 +115,7 @@
             var position = { lat: parseFloat(data.lat), lng: parseFloat(data.lng) };
 
             // AdvancedMarkerElement usage
-            var marker = new self.AdvancedMarkerElement({
+            var marker = new google.maps.marker.AdvancedMarkerElement({
                 map: map,
                 position: position,
                 title: data.title,
@@ -279,6 +278,23 @@
         bindEvents: function () {
             var self = this;
 
+            // Fullscreen template: hamburger menu toggle
+            $(document).on('click', '.retail-locations-sidebar-toggle', function (e) {
+                e.preventDefault();
+                var $toggle = $(this);
+                var $sidebar = $('.retail-locations-fullscreen-sidebar');
+
+                $toggle.toggleClass('active');
+
+                if ( $sidebar.length ) {
+                    if ( $toggle.hasClass('active') ) {
+                        $sidebar.removeClass('collapsed');
+                    } else {
+                        $sidebar.addClass('collapsed');
+                    }
+                }
+            });
+
             $(document).on('click', '.retail-locations-group-title[data-lat], .js-focus-location', function (e) {
                 var $el = $(this);
                 var $list = $el.closest('.retail-locations-list');
@@ -358,11 +374,13 @@
     };
 
     $(document).ready(function () {
+        // Google Maps API should be available by now since we removed loading=async
         if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
             RetailLocations.init();
         } else {
+            // Fallback for cases where script might not be loaded yet
             $(window).on('load', function () {
-                if (typeof google !== 'undefined') {
+                if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
                     RetailLocations.init();
                 }
             });

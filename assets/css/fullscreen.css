@@ -1,0 +1,475 @@
+/**
+ * Retail Locations - Fullscreen Layout Styles
+ */
+
+/* ========================================
+   Container & Layout
+   ======================================== */
+
+.retail-locations-fullscreen.retail-locations-fullscreen {
+    margin: 0;
+    padding: 0;
+}
+
+.retail-locations-fullscreen-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    background: #ffffff;
+}
+
+/* ========================================
+   Map Section (Left)
+   ======================================== */
+
+.retail-locations-fullscreen-map {
+    width: 55%;
+    height: 100%;
+    position: sticky;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #f0f0f0;
+}
+
+.retail-locations-fullscreen-map .retail-locations-map {
+    width: 100%;
+    height: 100%;
+}
+
+.retail-locations-fullscreen-map .retail-locations-map .retail-locations-map-canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* ========================================
+   Sidebar Section (Right)
+   ======================================== */
+
+.retail-locations-fullscreen-sidebar {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-left: 1px solid #e0e0e0;
+    overflow: hidden;
+}
+
+/* ========================================
+   Top Controls Bar
+   ======================================== */
+
+.retail-locations-fullscreen-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    padding: 0 16px;
+    background: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    flex-shrink: 0;
+    gap: 8px;
+}
+
+/* Hamburger Menu Toggle */
+.retail-locations-sidebar-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    gap: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.retail-locations-sidebar-toggle:hover {
+    background-color: #f5f5f5;
+}
+
+.retail-locations-sidebar-toggle:active {
+    background-color: #eeeeee;
+}
+
+.retail-locations-sidebar-toggle span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: #333333;
+    border-radius: 1px;
+    transition: all 0.3s ease;
+}
+
+.retail-locations-sidebar-toggle span:first-child {
+    transform: translateY(0);
+}
+
+.retail-locations-sidebar-toggle span:nth-child(2) {
+    opacity: 1;
+}
+
+.retail-locations-sidebar-toggle span:last-child {
+    transform: translateY(0);
+}
+
+.retail-locations-sidebar-toggle.active span:first-child {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.retail-locations-sidebar-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.retail-locations-sidebar-toggle.active span:last-child {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Back Button */
+.retail-locations-back-button {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333333;
+    background: transparent;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.retail-locations-back-button:hover {
+    background-color: #f5f5f5;
+    border-color: #cccccc;
+}
+
+.retail-locations-back-button:active {
+    background-color: #eeeeee;
+}
+
+/* ========================================
+   List Container (Scrollable)
+   ======================================== */
+
+.retail-locations-fullscreen-list {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 16px;
+    scrollbar-width: thin;
+    scrollbar-color: #bfbfbf transparent;
+}
+
+.retail-locations-fullscreen-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.retail-locations-fullscreen-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.retail-locations-fullscreen-list::-webkit-scrollbar-thumb {
+    background: #bfbfbf;
+    border-radius: 4px;
+}
+
+.retail-locations-fullscreen-list::-webkit-scrollbar-thumb:hover {
+    background: #999999;
+}
+
+.retail-locations-fullscreen-list .retail-locations-list {
+    margin: 0;
+    padding: 0;
+}
+
+.retail-locations-fullscreen-list .retail-locations-list.grouped-by-area .retail-locations-group {
+    margin-bottom: 16px;
+}
+
+.retail-locations-fullscreen-list .retail-locations-list.grouped-by-area .retail-locations-group:last-child {
+    margin-bottom: 0;
+}
+
+/* ========================================
+   Location Items (Compact)
+   ======================================== */
+
+.retail-location-item {
+    margin: 0 0 12px 0;
+    padding: 12px;
+    background: #f9f9f9;
+    border: 1px solid #e8e8e8;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.retail-location-item:hover {
+    border-color: #d0d0d0;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.retail-location-item .retail-location-image {
+    display: none;
+}
+
+.retail-location-content .retail-location-title {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.retail-location-content .retail-location-title a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.retail-location-content .retail-location-title a:hover {
+    text-decoration: underline;
+}
+
+.retail-location-content .retail-location-title .retail-location-tags {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.retail-location-content .retail-location-title .retail-location-tag {
+    display: inline-block;
+    padding: 2px 6px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    background: #e8f0fe;
+    color: #0066cc;
+    border-radius: 3px;
+    font-size: 11px;
+}
+
+.retail-location-content .retail-location-address {
+    margin: 8px 0;
+    font-size: 13px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.retail-location-content .retail-location-address a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.retail-location-content .retail-location-address a:hover {
+    text-decoration: underline;
+}
+
+.retail-location-content .retail-location-address svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+.retail-location-content .retail-location-description {
+    display: none;
+}
+
+.retail-location-content .retail-location-links {
+    display: flex;
+    gap: 8px;
+    margin: 8px 0;
+    font-size: 12px;
+    flex-wrap: wrap;
+}
+
+.retail-location-content .retail-location-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: transparent;
+    border: 1px solid #d0d0d0;
+    border-radius: 3px;
+    color: #333;
+    text-decoration: none;
+    font-size: 11px;
+    transition: all 0.2s ease;
+}
+
+.retail-location-content .retail-location-link:hover {
+    border-color: #0066cc;
+    color: #0066cc;
+}
+
+.retail-location-content .retail-location-link svg {
+    width: 12px;
+    height: 12px;
+}
+
+.retail-location-content .retail-location-link span {
+    display: none;
+}
+
+@media (min-width: 1200px) {
+    .retail-location-content .retail-location-link span {
+        display: inline;
+    }
+}
+
+.retail-location-content .retail-location-contacts {
+    display: none;
+}
+
+.retail-location-content .retail-location-hours {
+    display: none;
+}
+
+/* ========================================
+   Group Styling
+   ======================================== */
+
+.retail-locations-group {
+    margin-bottom: 16px;
+}
+
+.retail-locations-group .retail-locations-group-title {
+    margin: 0 0 8px 0;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    background: #f0f0f0;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.retail-locations-group .retail-locations-group-title:hover {
+    background: #e8e8e8;
+}
+
+.retail-locations-group .retail-locations-group-title[role="button"]:focus {
+    outline: 2px solid #0066cc;
+    outline-offset: 2px;
+}
+
+.retail-locations-group .retail-locations-group-content {
+    max-height: 1000px;
+    overflow: hidden;
+    transition: max-height 0.35s ease, opacity 0.35s ease;
+}
+
+.retail-locations-group.is-collapsed .retail-locations-group-content {
+    max-height: 0;
+    opacity: 0;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 1024px) {
+    .retail-locations-fullscreen-container {
+        flex-direction: column;
+    }
+
+    .retail-locations-fullscreen-map {
+        width: 100%;
+        height: 50%;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .retail-locations-fullscreen-sidebar {
+        width: 100%;
+        height: 50%;
+        border-left: none;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    .retail-locations-sidebar-toggle {
+        display: flex;
+    }
+
+    .retail-locations-sidebar-toggle.active {
+        margin-left: auto;
+    }
+
+    .retail-locations-fullscreen-list .retail-location-links .retail-location-link span {
+        display: none;
+    }
+
+    .retail-locations-fullscreen-sidebar.collapsed {
+        height: 56px;
+        border-top-width: 1px;
+    }
+
+    .retail-locations-fullscreen-sidebar.collapsed .retail-locations-fullscreen-list {
+        display: none;
+    }
+
+    .retail-locations-fullscreen-sidebar:not(.collapsed) .retail-locations-sidebar-toggle {
+        order: 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .retail-locations-fullscreen-map,
+    .retail-locations-fullscreen-sidebar {
+        height: auto;
+        width: 100%;
+    }
+
+    .retail-locations-fullscreen-map {
+        min-height: 300px;
+    }
+
+    .retail-locations-fullscreen-sidebar {
+        min-height: 400px;
+    }
+
+    .retail-locations-fullscreen-controls {
+        padding: 0 12px;
+        height: 48px;
+    }
+
+    .retail-locations-fullscreen-list {
+        padding: 12px;
+    }
+
+    .retail-location-item {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .retail-location-content .retail-location-title {
+        font-size: 15px;
+    }
+
+    .retail-location-content .retail-location-address {
+        font-size: 12px;
+    }
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+
+@media print {
+    .retail-locations-fullscreen-container {
+        display: none;
+    }
+}

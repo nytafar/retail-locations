@@ -30,6 +30,29 @@ function retail_locations()
     return Retail_Locations::get_instance();
 }
 
+// Register template directory for page templates
+add_filter( 'page_template_loader', function( $template ) {
+    if ( is_page() ) {
+        $page_template = get_page_template_slug();
+        $plugin_template = RETAIL_LOCATIONS_DIR . 'templates/' . $page_template;
+
+        if ( 'page-fullscreen.php' === $page_template && file_exists( $plugin_template ) ) {
+            return $plugin_template;
+        }
+    }
+    return $template;
+});
+
+add_filter( 'theme_page_templates', function( $templates ) {
+    $plugin_template = RETAIL_LOCATIONS_DIR . 'templates/page-fullscreen.php';
+
+    if ( file_exists( $plugin_template ) ) {
+        $templates['page-fullscreen.php'] = __( 'Retail Locations Fullscreen', 'retail-locations' );
+    }
+
+    return $templates;
+});
+
 add_action('plugins_loaded', 'retail_locations');
 
 register_activation_hook(__FILE__, function () {

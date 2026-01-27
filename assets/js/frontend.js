@@ -278,23 +278,6 @@
         bindEvents: function () {
             var self = this;
 
-            // Fullscreen template: hamburger menu toggle
-            $(document).on('click', '.retail-locations-sidebar-toggle', function (e) {
-                e.preventDefault();
-                var $toggle = $(this);
-                var $sidebar = $('.retail-locations-fullscreen-sidebar');
-
-                $toggle.toggleClass('active');
-
-                if ( $sidebar.length ) {
-                    if ( $toggle.hasClass('active') ) {
-                        $sidebar.removeClass('collapsed');
-                    } else {
-                        $sidebar.addClass('collapsed');
-                    }
-                }
-            });
-
             $(document).on('click', '.retail-locations-group-title[data-lat], .js-focus-location', function (e) {
                 var $el = $(this);
                 var $list = $el.closest('.retail-locations-list');

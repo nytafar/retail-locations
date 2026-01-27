@@ -198,17 +198,6 @@ class Retail_Locations {
             array(),
             file_exists( $css_file ) ? filemtime( $css_file ) : RETAIL_LOCATIONS_VERSION
         );
-
-        // Enqueue fullscreen template styles if on fullscreen page
-        if ( is_page_template( 'page-fullscreen.php' ) ) {
-            $fullscreen_css = RETAIL_LOCATIONS_DIR . 'assets/css/fullscreen.css';
-            wp_enqueue_style(
-                'retail-locations-fullscreen',
-                RETAIL_LOCATIONS_URI . 'assets/css/fullscreen.css',
-                array( 'retail-locations' ),
-                file_exists( $fullscreen_css ) ? filemtime( $fullscreen_css ) : RETAIL_LOCATIONS_VERSION
-            );
-        }
     }
 
     public function enqueue_block_editor() {

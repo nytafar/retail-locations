@@ -1059,15 +1059,22 @@ class Retail_Locations {
                 
                 <?php if ( $address ) : ?>
                     <div class="retail-location-address">
-                        <a href="https://maps.apple.com/?q=<?php echo urlencode( $address ); ?>" class="retail-location-apple-link" target="_blank" rel="noopener noreferrer" aria-label="<?php _e( 'Open in Apple Maps', 'retail-locations' ); ?>">
-                            <?php echo retail_locations_icon_apple(); ?>
-                        </a>
                         <?php echo retail_locations_icon_map(); ?>
-                        <a href="<?php echo esc_url( $this->get_google_maps_url( $address ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $address ); ?></a>
+                        <span><?php echo esc_html( $address ); ?></span>
                     </div>
                 <?php endif; ?>
                 
                 <div class="retail-location-links">
+                    <?php if ( $address ) : ?>
+                        <a href="<?php echo esc_url( $this->get_google_maps_url( $address ) ); ?>" class="retail-location-link retail-location-link--google-maps" target="_blank" rel="noopener noreferrer" aria-label="<?php _e( 'Open in Google Maps', 'retail-locations' ); ?>">
+                            <?php echo retail_locations_icon_google_maps(); ?>
+                            <span><?php _e( 'Google Maps', 'retail-locations' ); ?></span>
+                        </a>
+                        <a href="https://maps.apple.com/?q=<?php echo urlencode( $address ); ?>" class="retail-location-link retail-location-link--apple-maps" target="_blank" rel="noopener noreferrer" aria-label="<?php _e( 'Open in Apple Maps', 'retail-locations' ); ?>">
+                            <?php echo retail_locations_icon_apple(); ?>
+                            <span><?php _e( 'Apple Maps', 'retail-locations' ); ?></span>
+                        </a>
+                    <?php endif; ?>
                     <?php if ( $website ) : ?>
                         <a href="<?php echo esc_url( $website ); ?>" class="retail-location-link retail-location-link--website" target="_blank" rel="noopener noreferrer">
                             <?php echo retail_locations_icon_website(); ?>

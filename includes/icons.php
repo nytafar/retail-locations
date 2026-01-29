@@ -53,6 +53,11 @@ function retail_locations_render_svg_symbols()
                     d="M17.8 19.3c-1 1.4-2 2.9-3.6 2.9-1.5 0-2-.9-3.7-.9-1.8 0-2.3.9-3.7.9-1.5 0-2.7-1.5-3.7-2.9-2-2.9-3.6-8.3-.9-11.9 1.3-1.8 3.7-2.9 5.8-2.9 1.5 0 2.9 1 3.8 1 .9 0 2.5-1.2 4.3-1.2 1.4 0 2.7.6 3.6 1.5-3.3 2-2.5 7 1 8.2-.7 1.9-1.7 3.8-3 5.3" />
                 <path d="M12.9 4.3c.7-1 1.3-2.2 1.1-3.4-1.1.1-2.5.8-3.3 1.7-.6.9-1.2 2.2-1 3.3 1.3.1 2.6-.7 3.2-1.6" />
             </symbol>
+            <symbol id="retail-icon-google-maps" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+            </symbol>
         </defs>
     </svg>
     <?php
@@ -99,4 +104,9 @@ function retail_locations_icon_clock($size = '1em')
 function retail_locations_icon_apple($size = '1em')
 {
     return retail_locations_get_icon_markup('retail-icon-apple', $size);
+}
+
+function retail_locations_icon_google_maps($size = '1em')
+{
+    return retail_locations_get_icon_markup('retail-icon-google-maps', $size);
 }

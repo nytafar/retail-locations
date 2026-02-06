@@ -27,6 +27,7 @@ class Retail_Locations {
         add_action( 'init', array( $this, 'register_blocks' ) );
         add_action( 'init', array( $this, 'register_shortcodes' ) );
         add_action( 'init', array( $this, 'maybe_flush_rewrite' ) );
+        add_action( 'init', array( $this, 'maybe_disable_single_pages' ) );
         
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend' ) );
         add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor' ) );
@@ -53,6 +54,19 @@ class Retail_Locations {
         if ( get_option( 'retail_locations_flush_rewrite' ) ) {
             flush_rewrite_rules();
             delete_option( 'retail_locations_flush_rewrite' );
+        }
+    }
+
+    public function maybe_disable_single_pages() {
+        if ( ! apply_filters( 'retail_locations_enable_single_pages', true ) ) {
+            add_action( 'template_redirect', array( $this, 'redirect_single_pages' ) );
+        }
+    }
+
+    public function redirect_single_pages() {
+        if ( is_singular( $this->post_type ) ) {
+            wp_redirect( home_url(), 301 );
+            exit;
         }
     }
 
@@ -187,9 +201,10 @@ class Retail_Locations {
         );
 
         wp_localize_script( 'retail-locations', 'retailLocations', array(
-            'ajaxurl' => admin_url( 'admin-ajax.php' ),
-            'apiKey'  => $api_key,
-            'mapId'   => $map_id,
+            'ajaxurl'         => admin_url( 'admin-ajax.php' ),
+            'apiKey'          => $api_key,
+            'mapId'           => $map_id,
+            'showViewDetails' => apply_filters( 'retail_locations_show_view_details', true ),
         ));
 
         wp_enqueue_style(
@@ -1042,10 +1057,18 @@ class Retail_Locations {
             
             <div class="retail-location-content">
                 <h3 class="retail-location-title">
-                    <?php if ( $lat && $lng ) : ?>
-                        <a href="#" class="js-focus-location" data-id="<?php echo get_the_ID(); ?>" data-lat="<?php echo esc_attr( $lat ); ?>" data-lng="<?php echo esc_attr( $lng ); ?>" data-zoom="15"><?php the_title(); ?></a>
+                    <?php if ( apply_filters( 'retail_locations_show_view_details', true ) ) : ?>
+                        <?php if ( $lat && $lng ) : ?>
+                            <a href="<?php the_permalink(); ?>" class="js-focus-location" data-id="<?php echo get_the_ID(); ?>" data-lat="<?php echo esc_attr( $lat ); ?>" data-lng="<?php echo esc_attr( $lng ); ?>" data-zoom="15"><?php the_title(); ?></a>
+                        <?php else : ?>
+                            <a href="<?php the_permalink(); ?>" class="js-focus-location" data-id="<?php echo get_the_ID(); ?>" data-address="<?php echo esc_attr( $address ); ?>"><?php the_title(); ?></a>
+                        <?php endif; ?>
                     <?php else : ?>
-                        <a href="#" class="js-focus-location" data-id="<?php echo get_the_ID(); ?>" data-address="<?php echo esc_attr( $address ); ?>"><?php the_title(); ?></a>
+                        <?php if ( $lat && $lng ) : ?>
+                            <a href="#" class="js-focus-location" data-id="<?php echo get_the_ID(); ?>" data-lat="<?php echo esc_attr( $lat ); ?>" data-lng="<?php echo esc_attr( $lng ); ?>" data-zoom="15"><?php the_title(); ?></a>
+                        <?php else : ?>
+                            <a href="#" class="js-focus-location" data-id="<?php echo get_the_ID(); ?>" data-address="<?php echo esc_attr( $address ); ?>"><?php the_title(); ?></a>
+                        <?php endif; ?>
                     <?php endif; ?>
 
                     <?php if ( $categories && ! is_wp_error( $categories ) ) : ?>
@@ -1067,12 +1090,10 @@ class Retail_Locations {
                 <div class="retail-location-links">
                     <?php if ( $address ) : ?>
                         <a href="<?php echo esc_url( $this->get_google_maps_url( $address ) ); ?>" class="retail-location-link retail-location-link--google-maps" target="_blank" rel="noopener noreferrer" aria-label="<?php _e( 'Open in Google Maps', 'retail-locations' ); ?>">
-                            <?php echo retail_locations_icon_google_maps(); ?>
-                            <span><?php _e( 'Google Maps', 'retail-locations' ); ?></span>
+                            <?php echo retail_locations_icon_google_maps( '1em' ); ?>
                         </a>
                         <a href="https://maps.apple.com/?q=<?php echo urlencode( $address ); ?>" class="retail-location-link retail-location-link--apple-maps" target="_blank" rel="noopener noreferrer" aria-label="<?php _e( 'Open in Apple Maps', 'retail-locations' ); ?>">
-                            <?php echo retail_locations_icon_apple(); ?>
-                            <span><?php _e( 'Apple Maps', 'retail-locations' ); ?></span>
+                            <?php echo retail_locations_icon_apple( '1em' ); ?>
                         </a>
                     <?php endif; ?>
                     <?php if ( $website ) : ?>

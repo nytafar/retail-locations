@@ -255,6 +255,25 @@
             }
         },
 
+        // Fit the map to a "swLat,swLng,neLat,neLng" bounding box (derived
+        // server-side from an area's store pins when it has no saved coords).
+        focusBounds: function (fit) {
+            if (this.maps.length === 0 || !fit) return;
+            var p = ('' + fit).split(',').map(parseFloat);
+            if (p.length !== 4 || p.some(isNaN)) return;
+            var map = this.maps[0];
+            // Single pin (or a tiny spread) would zoom to max — center instead.
+            if (Math.abs(p[2] - p[0]) < 0.002 && Math.abs(p[3] - p[1]) < 0.002) {
+                map.setCenter({ lat: (p[0] + p[2]) / 2, lng: (p[1] + p[3]) / 2 });
+                map.setZoom(13);
+                return;
+            }
+            map.fitBounds(new google.maps.LatLngBounds(
+                { lat: p[0], lng: p[1] },
+                { lat: p[2], lng: p[3] }
+            ), 48);
+        },
+
         openMarker: function (id) {
             var item = this.markersMap[id];
             if (item) {
@@ -297,7 +316,7 @@
         bindEvents: function () {
             var self = this;
 
-            $(document).on('click', '.retail-locations-group-title[data-lat], .js-focus-location', function (e) {
+            $(document).on('click', '.retail-locations-group-title[data-lat], .retail-locations-group-title[data-fit], .js-focus-location', function (e) {
                 var $el = $(this);
                 var $list = $el.closest('.retail-locations-list');
 
@@ -312,6 +331,8 @@
                     self.openMarker(id);
                 } else if ($el.data('lat') && $el.data('lng')) {
                     self.focusArea($el.data('lat'), $el.data('lng'), $el.data('zoom'));
+                } else if ($el.data('fit')) {
+                    self.focusBounds($el.data('fit'));
                 } else if ($el.data('address')) {
                     // Start geocode process handled in addMarkers queue?
                     // If it's in the list, it's already queued. 
@@ -359,6 +380,8 @@
                 // Always focus map if coordinates exist, regardless of expand/collapse state
                 if ($title.data('lat') && $title.data('lng')) {
                     self.focusArea($title.data('lat'), $title.data('lng'), $title.data('zoom'));
+                } else if ($title.data('fit')) {
+                    self.focusBounds($title.data('fit'));
                 }
 
                 if (willExpand) {

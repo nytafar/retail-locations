@@ -902,12 +902,21 @@ class Retail_Locations {
             
             if ( ! isset( $grouped[ $area_key ] ) ) {
                 $grouped[ $area_key ] = array(
-                    'name'  => $area_name,
-                    'meta'  => $area_meta,
-                    'posts' => array(),
+                    'name'   => $area_name,
+                    'meta'   => $area_meta,
+                    'posts'  => array(),
+                    'coords' => array(),
                 );
             }
             $grouped[ $area_key ]['posts'][] = get_post();
+
+            // Collect store coordinates so we can fit the map to the area's
+            // own pins when the area term has no saved lat/lng.
+            $loc_lat = get_post_meta( get_the_ID(), '_location_lat', true );
+            $loc_lng = get_post_meta( get_the_ID(), '_location_lng', true );
+            if ( '' !== $loc_lat && '' !== $loc_lng ) {
+                $grouped[ $area_key ]['coords'][] = array( floatval( $loc_lat ), floatval( $loc_lng ) );
+            }
         }
         wp_reset_postdata();
 
@@ -926,18 +935,38 @@ class Retail_Locations {
         ob_start();
         ?>
         <div class="<?php echo $list_classes; ?>"<?php echo $list_attrs; ?>>
-            <?php foreach ( $grouped as $slug => $group ) : 
+            <?php foreach ( $grouped as $slug => $group ) :
                 $group_classes = 'retail-locations-group';
                 if ( $is_collapsible ) {
                     $group_classes .= ' is-collapsed';
                 }
+
+                // Manual coordinates saved on the area term take priority.
+                $has_manual_focus = ( ! empty( $group['meta']['lat'] ) && ! empty( $group['meta']['lng'] ) );
+
+                // Fallback: derive a bounding box from this area's own store
+                // pins so clicking the label always focuses the map, even when
+                // no coordinates were entered for the area.
+                $fit_bounds = '';
+                if ( ! empty( $group['coords'] ) ) {
+                    $fit_lats = wp_list_pluck( $group['coords'], 0 );
+                    $fit_lngs = wp_list_pluck( $group['coords'], 1 );
+                    $fit_bounds = implode( ',', array( min( $fit_lats ), min( $fit_lngs ), max( $fit_lats ), max( $fit_lngs ) ) );
+                }
+
+                $can_focus = $has_manual_focus || '' !== $fit_bounds;
             ?>
                 <div class="<?php echo esc_attr( $group_classes ); ?>" data-area="<?php echo esc_attr( $slug ); ?>">
                     <h2 class="retail-locations-group-title"
-                        <?php if ( ! empty( $group['meta']['lat'] ) && ! empty( $group['meta']['lng'] ) ) : ?>
+                        <?php if ( $has_manual_focus ) : ?>
                         data-lat="<?php echo esc_attr( $group['meta']['lat'] ); ?>"
                         data-lng="<?php echo esc_attr( $group['meta']['lng'] ); ?>"
                         data-zoom="<?php echo esc_attr( $group['meta']['zoom'] ); ?>"
+                        <?php endif; ?>
+                        <?php if ( '' !== $fit_bounds ) : ?>
+                        data-fit="<?php echo esc_attr( $fit_bounds ); ?>"
+                        <?php endif; ?>
+                        <?php if ( $can_focus ) : ?>
                         title="<?php _e( 'Click to focus map', 'retail-locations' ); ?>"
                         <?php endif; ?>
                         <?php if ( $is_collapsible ) : ?>

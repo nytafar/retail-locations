@@ -274,12 +274,19 @@
             ), 48);
         },
 
+        // Fraction of the map height to drop the selected pin below centre,
+        // leaving room above it for the info window that opens on selection.
+        pinOffsetRatio: 0.22,
+
         openMarker: function (id) {
             var item = this.markersMap[id];
             if (item) {
                 var map = item.marker.map; // AdvancedMarkerElement property
-                map.panTo(item.marker.position); // AdvancedMarkerElement position property
                 map.setZoom(15);
+                map.panTo(item.marker.position); // AdvancedMarkerElement position property
+                // Nudge the view up so the pin sits below centre. panBy's y axis
+                // runs north->south, so a negative y shifts the pin downward.
+                map.panBy(0, -Math.round(map.getDiv().offsetHeight * this.pinOffsetRatio));
                 google.maps.event.trigger(item.marker, 'click');
             }
         },

@@ -199,21 +199,27 @@
             var googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(data.address || (data.lat + ',' + data.lng));
             var appleMapsUrl = 'https://maps.apple.com/?q=' + encodeURIComponent(data.address || (data.lat + ',' + data.lng));
 
+            // Translatable strings (provided via wp_localize_script), with
+            // English fallbacks if the localized data is ever missing.
+            var t = retailLocations.i18n || {};
+            var txtGoogle = t.googleMaps || 'Google Maps';
+            var txtApple = t.appleMaps || 'Apple Maps';
+
             // Map icons HTML
             var mapIconsHtml = '<div class="retail-locations-info-map-links">' +
-                '<a href="' + googleMapsUrl + '" class="retail-locations-info-map-icon" target="_blank" rel="noopener noreferrer" aria-label="Open in Google Maps">' +
+                '<a href="' + googleMapsUrl + '" class="retail-locations-info-map-icon" target="_blank" rel="noopener noreferrer" aria-label="' + (t.openInGoogleMaps || 'Open in Google Maps') + '">' +
                 '<svg class="retail-locations-icon retail-locations-icon--google-maps" width="1em" height="1em" aria-hidden="true"><use href="#retail-icon-google-maps"></use></svg>' +
-                '<span>Google Maps</span>' +
+                '<span>' + txtGoogle + '</span>' +
                 '</a>' +
-                '<a href="' + appleMapsUrl + '" class="retail-locations-info-map-icon" target="_blank" rel="noopener noreferrer" aria-label="Open in Apple Maps">' +
+                '<a href="' + appleMapsUrl + '" class="retail-locations-info-map-icon" target="_blank" rel="noopener noreferrer" aria-label="' + (t.openInAppleMaps || 'Open in Apple Maps') + '">' +
                 '<svg class="retail-locations-icon retail-locations-icon--apple" width="1em" height="1em" aria-hidden="true"><use href="#retail-icon-apple"></use></svg>' +
-                '<span>Apple Maps</span>' +
+                '<span>' + txtApple + '</span>' +
                 '</a>' +
                 '</div>';
 
             // Check if View Details should be shown
             var showViewDetails = retailLocations.showViewDetails !== false;
-            var viewDetailsLink = (showViewDetails && data.link) ? ' <a href="' + data.link + '" class="retail-locations-info-link-secondary" style="margin-left:8px;font-size:0.9em;">' + 'View Details' + '</a>' : '';
+            var viewDetailsLink = (showViewDetails && data.link) ? ' <a href="' + data.link + '" class="retail-locations-info-link-secondary" style="margin-left:8px;font-size:0.9em;">' + (t.viewDetails || 'View Details') + '</a>' : '';
 
             var infoContent = '<div class="retail-locations-info">' +
                 '<h4>' + data.title + '</h4>' +
@@ -222,7 +228,7 @@
                 hoursHtml +
                 mapIconsHtml +
                 '<div class="retail-locations-info-actions">' +
-                '<a href="' + directionsUrl + '" class="retail-locations-info-link" target="_blank" rel="noopener noreferrer">' + 'Get Directions' + '</a>' +
+                '<a href="' + directionsUrl + '" class="retail-locations-info-link" target="_blank" rel="noopener noreferrer">' + (t.getDirections || 'Get Directions') + '</a>' +
                 viewDetailsLink +
                 '</div>' +
                 '</div>';

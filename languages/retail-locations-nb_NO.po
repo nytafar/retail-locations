@@ -1,0 +1,490 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Retail Locations\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/retail-locations\n"
+"POT-Creation-Date: 2026-06-05T21:00:38+00:00\n"
+"Language: nb_NO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Plugin Name of the plugin
+#: retail-locations.php includes/class-retail-locations.php:83
+#: includes/class-retail-locations.php:85
+msgid "Retail Locations"
+msgstr "Utsalgssteder"
+
+#. Plugin URI of the plugin
+#: retail-locations.php
+msgid "https://jellum.net/retail-locations"
+msgstr ""
+
+#. Description of the plugin
+#: retail-locations.php
+msgid ""
+"Display retail locations on a Google Map with filtering by category and area."
+msgstr ""
+"Vis utsalgssteder på et Google-kart med filtrering etter kategori og område."
+
+#. Author of the plugin
+#: retail-locations.php
+msgid "Lasse Jellum"
+msgstr ""
+
+#. Author URI of the plugin
+#: retail-locations.php
+msgid "https://jellum.net"
+msgstr ""
+
+#: includes/class-retail-locations.php:84
+msgid "Location"
+msgstr "Utsalgssted"
+
+#: includes/class-retail-locations.php:86
+msgid "Add New"
+msgstr "Legg til ny"
+
+#: includes/class-retail-locations.php:87
+msgid "Add New Location"
+msgstr "Legg til nytt utsalgssted"
+
+#: includes/class-retail-locations.php:88
+msgid "Edit Location"
+msgstr "Rediger utsalgssted"
+
+#: includes/class-retail-locations.php:89
+msgid "New Location"
+msgstr "Nytt utsalgssted"
+
+#: includes/class-retail-locations.php:90
+msgid "View Location"
+msgstr "Vis utsalgssted"
+
+#: includes/class-retail-locations.php:91
+msgid "All Locations"
+msgstr "Alle utsalgssteder"
+
+#: includes/class-retail-locations.php:92
+msgid "Search Locations"
+msgstr "Søk i utsalgssteder"
+
+#: includes/class-retail-locations.php:93
+msgid "No locations found."
+msgstr "Ingen utsalgssteder funnet."
+
+#: includes/class-retail-locations.php:94
+msgid "No locations found in Trash."
+msgstr "Ingen utsalgssteder i papirkurven."
+
+#: includes/class-retail-locations.php:112
+msgid "Categories"
+msgstr "Kategorier"
+
+#: includes/class-retail-locations.php:113
+msgid "Category"
+msgstr "Kategori"
+
+#: includes/class-retail-locations.php:114
+msgid "Search Categories"
+msgstr "Søk i kategorier"
+
+#: includes/class-retail-locations.php:115
+msgid "All Categories"
+msgstr "Alle kategorier"
+
+#: includes/class-retail-locations.php:116
+msgid "Edit Category"
+msgstr "Rediger kategori"
+
+#: includes/class-retail-locations.php:117
+msgid "Add New Category"
+msgstr "Legg til ny kategori"
+
+#: includes/class-retail-locations.php:127
+msgid "Areas"
+msgstr "Områder"
+
+#: includes/class-retail-locations.php:128
+msgid "Area"
+msgstr "Område"
+
+#: includes/class-retail-locations.php:129
+msgid "Search Areas"
+msgstr "Søk i områder"
+
+#: includes/class-retail-locations.php:130
+msgid "All Areas"
+msgstr "Alle områder"
+
+#: includes/class-retail-locations.php:131
+msgid "Edit Area"
+msgstr "Rediger område"
+
+#: includes/class-retail-locations.php:132
+msgid "Add New Area"
+msgstr "Legg til nytt område"
+
+#: includes/class-retail-locations.php:216
+msgid "Get Directions"
+msgstr "Veibeskrivelse"
+
+#: includes/class-retail-locations.php:217
+msgid "View Details"
+msgstr "Vis detaljer"
+
+#: includes/class-retail-locations.php:218
+msgid "Google Maps"
+msgstr "Google Maps"
+
+#: includes/class-retail-locations.php:219
+msgid "Apple Maps"
+msgstr "Apple Maps"
+
+#: includes/class-retail-locations.php:220
+#: includes/class-retail-locations.php:1139
+msgid "Open in Google Maps"
+msgstr "Åpne i Google Maps"
+
+#: includes/class-retail-locations.php:221
+#: includes/class-retail-locations.php:1142
+msgid "Open in Apple Maps"
+msgstr "Åpne i Apple Maps"
+
+#: includes/class-retail-locations.php:290
+#: includes/class-retail-locations.php:291
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: includes/class-retail-locations.php:299
+#: includes/class-retail-locations.php:356
+msgid "Export Taxonomies"
+msgstr "Eksporter taksonomier"
+
+#: includes/class-retail-locations.php:300
+msgid "Export"
+msgstr "Eksporter"
+
+#: includes/class-retail-locations.php:315
+msgid "Retail Locations Settings"
+msgstr "Innstillinger for utsalgssteder"
+
+#: includes/class-retail-locations.php:320
+msgid "Google Maps API Key"
+msgstr "Google Maps API-nøkkel"
+
+#: includes/class-retail-locations.php:323
+msgid "Enter your Google Maps API key."
+msgstr "Skriv inn din Google Maps API-nøkkel."
+
+#: includes/class-retail-locations.php:327
+msgid "URL Slug"
+msgstr "URL-slug"
+
+#: includes/class-retail-locations.php:330
+msgid "The URL slug for locations (default: location)."
+msgstr "URL-slug for utsalgssteder (standard: location)."
+
+#: includes/class-retail-locations.php:357
+msgid ""
+"Export your location categories and areas to a JSON file for backup or "
+"migration to another site."
+msgstr ""
+"Eksporter kategorier og områder til en JSON-fil for sikkerhetskopi eller "
+"flytting til et annet nettsted."
+
+#: includes/class-retail-locations.php:364
+msgid "Export Data"
+msgstr "Eksporter data"
+
+#: includes/class-retail-locations.php:366
+msgid "This will export:"
+msgstr "Dette eksporterer:"
+
+#: includes/class-retail-locations.php:368
+msgid "All location categories with hierarchy"
+msgstr "Alle kategorier med hierarki"
+
+#: includes/class-retail-locations.php:369
+msgid "All location areas with coordinates and zoom levels"
+msgstr "Alle områder med koordinater og zoomnivåer"
+
+#: includes/class-retail-locations.php:371
+msgid ""
+"Note: This exports taxonomy terms only. Use WordPress's built-in export for "
+"location posts."
+msgstr ""
+"Merk: Dette eksporterer kun taksonomitermer. Bruk WordPress' innebygde "
+"eksport for selve utsalgsstedene."
+
+#: includes/class-retail-locations.php:376
+msgid "Download Export File"
+msgstr "Last ned eksportfil"
+
+#: includes/class-retail-locations.php:381
+#: includes/class-retail-locations.php:414
+msgid "Import Taxonomies"
+msgstr "Importer taksonomier"
+
+#: includes/class-retail-locations.php:386
+msgid "Import successful!"
+msgstr "Import fullført!"
+
+#. translators: %d is the number of categories imported.
+#: includes/class-retail-locations.php:388
+#, php-format
+msgid "Categories imported: %d"
+msgstr "Kategorier importert: %d"
+
+#. translators: %d is the number of areas imported.
+#: includes/class-retail-locations.php:389
+#, php-format
+msgid "Areas imported: %d"
+msgstr "Områder importert: %d"
+
+#: includes/class-retail-locations.php:394
+msgid "Import failed:"
+msgstr "Import mislyktes:"
+
+#: includes/class-retail-locations.php:399
+msgid "Upload a JSON file exported from another Retail Locations installation."
+msgstr ""
+"Last opp en JSON-fil eksportert fra en annen Utsalgssteder-installasjon."
+
+#: includes/class-retail-locations.php:406
+msgid "Import File"
+msgstr "Importfil"
+
+#: includes/class-retail-locations.php:409
+msgid "Select a JSON file exported from Retail Locations."
+msgstr "Velg en JSON-fil eksportert fra Utsalgssteder."
+
+#: includes/class-retail-locations.php:425
+msgid "No file uploaded or upload error occurred."
+msgstr "Ingen fil ble lastet opp, eller det oppstod en feil under opplasting."
+
+#: includes/class-retail-locations.php:434
+msgid "Invalid JSON file."
+msgstr "Ugyldig JSON-fil."
+
+#: includes/class-retail-locations.php:440
+msgid "Invalid export file format."
+msgstr "Ugyldig eksportfilformat."
+
+#: includes/class-retail-locations.php:575
+msgid "Location Details"
+msgstr "Detaljer for utsalgssted"
+
+#: includes/class-retail-locations.php:596
+msgid "Address"
+msgstr "Adresse"
+
+#: includes/class-retail-locations.php:600
+#: includes/class-retail-locations.php:706
+#: includes/class-retail-locations.php:726
+msgid "Latitude"
+msgstr "Breddegrad"
+
+#: includes/class-retail-locations.php:604
+#: includes/class-retail-locations.php:710
+#: includes/class-retail-locations.php:730
+msgid "Longitude"
+msgstr "Lengdegrad"
+
+#: includes/class-retail-locations.php:609
+msgid "Links"
+msgstr "Lenker"
+
+#: includes/class-retail-locations.php:611
+msgid "Website URL"
+msgstr "Nettadresse"
+
+#: includes/class-retail-locations.php:615
+msgid "Instagram Handle"
+msgstr "Instagram-brukernavn"
+
+#: includes/class-retail-locations.php:617
+msgid "Enter with or without @"
+msgstr "Skriv med eller uten @"
+
+#: includes/class-retail-locations.php:620
+msgid "Contact Info"
+msgstr "Kontaktinformasjon"
+
+#: includes/class-retail-locations.php:624
+msgid "Label"
+msgstr "Etikett"
+
+#: includes/class-retail-locations.php:625
+msgid "Value"
+msgstr "Verdi"
+
+#: includes/class-retail-locations.php:626
+msgid "Link (optional)"
+msgstr "Lenke (valgfritt)"
+
+#: includes/class-retail-locations.php:631
+msgid "+ Add Contact"
+msgstr "+ Legg til kontakt"
+
+#: includes/class-retail-locations.php:633
+msgid "Business Hours"
+msgstr "Åpningstider"
+
+#: includes/class-retail-locations.php:637
+msgid "Day"
+msgstr "Dag"
+
+#: includes/class-retail-locations.php:638
+msgid "Open"
+msgstr "Åpner"
+
+#: includes/class-retail-locations.php:639
+msgid "Close"
+msgstr "Stenger"
+
+#: includes/class-retail-locations.php:644
+msgid "+ Add Hours"
+msgstr "+ Legg til åpningstid"
+
+#: includes/class-retail-locations.php:714
+#: includes/class-retail-locations.php:734
+msgid "Map Zoom"
+msgstr "Zoomnivå"
+
+#: includes/class-retail-locations.php:907
+#: includes/class-retail-locations.php:1020
+msgid "Other"
+msgstr "Andre"
+
+#: includes/class-retail-locations.php:988
+msgid "Click to focus map"
+msgstr "Klikk for å sentrere kartet"
+
+#: includes/class-retail-locations.php:1149
+msgid "Website"
+msgstr "Nettside"
+
+#: assets/js/blocks.js:17 assets/js/blocks.js:89
+msgid "Locations Map"
+msgstr "Kart over utsalgssteder"
+
+#: assets/js/blocks.js:36
+msgid "Map Settings"
+msgstr "Kartinnstillinger"
+
+#: assets/js/blocks.js:38 assets/js/blocks.js:129
+msgid "Category Slug"
+msgstr "Kategori-slug"
+
+#: assets/js/blocks.js:43
+msgid "Width"
+msgstr "Bredde"
+
+#: assets/js/blocks.js:48
+msgid "Height"
+msgstr "Høyde"
+
+#: assets/js/blocks.js:53
+msgid "Map Controls"
+msgstr "Kartkontroller"
+
+#: assets/js/blocks.js:58
+msgid "Scrollwheel Zoom"
+msgstr "Zoom med rullehjul"
+
+#: assets/js/blocks.js:63
+msgid "Mobile Draggable"
+msgstr "Flyttbar på mobil"
+
+#: assets/js/blocks.js:68
+msgid "Sticky Position"
+msgstr "Festet posisjon"
+
+#: assets/js/blocks.js:71
+msgid "Map stays fixed while scrolling the list"
+msgstr "Kartet holdes fast mens listen rulles"
+
+#: assets/js/blocks.js:102 assets/js/blocks.js:226
+msgid "Locations List"
+msgstr "Liste over utsalgssteder"
+
+#: assets/js/blocks.js:127
+msgid "List Settings"
+msgstr "Listeinnstillinger"
+
+#: assets/js/blocks.js:134
+msgid "Posts Per Page"
+msgstr "Antall per side"
+
+#: assets/js/blocks.js:137
+msgid "-1 for all posts"
+msgstr "-1 for alle"
+
+#: assets/js/blocks.js:140
+msgid "Layout"
+msgstr "Oppsett"
+
+#: assets/js/blocks.js:151
+msgid "Display Options"
+msgstr "Visningsalternativer"
+
+#: assets/js/blocks.js:153
+msgid "Show Image"
+msgstr "Vis bilde"
+
+#: assets/js/blocks.js:158
+msgid "Show Description"
+msgstr "Vis beskrivelse"
+
+#: assets/js/blocks.js:163
+msgid "Show Contact"
+msgstr "Vis kontaktinfo"
+
+#: assets/js/blocks.js:168
+msgid "Show Hours"
+msgstr "Vis åpningstider"
+
+#: assets/js/blocks.js:173
+msgid "Grouping"
+msgstr "Gruppering"
+
+#: assets/js/blocks.js:175
+msgid "Group by Area"
+msgstr "Grupper etter område"
+
+#: assets/js/blocks.js:183
+msgid "Group stores by geographic area"
+msgstr "Grupper utsalgssteder etter geografisk område"
+
+#: assets/js/blocks.js:186
+msgid "Group by Category"
+msgstr "Grupper etter kategori"
+
+#: assets/js/blocks.js:196
+msgid "Collapsible Groups"
+msgstr "Sammenleggbare grupper"
+
+#: assets/js/blocks.js:204
+msgid "Click group titles to expand/collapse"
+msgstr "Klikk på gruppetitler for å åpne/lukke"
+
+#: assets/js/blocks.js:207
+msgid "Exclusive Accordion"
+msgstr "Eksklusivt trekkspill"
+
+#: assets/js/blocks.js:210
+msgid "Only one group open at a time"
+msgstr "Bare én gruppe åpen om gangen"
+
+#: assets/js/blocks.js:228
+msgid "Grouped by Area"
+msgstr "Gruppert etter område"
+
+#: assets/js/blocks.js:229
+msgid "Grouped by Category"
+msgstr "Gruppert etter kategori"
+
+#: assets/js/blocks.js:230
+msgid "Layout: "
+msgstr "Oppsett: "

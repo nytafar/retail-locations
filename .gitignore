@@ -1,3 +1,4 @@
 *retail-locations.xml
 */*.DS_Store
 .DS_Store
+languages/*.l10n.php

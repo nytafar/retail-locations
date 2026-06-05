@@ -22,6 +22,7 @@ class Retail_Locations {
     }
 
     private function __construct() {
+        add_action( 'init', array( $this, 'load_textdomain' ) );
         add_action( 'init', array( $this, 'register_post_type' ) );
         add_action( 'init', array( $this, 'register_taxonomies' ) );
         add_action( 'init', array( $this, 'register_blocks' ) );
@@ -48,6 +49,10 @@ class Retail_Locations {
             add_action( 'created_location_area', array( $this, 'save_area_meta' ) );
             add_action( 'edited_location_area', array( $this, 'save_area_meta' ) );
         }
+    }
+
+    public function load_textdomain() {
+        load_plugin_textdomain( 'retail-locations', false, dirname( plugin_basename( RETAIL_LOCATIONS_FILE ) ) . '/languages' );
     }
 
     public function maybe_flush_rewrite() {
@@ -205,6 +210,16 @@ class Retail_Locations {
             'apiKey'          => $api_key,
             'mapId'           => $map_id,
             'showViewDetails' => apply_filters( 'retail_locations_show_view_details', true ),
+            // Strings used by the map info window — translated server-side so the
+            // script needs no separate JS translation files.
+            'i18n'            => array(
+                'getDirections'    => __( 'Get Directions', 'retail-locations' ),
+                'viewDetails'      => __( 'View Details', 'retail-locations' ),
+                'googleMaps'       => __( 'Google Maps', 'retail-locations' ),
+                'appleMaps'        => __( 'Apple Maps', 'retail-locations' ),
+                'openInGoogleMaps' => __( 'Open in Google Maps', 'retail-locations' ),
+                'openInAppleMaps'  => __( 'Open in Apple Maps', 'retail-locations' ),
+            ),
         ));
 
         wp_enqueue_style(
@@ -226,6 +241,9 @@ class Retail_Locations {
             file_exists( $js_file ) ? filemtime( $js_file ) : RETAIL_LOCATIONS_VERSION,
             true
         );
+
+        // Block editor labels translate via JSON in /languages (see make-json).
+        wp_set_script_translations( 'retail-locations-blocks', 'retail-locations', RETAIL_LOCATIONS_DIR . 'languages' );
 
         wp_enqueue_style(
             'retail-locations-blocks',
@@ -370,8 +388,8 @@ class Retail_Locations {
                     <div class="notice notice-success">
                         <p><strong><?php _e( 'Import successful!', 'retail-locations' ); ?></strong></p>
                         <ul style="list-style: disc; margin-left: 20px;">
-                            <li><?php printf( __( 'Categories imported: %d', 'retail-locations' ), $import_result['categories'] ); ?></li>
-                            <li><?php printf( __( 'Areas imported: %d', 'retail-locations' ), $import_result['areas'] ); ?></li>
+                            <li><?php /* translators: %d is the number of categories imported. */ printf( __( 'Categories imported: %d', 'retail-locations' ), $import_result['categories'] ); ?></li>
+                            <li><?php /* translators: %d is the number of areas imported. */ printf( __( 'Areas imported: %d', 'retail-locations' ), $import_result['areas'] ); ?></li>
                         </ul>
                     </div>
                 <?php else : ?>

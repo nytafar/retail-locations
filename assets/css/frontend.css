@@ -42,6 +42,51 @@
 }
 
 /* ==========================================================================
+   Map Pins (per-category)
+   Coloured via currentColor; the colours read from the theme's brand custom
+   properties when present, with standalone fallbacks.
+   ========================================================================== */
+
+.retail-locations-pin {
+    color: var(--color-brown-400, #6b5a47);
+    line-height: 0;
+    cursor: pointer;
+}
+
+.retail-locations-pin--store {
+    color: var(--color-terracotta, #c0532f);
+}
+
+.retail-locations-pin--cafe {
+    color: var(--color-brown-700, #5a3a22);
+}
+
+.retail-locations-pin .pin-svg {
+    display: block;
+    filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.35));
+    transition: transform 0.12s ease;
+}
+
+.retail-locations-pin:hover .pin-svg {
+    transform: scale(1.08);
+}
+
+.retail-locations-pin .pin-body {
+    fill: currentColor;
+    stroke: var(--color-brown-900, #2a160b);
+    stroke-width: 1;
+}
+
+.retail-locations-pin .pin-glyph {
+    stroke: var(--color-cream-100, #fff);
+}
+
+.retail-locations-pin .pin-glyph--dot {
+    fill: var(--color-cream-100, #fff);
+    stroke: none;
+}
+
+/* ==========================================================================
    Info Window (Map Markers)
    ========================================================================== */
 

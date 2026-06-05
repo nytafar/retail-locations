@@ -764,10 +764,12 @@ class Retail_Locations {
             if ( $lat && $lng ) {
                 $categories = get_the_terms( get_the_ID(), 'location_category' );
                 $cat_names = array();
+                $cat_slugs = array();
                 if ( $categories && ! is_wp_error( $categories ) ) {
                     $cat_names = array_values( wp_list_pluck( $categories, 'name' ) );
+                    $cat_slugs = array_values( wp_list_pluck( $categories, 'slug' ) );
                 }
-                
+
                 $hours = get_post_meta( get_the_ID(), '_location_hours', true );
                 if ( ! is_array( $hours ) ) {
                     $hours = array();
@@ -783,6 +785,7 @@ class Retail_Locations {
                     'address'    => get_post_meta( get_the_ID(), '_location_address', true ),
                     'link'       => get_permalink(),
                     'categories' => $cat_names,
+                    'categorySlugs' => $cat_slugs,
                     'hours'      => $hours,
                 );
             }

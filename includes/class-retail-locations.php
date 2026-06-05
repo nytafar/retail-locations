@@ -69,7 +69,9 @@ class Retail_Locations {
     }
 
     public function redirect_single_pages() {
-        if ( is_singular( $this->post_type ) ) {
+        // Keep single pages for locations that actually have details to show;
+        // send detail-less ones home so there's no empty page behind a link.
+        if ( is_singular( $this->post_type ) && ! $this->location_has_details( get_queried_object_id() ) ) {
             wp_redirect( home_url(), 301 );
             exit;
         }
@@ -804,6 +806,7 @@ class Retail_Locations {
                     'link'       => get_permalink(),
                     'categories' => $cat_names,
                     'categorySlugs' => $cat_slugs,
+                    'hasDetails' => $this->location_has_details( get_the_ID() ),
                     'hours'      => $hours,
                 );
             }
@@ -1206,6 +1209,17 @@ class Retail_Locations {
             </div>
         </article>
         <?php
+    }
+
+    /**
+     * Whether a location has details worth a "View Details" link — i.e. a
+     * single-page body. Filterable so a theme can broaden what counts.
+     */
+    public function location_has_details( $post_id ) {
+        $content = (string) get_post_field( 'post_content', $post_id );
+        $has     = '' !== trim( wp_strip_all_tags( $content ) );
+
+        return (bool) apply_filters( 'retail_locations_has_details', $has, $post_id );
     }
 
     public static function get_api_key() {

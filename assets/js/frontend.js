@@ -217,9 +217,11 @@
                 '</a>' +
                 '</div>';
 
-            // Check if View Details should be shown
-            var showViewDetails = retailLocations.showViewDetails !== false;
-            var viewDetailsLink = (showViewDetails && data.link) ? ' <a href="' + data.link + '" class="retail-locations-info-link-secondary" style="margin-left:8px;font-size:0.9em;">' + (t.viewDetails || 'View Details') + '</a>' : '';
+            // View Details only when the location actually has details (a
+            // single-page body) and the global toggle is on. Note: wp_localize_script
+            // casts booleans to strings ("1"/""), so test truthiness, not !== false.
+            var showViewDetails = !!retailLocations.showViewDetails && retailLocations.showViewDetails !== '0';
+            var viewDetailsLink = (showViewDetails && data.hasDetails && data.link) ? ' <a href="' + data.link + '" class="retail-locations-info-link-secondary" style="margin-left:8px;font-size:0.9em;">' + (t.viewDetails || 'View Details') + '</a>' : '';
 
             var infoContent = '<div class="retail-locations-info">' +
                 '<h4>' + data.title + '</h4>' +

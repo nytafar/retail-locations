@@ -202,18 +202,17 @@
             // Translatable strings (provided via wp_localize_script), with
             // English fallbacks if the localized data is ever missing.
             var t = retailLocations.i18n || {};
-            var txtGoogle = t.googleMaps || 'Google Maps';
-            var txtApple = t.appleMaps || 'Apple Maps';
 
-            // Map icons HTML
+            // Map links: "Kart: (icon) Google  (icon) Apple"
             var mapIconsHtml = '<div class="retail-locations-info-map-links">' +
+                '<span class="retail-locations-info-map-label">' + (t.mapLabel || 'Map:') + '</span>' +
                 '<a href="' + googleMapsUrl + '" class="retail-locations-info-map-icon" target="_blank" rel="noopener noreferrer" aria-label="' + (t.openInGoogleMaps || 'Open in Google Maps') + '">' +
                 '<svg class="retail-locations-icon retail-locations-icon--google-maps" width="1em" height="1em" aria-hidden="true"><use href="#retail-icon-google-maps"></use></svg>' +
-                '<span>' + txtGoogle + '</span>' +
+                '<span>Google</span>' +
                 '</a>' +
                 '<a href="' + appleMapsUrl + '" class="retail-locations-info-map-icon" target="_blank" rel="noopener noreferrer" aria-label="' + (t.openInAppleMaps || 'Open in Apple Maps') + '">' +
                 '<svg class="retail-locations-icon retail-locations-icon--apple" width="1em" height="1em" aria-hidden="true"><use href="#retail-icon-apple"></use></svg>' +
-                '<span>' + txtApple + '</span>' +
+                '<span>Apple</span>' +
                 '</a>' +
                 '</div>';
 

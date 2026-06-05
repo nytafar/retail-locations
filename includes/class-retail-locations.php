@@ -217,8 +217,7 @@ class Retail_Locations {
             'i18n'            => array(
                 'getDirections'    => __( 'Get Directions', 'retail-locations' ),
                 'viewDetails'      => __( 'View Details', 'retail-locations' ),
-                'googleMaps'       => __( 'Google Maps', 'retail-locations' ),
-                'appleMaps'        => __( 'Apple Maps', 'retail-locations' ),
+                'mapLabel'         => __( 'Map:', 'retail-locations' ),
                 'openInGoogleMaps' => __( 'Open in Google Maps', 'retail-locations' ),
                 'openInAppleMaps'  => __( 'Open in Apple Maps', 'retail-locations' ),
             ),

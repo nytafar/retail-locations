@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Retail Locations\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/retail-locations\n"
-"POT-Creation-Date: 2026-06-05T21:00:38+00:00\n"
+"POT-Creation-Date: 2026-06-05T22:43:24+00:00\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -10,8 +10,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Plugin Name of the plugin
-#: retail-locations.php includes/class-retail-locations.php:83
-#: includes/class-retail-locations.php:85
+#: retail-locations.php includes/class-retail-locations.php:85
+#: includes/class-retail-locations.php:87
 msgid "Retail Locations"
 msgstr "Utsalgssteder"
 
@@ -37,155 +37,151 @@ msgstr ""
 msgid "https://jellum.net"
 msgstr ""
 
-#: includes/class-retail-locations.php:84
+#: includes/class-retail-locations.php:86
 msgid "Location"
 msgstr "Utsalgssted"
 
-#: includes/class-retail-locations.php:86
+#: includes/class-retail-locations.php:88
 msgid "Add New"
 msgstr "Legg til ny"
 
-#: includes/class-retail-locations.php:87
+#: includes/class-retail-locations.php:89
 msgid "Add New Location"
 msgstr "Legg til nytt utsalgssted"
 
-#: includes/class-retail-locations.php:88
+#: includes/class-retail-locations.php:90
 msgid "Edit Location"
 msgstr "Rediger utsalgssted"
 
-#: includes/class-retail-locations.php:89
+#: includes/class-retail-locations.php:91
 msgid "New Location"
 msgstr "Nytt utsalgssted"
 
-#: includes/class-retail-locations.php:90
+#: includes/class-retail-locations.php:92
 msgid "View Location"
 msgstr "Vis utsalgssted"
 
-#: includes/class-retail-locations.php:91
+#: includes/class-retail-locations.php:93
 msgid "All Locations"
 msgstr "Alle utsalgssteder"
 
-#: includes/class-retail-locations.php:92
+#: includes/class-retail-locations.php:94
 msgid "Search Locations"
 msgstr "Søk i utsalgssteder"
 
-#: includes/class-retail-locations.php:93
+#: includes/class-retail-locations.php:95
 msgid "No locations found."
 msgstr "Ingen utsalgssteder funnet."
 
-#: includes/class-retail-locations.php:94
+#: includes/class-retail-locations.php:96
 msgid "No locations found in Trash."
 msgstr "Ingen utsalgssteder i papirkurven."
 
-#: includes/class-retail-locations.php:112
+#: includes/class-retail-locations.php:114
 msgid "Categories"
 msgstr "Kategorier"
 
-#: includes/class-retail-locations.php:113
+#: includes/class-retail-locations.php:115
 msgid "Category"
 msgstr "Kategori"
 
-#: includes/class-retail-locations.php:114
+#: includes/class-retail-locations.php:116
 msgid "Search Categories"
 msgstr "Søk i kategorier"
 
-#: includes/class-retail-locations.php:115
+#: includes/class-retail-locations.php:117
 msgid "All Categories"
 msgstr "Alle kategorier"
 
-#: includes/class-retail-locations.php:116
+#: includes/class-retail-locations.php:118
 msgid "Edit Category"
 msgstr "Rediger kategori"
 
-#: includes/class-retail-locations.php:117
+#: includes/class-retail-locations.php:119
 msgid "Add New Category"
 msgstr "Legg til ny kategori"
 
-#: includes/class-retail-locations.php:127
+#: includes/class-retail-locations.php:129
 msgid "Areas"
 msgstr "Områder"
 
-#: includes/class-retail-locations.php:128
+#: includes/class-retail-locations.php:130
 msgid "Area"
 msgstr "Område"
 
-#: includes/class-retail-locations.php:129
+#: includes/class-retail-locations.php:131
 msgid "Search Areas"
 msgstr "Søk i områder"
 
-#: includes/class-retail-locations.php:130
+#: includes/class-retail-locations.php:132
 msgid "All Areas"
 msgstr "Alle områder"
 
-#: includes/class-retail-locations.php:131
+#: includes/class-retail-locations.php:133
 msgid "Edit Area"
 msgstr "Rediger område"
 
-#: includes/class-retail-locations.php:132
+#: includes/class-retail-locations.php:134
 msgid "Add New Area"
 msgstr "Legg til nytt område"
 
-#: includes/class-retail-locations.php:216
+#: includes/class-retail-locations.php:218
 msgid "Get Directions"
 msgstr "Veibeskrivelse"
 
-#: includes/class-retail-locations.php:217
+#: includes/class-retail-locations.php:219
 msgid "View Details"
 msgstr "Vis detaljer"
 
-#: includes/class-retail-locations.php:218
-msgid "Google Maps"
-msgstr "Google Maps"
-
-#: includes/class-retail-locations.php:219
-msgid "Apple Maps"
-msgstr "Apple Maps"
-
 #: includes/class-retail-locations.php:220
-#: includes/class-retail-locations.php:1139
+msgid "Map:"
+msgstr "Kart:"
+
+#: includes/class-retail-locations.php:221
+#: includes/class-retail-locations.php:1144
 msgid "Open in Google Maps"
 msgstr "Åpne i Google Maps"
 
-#: includes/class-retail-locations.php:221
-#: includes/class-retail-locations.php:1142
+#: includes/class-retail-locations.php:222
+#: includes/class-retail-locations.php:1147
 msgid "Open in Apple Maps"
 msgstr "Åpne i Apple Maps"
 
-#: includes/class-retail-locations.php:290
-#: includes/class-retail-locations.php:291
+#: includes/class-retail-locations.php:294
+#: includes/class-retail-locations.php:295
 msgid "Settings"
 msgstr "Innstillinger"
 
-#: includes/class-retail-locations.php:299
-#: includes/class-retail-locations.php:356
+#: includes/class-retail-locations.php:303
+#: includes/class-retail-locations.php:360
 msgid "Export Taxonomies"
 msgstr "Eksporter taksonomier"
 
-#: includes/class-retail-locations.php:300
+#: includes/class-retail-locations.php:304
 msgid "Export"
 msgstr "Eksporter"
 
-#: includes/class-retail-locations.php:315
+#: includes/class-retail-locations.php:319
 msgid "Retail Locations Settings"
 msgstr "Innstillinger for utsalgssteder"
 
-#: includes/class-retail-locations.php:320
+#: includes/class-retail-locations.php:324
 msgid "Google Maps API Key"
 msgstr "Google Maps API-nøkkel"
 
-#: includes/class-retail-locations.php:323
+#: includes/class-retail-locations.php:327
 msgid "Enter your Google Maps API key."
 msgstr "Skriv inn din Google Maps API-nøkkel."
 
-#: includes/class-retail-locations.php:327
+#: includes/class-retail-locations.php:331
 msgid "URL Slug"
 msgstr "URL-slug"
 
-#: includes/class-retail-locations.php:330
+#: includes/class-retail-locations.php:334
 msgid "The URL slug for locations (default: location)."
 msgstr "URL-slug for utsalgssteder (standard: location)."
 
-#: includes/class-retail-locations.php:357
+#: includes/class-retail-locations.php:361
 msgid ""
 "Export your location categories and areas to a JSON file for backup or "
 "migration to another site."
@@ -193,23 +189,23 @@ msgstr ""
 "Eksporter kategorier og områder til en JSON-fil for sikkerhetskopi eller "
 "flytting til et annet nettsted."
 
-#: includes/class-retail-locations.php:364
+#: includes/class-retail-locations.php:368
 msgid "Export Data"
 msgstr "Eksporter data"
 
-#: includes/class-retail-locations.php:366
+#: includes/class-retail-locations.php:370
 msgid "This will export:"
 msgstr "Dette eksporterer:"
 
-#: includes/class-retail-locations.php:368
+#: includes/class-retail-locations.php:372
 msgid "All location categories with hierarchy"
 msgstr "Alle kategorier med hierarki"
 
-#: includes/class-retail-locations.php:369
+#: includes/class-retail-locations.php:373
 msgid "All location areas with coordinates and zoom levels"
 msgstr "Alle områder med koordinater og zoomnivåer"
 
-#: includes/class-retail-locations.php:371
+#: includes/class-retail-locations.php:375
 msgid ""
 "Note: This exports taxonomy terms only. Use WordPress's built-in export for "
 "location posts."
@@ -217,151 +213,151 @@ msgstr ""
 "Merk: Dette eksporterer kun taksonomitermer. Bruk WordPress' innebygde "
 "eksport for selve utsalgsstedene."
 
-#: includes/class-retail-locations.php:376
+#: includes/class-retail-locations.php:380
 msgid "Download Export File"
 msgstr "Last ned eksportfil"
 
-#: includes/class-retail-locations.php:381
-#: includes/class-retail-locations.php:414
+#: includes/class-retail-locations.php:385
+#: includes/class-retail-locations.php:418
 msgid "Import Taxonomies"
 msgstr "Importer taksonomier"
 
-#: includes/class-retail-locations.php:386
+#: includes/class-retail-locations.php:390
 msgid "Import successful!"
 msgstr "Import fullført!"
 
 #. translators: %d is the number of categories imported.
-#: includes/class-retail-locations.php:388
+#: includes/class-retail-locations.php:392
 #, php-format
 msgid "Categories imported: %d"
 msgstr "Kategorier importert: %d"
 
 #. translators: %d is the number of areas imported.
-#: includes/class-retail-locations.php:389
+#: includes/class-retail-locations.php:393
 #, php-format
 msgid "Areas imported: %d"
 msgstr "Områder importert: %d"
 
-#: includes/class-retail-locations.php:394
+#: includes/class-retail-locations.php:398
 msgid "Import failed:"
 msgstr "Import mislyktes:"
 
-#: includes/class-retail-locations.php:399
+#: includes/class-retail-locations.php:403
 msgid "Upload a JSON file exported from another Retail Locations installation."
 msgstr ""
 "Last opp en JSON-fil eksportert fra en annen Utsalgssteder-installasjon."
 
-#: includes/class-retail-locations.php:406
+#: includes/class-retail-locations.php:410
 msgid "Import File"
 msgstr "Importfil"
 
-#: includes/class-retail-locations.php:409
+#: includes/class-retail-locations.php:413
 msgid "Select a JSON file exported from Retail Locations."
 msgstr "Velg en JSON-fil eksportert fra Utsalgssteder."
 
-#: includes/class-retail-locations.php:425
+#: includes/class-retail-locations.php:429
 msgid "No file uploaded or upload error occurred."
 msgstr "Ingen fil ble lastet opp, eller det oppstod en feil under opplasting."
 
-#: includes/class-retail-locations.php:434
+#: includes/class-retail-locations.php:438
 msgid "Invalid JSON file."
 msgstr "Ugyldig JSON-fil."
 
-#: includes/class-retail-locations.php:440
+#: includes/class-retail-locations.php:444
 msgid "Invalid export file format."
 msgstr "Ugyldig eksportfilformat."
 
-#: includes/class-retail-locations.php:575
+#: includes/class-retail-locations.php:579
 msgid "Location Details"
 msgstr "Detaljer for utsalgssted"
 
-#: includes/class-retail-locations.php:596
+#: includes/class-retail-locations.php:600
 msgid "Address"
 msgstr "Adresse"
-
-#: includes/class-retail-locations.php:600
-#: includes/class-retail-locations.php:706
-#: includes/class-retail-locations.php:726
-msgid "Latitude"
-msgstr "Breddegrad"
 
 #: includes/class-retail-locations.php:604
 #: includes/class-retail-locations.php:710
 #: includes/class-retail-locations.php:730
+msgid "Latitude"
+msgstr "Breddegrad"
+
+#: includes/class-retail-locations.php:608
+#: includes/class-retail-locations.php:714
+#: includes/class-retail-locations.php:734
 msgid "Longitude"
 msgstr "Lengdegrad"
 
-#: includes/class-retail-locations.php:609
+#: includes/class-retail-locations.php:613
 msgid "Links"
 msgstr "Lenker"
 
-#: includes/class-retail-locations.php:611
+#: includes/class-retail-locations.php:615
 msgid "Website URL"
 msgstr "Nettadresse"
 
-#: includes/class-retail-locations.php:615
+#: includes/class-retail-locations.php:619
 msgid "Instagram Handle"
 msgstr "Instagram-brukernavn"
 
-#: includes/class-retail-locations.php:617
+#: includes/class-retail-locations.php:621
 msgid "Enter with or without @"
 msgstr "Skriv med eller uten @"
 
-#: includes/class-retail-locations.php:620
+#: includes/class-retail-locations.php:624
 msgid "Contact Info"
 msgstr "Kontaktinformasjon"
 
-#: includes/class-retail-locations.php:624
+#: includes/class-retail-locations.php:628
 msgid "Label"
 msgstr "Etikett"
 
-#: includes/class-retail-locations.php:625
+#: includes/class-retail-locations.php:629
 msgid "Value"
 msgstr "Verdi"
 
-#: includes/class-retail-locations.php:626
+#: includes/class-retail-locations.php:630
 msgid "Link (optional)"
 msgstr "Lenke (valgfritt)"
 
-#: includes/class-retail-locations.php:631
+#: includes/class-retail-locations.php:635
 msgid "+ Add Contact"
 msgstr "+ Legg til kontakt"
 
-#: includes/class-retail-locations.php:633
+#: includes/class-retail-locations.php:637
 msgid "Business Hours"
 msgstr "Åpningstider"
 
-#: includes/class-retail-locations.php:637
+#: includes/class-retail-locations.php:641
 msgid "Day"
 msgstr "Dag"
 
-#: includes/class-retail-locations.php:638
+#: includes/class-retail-locations.php:642
 msgid "Open"
 msgstr "Åpner"
 
-#: includes/class-retail-locations.php:639
+#: includes/class-retail-locations.php:643
 msgid "Close"
 msgstr "Stenger"
 
-#: includes/class-retail-locations.php:644
+#: includes/class-retail-locations.php:648
 msgid "+ Add Hours"
 msgstr "+ Legg til åpningstid"
 
-#: includes/class-retail-locations.php:714
-#: includes/class-retail-locations.php:734
+#: includes/class-retail-locations.php:718
+#: includes/class-retail-locations.php:738
 msgid "Map Zoom"
 msgstr "Zoomnivå"
 
-#: includes/class-retail-locations.php:907
-#: includes/class-retail-locations.php:1020
+#: includes/class-retail-locations.php:912
+#: includes/class-retail-locations.php:1025
 msgid "Other"
 msgstr "Andre"
 
-#: includes/class-retail-locations.php:988
+#: includes/class-retail-locations.php:993
 msgid "Click to focus map"
 msgstr "Klikk for å sentrere kartet"
 
-#: includes/class-retail-locations.php:1149
+#: includes/class-retail-locations.php:1154
 msgid "Website"
 msgstr "Nettside"
 
@@ -488,3 +484,9 @@ msgstr "Gruppert etter kategori"
 #: assets/js/blocks.js:230
 msgid "Layout: "
 msgstr "Oppsett: "
+
+#~ msgid "Google Maps"
+#~ msgstr "Google Maps"
+
+#~ msgid "Apple Maps"
+#~ msgstr "Apple Maps"

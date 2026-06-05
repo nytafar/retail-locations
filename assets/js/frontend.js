@@ -110,13 +110,16 @@
             }
         },
 
-        // Resolve a location's categories to a pin type. This is a retail page,
-        // so a store (Butikk) wins when a place is both; café next; otherwise
-        // a neutral pin. Matches on slug so it survives label/translation edits.
+        // Resolve a location's categories to a pin type. A place tagged as both
+        // a store (Butikk) and a café (Kafé) is special and gets its own pin.
+        // Matches on slug so it survives label/translation edits.
         pinType: function (slugs) {
             slugs = slugs || [];
-            if (slugs.indexOf('butikk') !== -1) return 'store';
-            if (slugs.indexOf('kafe') !== -1) return 'cafe';
+            var isStore = slugs.indexOf('butikk') !== -1;
+            var isCafe = slugs.indexOf('kafe') !== -1;
+            if (isStore && isCafe) return 'both';
+            if (isStore) return 'store';
+            if (isCafe) return 'cafe';
             return 'default';
         },
 
@@ -125,19 +128,30 @@
         // theme's brand custom properties, with standalone fallbacks.
         buildPin: function (slugs) {
             var type = this.pinType(slugs);
-            var glyph = {
-                store: '<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>',
-                cafe: '<path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>'
-            }[type] || '';
+            var BAG = '<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>';
+            var CUP = '<path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>';
+            var STROKE = ' fill="none" stroke-linecap="round" stroke-linejoin="round"';
+            var inner;
+
+            if (type === 'both') {
+                // Both glyphs side by side, a touch smaller, in one larger pin.
+                inner = '<g class="pin-glyph" stroke-width="3"' + STROKE + '>' +
+                    '<g transform="translate(4.4 7.4) scale(0.3)">' + BAG + '</g>' +
+                    '<g transform="translate(12.4 7.4) scale(0.3)">' + CUP + '</g>' +
+                    '</g>';
+            } else if (type === 'store' || type === 'cafe') {
+                inner = '<g class="pin-glyph" transform="translate(5.5 5.5) scale(0.54)" stroke-width="2.2"' + STROKE + '>' +
+                    (type === 'store' ? BAG : CUP) + '</g>';
+            } else {
+                inner = '<circle class="pin-glyph pin-glyph--dot" cx="12" cy="12" r="3.4"/>';
+            }
 
             var el = document.createElement('div');
             el.className = 'retail-locations-pin retail-locations-pin--' + type;
             el.innerHTML =
                 '<svg class="pin-svg" viewBox="0 0 24 34" width="30" height="42" aria-hidden="true">' +
                 '<path class="pin-body" d="M12 1C5.9 1 1 5.9 1 12c0 7.7 11 21 11 21s11-13.3 11-21C23 5.9 18.1 1 12 1Z"/>' +
-                (glyph
-                    ? '<g class="pin-glyph" transform="translate(5.5 5.5) scale(0.54)" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' + glyph + '</g>'
-                    : '<circle class="pin-glyph pin-glyph--dot" cx="12" cy="12" r="3.4"/>') +
+                inner +
                 '</svg>';
             return el;
         },

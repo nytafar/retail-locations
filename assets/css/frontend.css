@@ -61,6 +61,17 @@
     color: var(--color-brown-700, #5a3a22);
 }
 
+/* Both a shop and a café — a destination. Distinct gold, larger, lifted. */
+.retail-locations-pin--both {
+    color: var(--color-gold, hsl(38, 56%, 44%));
+    z-index: 1;
+}
+
+.retail-locations-pin--both .pin-svg {
+    width: 38px;
+    height: 53px;
+}
+
 .retail-locations-pin .pin-svg {
     display: block;
     filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.35));

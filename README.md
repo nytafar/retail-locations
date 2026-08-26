@@ -39,7 +39,7 @@ Most store locator plugins are overcomplicated, slow, or designed for enterprise
 
 ### 🎨 Display Options
 - **Gutenberg Blocks** - Locations Map and Locations List blocks with live preview
-- **Shortcodes** - `[tsl_map]` and `[tsl_stores]` for classic editor
+- **Shortcodes** - `[retail_locations_map]` and `[retail_locations]` for classic editor
 - **Layout Options** - Full width, 2-column, 3-column, or 4-column grids
 - **Sticky Maps** - Keep map visible while scrolling through location list
 - **Grouped Display** - Group by category or area with collapsible sections
@@ -82,15 +82,15 @@ Most store locator plugins are overcomplicated, slow, or designed for enterprise
 
 **Using Shortcodes:**
 ```
-[tsl_map height="600px" category="cafes"]
-[tsl_stores layout="grid3" group_by_area="yes"]
+[retail_locations_map height="600px" category="cafes"]
+[retail_locations layout="grid3" group_by_area="yes"]
 ```
 
 ## Shortcode Reference
 
 ### Map Shortcode
 ```
-[tsl_map 
+[retail_locations_map 
     category=""           // Filter by category slug
     width="100%"          // Map width
     height="500px"        // Map height
@@ -103,7 +103,7 @@ Most store locator plugins are overcomplicated, slow, or designed for enterprise
 
 ### Stores List Shortcode
 ```
-[tsl_stores 
+[retail_locations 
     category=""              // Filter by category slug
     posts_per_page="-1"      // Number of locations (-1 = all)
     layout="fullwidth"       // fullwidth, grid2, grid3, grid4

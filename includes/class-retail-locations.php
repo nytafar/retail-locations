@@ -187,9 +187,14 @@ class Retail_Locations {
         $js_file = RETAIL_LOCATIONS_DIR . 'assets/js/frontend.js';
         $css_file = RETAIL_LOCATIONS_DIR . 'assets/css/frontend.css';
 
-        // Use DEMO_MAP_ID for AdvancedMarkerElement if no custom style ID is maintained.
-        // In production, user should generate one. For now this enables the feature.
-        $map_id = get_option( 'retail_locations_map_id', 'DEMO_MAP_ID' );
+        // Map ID for AdvancedMarkerElement. Configurable under
+        // Settings → Retail Locations. A blank value (including an admin who
+        // saves the settings form without entering one) falls back to Google's
+        // rate-limited DEMO_MAP_ID so the map still works out of the box.
+        $map_id = get_option( 'retail_locations_map_id' );
+        if ( empty( $map_id ) ) {
+            $map_id = 'DEMO_MAP_ID';
+        }
 
         wp_enqueue_script(
             'google-maps',
@@ -311,6 +316,7 @@ class Retail_Locations {
     public function register_settings() {
         register_setting( 'retail_locations', 'retail_locations_api_key' );
         register_setting( 'retail_locations', 'retail_locations_slug' );
+        register_setting( 'retail_locations', 'retail_locations_map_id' );
     }
 
     public function settings_page() {
@@ -332,6 +338,13 @@ class Retail_Locations {
                         <td>
                             <input type="text" id="retail_locations_slug" name="retail_locations_slug" value="<?php echo esc_attr( get_option( 'retail_locations_slug', 'location' ) ); ?>" class="regular-text" />
                             <p class="description"><?php _e( 'The URL slug for locations (default: location).', 'retail-locations' ); ?></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="retail_locations_map_id"><?php _e( 'Google Maps Map ID', 'retail-locations' ); ?></label></th>
+                        <td>
+                            <input type="text" id="retail_locations_map_id" name="retail_locations_map_id" value="<?php echo esc_attr( get_option( 'retail_locations_map_id', '' ) ); ?>" class="regular-text" />
+                            <p class="description"><?php _e( 'Google Cloud Map ID for Advanced Markers and custom map styling. Leave blank to use Google\'s rate-limited DEMO_MAP_ID.', 'retail-locations' ); ?></p>
                         </td>
                     </tr>
                 </table>

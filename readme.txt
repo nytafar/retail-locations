@@ -4,7 +4,7 @@ Tags: store locator, google maps, locations, stores, map
 Requires at least: 6.0
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 2.2.1
+Stable tag: 2.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,7 +49,7 @@ Most store locator plugins are overcomplicated, slow, or designed for enterprise
 
 **Display Options**
 * Gutenberg Blocks - Locations Map and Locations List blocks with live preview
-* Shortcodes - `[tsl_map]` and `[tsl_stores]` for classic editor
+* Shortcodes - `[retail_locations_map]` and `[retail_locations]` for classic editor
 * Layout Options - Full width, 2-column, 3-column, or 4-column grids
 * Sticky Maps - Keep map visible while scrolling through location list
 * Grouped Display - Group by category or area with collapsible sections
@@ -117,7 +117,7 @@ Yes. Use the Areas taxonomy to create geographic regions, then use `group_by_are
 
 = How do I make the map sticky? =
 
-In the Gutenberg block, enable "Sticky Position" in the Map Settings panel. For shortcodes, add `sticky="yes"` to the `[tsl_map]` shortcode.
+In the Gutenberg block, enable "Sticky Position" in the Map Settings panel. For shortcodes, add `sticky="yes"` to the `[retail_locations_map]` shortcode.
 
 = Can I filter locations by category? =
 
@@ -173,19 +173,19 @@ Major update with new Gutenberg blocks, sticky maps, and improved UX.
 == Shortcode Examples ==
 
 **Basic Map:**
-`[tsl_map]`
+`[retail_locations_map]`
 
 **Filtered Map with Custom Height:**
-`[tsl_map category="cafes" height="600px"]`
+`[retail_locations_map category="cafes" height="600px"]`
 
 **Sticky Map:**
-`[tsl_map sticky="yes" height="80vh"]`
+`[retail_locations_map sticky="yes" height="80vh"]`
 
 **Store List Grouped by Area:**
-`[tsl_stores group_by_area="yes" layout="grid2"]`
+`[retail_locations group_by_area="yes" layout="grid2"]`
 
 **Filtered Grid Layout:**
-`[tsl_stores category="retail" layout="grid3" show_hours="no"]`
+`[retail_locations category="retail" layout="grid3" show_hours="no"]`
 
 == Support ==
 

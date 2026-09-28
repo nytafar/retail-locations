@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Retail Locations
- * Plugin URI: https://jellum.net/retail-locations
+ * Plugin URI: https://github.com/nytafar/retail-locations
  * Description: Display retail locations on a Google Map with filtering by category and area.
  * Version: 2.2.2
  * Author: Lasse Jellum
@@ -10,7 +10,7 @@
  * Domain Path: /languages
  * Requires at least: 6.0
  * Requires PHP: 7.4
- * License: GPL v2 or later
+ * License: GPL-2.0-or-later
  */
 
 if (!defined('ABSPATH')) {

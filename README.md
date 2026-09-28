@@ -2,6 +2,8 @@
 
 **A minimal, business-focused WordPress plugin for real store locators.**
 
+## Description
+
 Retail Locations is a clean, professional store locator plugin designed for businesses that need to display their physical locations on an interactive Google Map. Built with simplicity and performance in mind, it provides all the essential features without bloat.
 
 ## Why Retail Locations?
@@ -59,6 +61,14 @@ Most store locator plugins are overcomplicated, slow, or designed for enterprise
 4. Add your Google Maps API Key ([Get one here](https://developers.google.com/maps/documentation/javascript/get-api-key))
 5. Enable the **Geocoding API** in your Google Cloud Console
 6. Start adding locations!
+
+### Google Maps API Setup
+
+1. Visit [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select an existing one
+3. Enable these APIs: Maps JavaScript API and Geocoding API
+4. Create credentials (API Key)
+5. Copy the API key to plugin settings
 
 ## Quick Start
 
@@ -158,11 +168,41 @@ Yes. The plugin uses standard WordPress classes and can be styled with custom CS
 **Is it translation-ready?**
 Yes. The plugin uses the `retail-locations` text domain and is fully translatable.
 
+**Can I group locations by region?**
+Yes. Use the Areas taxonomy to create geographic regions, then use `group_by_area="yes"` in the shortcode or enable it in the block settings.
+
+**How do I make the map sticky?**
+In the Gutenberg block, enable "Sticky Position" in the Map Settings panel. For shortcodes, add `sticky="yes"` to the `[retail_locations_map]` shortcode.
+
+**Can I filter locations by category?**
+Yes. Add `category="your-category-slug"` to either the map or stores shortcode/block.
+
+## Screenshots
+
+1. Location edit screen with map preview and geocoding
+2. Locations Map block in Gutenberg editor
+3. Locations List block with layout options
+4. Frontend display with sticky map and grouped locations
+5. Mobile-responsive location list
+6. Settings page with Google Maps API configuration
+
+## Upgrade Notice
+
+### 2.0.0
+
+Major update with new Gutenberg blocks, sticky maps, and improved UX.
+
 ## Support
 
 For support, documentation, and updates:
 - Website: [https://jellum.net/retail-locations](https://jellum.net/retail-locations)
-- GitHub: [Report issues and contribute](https://github.com/yourusername/retail-locations)
+- GitHub: [Report issues and contribute](https://github.com/nytafar/retail-locations)
+
+## Releasing
+
+Suite kit: https://github.com/nytafar/kaupang-docs/tree/main/kit. The header `Version:` is the only version source; the
+pre-commit hook syncs `RETAIL_LOCATIONS_VERSION` and regenerates readme.txt (never edit it). Add lines under
+`## [Unreleased]` in CHANGELOG.md, then release with `sudo -u myrvann tools/release patch|minor|major [--push]`.
 
 ## Credits
 

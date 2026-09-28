@@ -2,6 +2,16 @@
  * Retail Locations - Admin Styles
  */
 
+/* Colours: a Harmonize Admin Themes role (--hat-*, defined on body) first,
+   plain wp-admin as the fallback. */
+body {
+    --rl-line: var(--hat-border, #ddd);
+    --rl-line-soft: var(--hat-border, #eee);
+    --rl-placeholder: var(--hat-surface-alt, #f0f0f0);
+    --rl-danger: var(--hat-danger, #a00);
+    --rl-danger-ink: var(--hat-surface, #fff);
+}
+
 .retail-location-meta {
     padding: 10px 0;
 }
@@ -18,7 +28,8 @@
 }
 
 #location-map-preview {
-    border: 1px solid #ddd;
+    background: var(--rl-placeholder);
+    border: 1px solid var(--rl-line);
     border-radius: 4px;
 }
 
@@ -39,14 +50,14 @@
 .contact-row .remove-row,
 .hours-row .remove-row {
     flex: 0 0 auto;
-    color: #a00;
-    border-color: #a00;
+    color: var(--rl-danger);
+    border-color: var(--rl-danger);
 }
 
 .contact-row .remove-row:hover,
 .hours-row .remove-row:hover {
-    background: #a00;
-    color: #fff;
+    background: var(--rl-danger);
+    color: var(--rl-danger-ink);
 }
 
 #add-contact,
@@ -59,7 +70,7 @@
 .retail-location-meta h4 {
     margin: 20px 0 10px;
     padding-top: 15px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--rl-line-soft);
 }
 
 .retail-location-meta h4:first-of-type {

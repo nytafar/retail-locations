@@ -621,7 +621,7 @@ class Retail_Locations {
                 <label for="location_lng"><strong><?php _e( 'Longitude', 'retail-locations' ); ?></strong></label><br>
                 <input type="text" id="location_lng" name="location_lng" value="<?php echo esc_attr( $lng ); ?>" class="regular-text" />
             </p>
-            <div id="location-map-preview" style="height:300px;margin:10px 0;background:#f0f0f0;"></div>
+            <div id="location-map-preview" style="height:300px;margin:10px 0;"></div>
             
             <h4><?php _e( 'Links', 'retail-locations' ); ?></h4>
             <p>

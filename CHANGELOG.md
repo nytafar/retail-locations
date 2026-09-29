@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.3] - 2026-09-29
+
 ### Added
 - Translatable plugin with POT and Norwegian (nb_NO) translations.
 - Per-category map pins (store vs café), with a distinct pin for store + café locations.

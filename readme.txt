@@ -4,7 +4,7 @@ Tags: store locator, google maps, locations, stores, map
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.2.2
+Stable tag: 2.2.3
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,6 +67,30 @@ Yes. Add `category="your-category-slug"` to either the map or stores shortcode/b
 6. Settings page with Google Maps API configuration
 
 == Changelog ==
+
+= 2.2.3 – 2026-09-29 =
+
+**Added**
+* Translatable plugin with POT and Norwegian (nb_NO) translations.
+* Per-category map pins (store vs café), with a distinct pin for store + café locations.
+* Conditional single-page display for locations.
+
+**Changed**
+* Location links restructured as explicit Google Maps and Apple Maps buttons; the info window shows them as "Kart: Google  Apple".
+* "View Details" only shows when a location has details.
+* The selected pin drops below the map centre so its info window fits.
+* Admin styles follow the admin palette: `--rl-*` tokens read `--hat-*` with today's colours as fallbacks; the map preview background moved from an inline style to admin.css.
+* Frontend CSS updates; sepia filter removed from the map canvas.
+* Docs use the `retail_locations_` shortcode prefix (was `tsl_`).
+* Adopted suite kit v2: version synced from the header, generated readme.txt, `tools/release`; standard header (GitHub Plugin URI, License GPL-2.0-or-later).
+* Suite kit v2.1 (tooling, generated readme.txt); no runtime change.
+
+**Fixed**
+* Clicking an area label focuses the map again (auto-fit fallback).
+
+**Removed**
+* Experimental fullscreen map page template.
+* Tracked `.DS_Store` files.
 
 = 2.2.2 – 2026-01-23 =
 

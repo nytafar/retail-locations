@@ -3,7 +3,7 @@
  * Plugin Name: Kaupang Retail Locations
  * Plugin URI:  https://github.com/nytafar/kaupang-retail-locations
  * Description: Display retail locations on a Google Map with filtering by category and area.
- * Version: 2.2.3
+ * Version: 3.0.0
  * Author: Lasse Jellum
  * Author URI: https://jellum.net
  * Text Domain: kaupang-retail-locations
@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('KAUPANG_RETAIL_LOCATIONS_VERSION', '2.2.3');
+define('KAUPANG_RETAIL_LOCATIONS_VERSION', '3.0.0');
 define('KAUPANG_RETAIL_LOCATIONS_FILE', __FILE__);
 define('KAUPANG_RETAIL_LOCATIONS_DIR', trailingslashit(plugin_dir_path(__FILE__)));
 define('KAUPANG_RETAIL_LOCATIONS_URI', trailingslashit(plugin_dir_url(__FILE__)));

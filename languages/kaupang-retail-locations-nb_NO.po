@@ -12,8 +12,8 @@ msgstr ""
 "Language: nb_NO\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: includes/class-kaupang-retail-locations.php:85
-#: includes/class-kaupang-retail-locations.php:87
+#: includes/class-kaupang-retail-locations.php:86
+#: includes/class-kaupang-retail-locations.php:88
 msgid "Retail Locations"
 msgstr "Utsalgssteder"
 
@@ -32,318 +32,318 @@ msgstr ""
 msgid "https://jellum.net"
 msgstr ""
 
-#: includes/class-kaupang-retail-locations.php:86
+#: includes/class-kaupang-retail-locations.php:87
 msgid "Location"
 msgstr "Utsalgssted"
 
-#: includes/class-kaupang-retail-locations.php:88
+#: includes/class-kaupang-retail-locations.php:89
 msgid "Add New"
 msgstr "Legg til ny"
 
-#: includes/class-kaupang-retail-locations.php:89
+#: includes/class-kaupang-retail-locations.php:90
 msgid "Add New Location"
 msgstr "Legg til nytt utsalgssted"
 
-#: includes/class-kaupang-retail-locations.php:90
+#: includes/class-kaupang-retail-locations.php:91
 msgid "Edit Location"
 msgstr "Rediger utsalgssted"
 
-#: includes/class-kaupang-retail-locations.php:91
+#: includes/class-kaupang-retail-locations.php:92
 msgid "New Location"
 msgstr "Nytt utsalgssted"
 
-#: includes/class-kaupang-retail-locations.php:92
+#: includes/class-kaupang-retail-locations.php:93
 msgid "View Location"
 msgstr "Vis utsalgssted"
 
-#: includes/class-kaupang-retail-locations.php:93
+#: includes/class-kaupang-retail-locations.php:94
 msgid "All Locations"
 msgstr "Alle utsalgssteder"
 
-#: includes/class-kaupang-retail-locations.php:94
+#: includes/class-kaupang-retail-locations.php:95
 msgid "Search Locations"
 msgstr "Søk i utsalgssteder"
 
-#: includes/class-kaupang-retail-locations.php:95
+#: includes/class-kaupang-retail-locations.php:96
 msgid "No locations found."
 msgstr "Ingen utsalgssteder funnet."
 
-#: includes/class-kaupang-retail-locations.php:96
+#: includes/class-kaupang-retail-locations.php:97
 msgid "No locations found in Trash."
 msgstr "Ingen utsalgssteder i papirkurven."
 
-#: includes/class-kaupang-retail-locations.php:114
+#: includes/class-kaupang-retail-locations.php:115
 msgid "Categories"
 msgstr "Kategorier"
 
-#: includes/class-kaupang-retail-locations.php:115
+#: includes/class-kaupang-retail-locations.php:116
 msgid "Category"
 msgstr "Kategori"
 
-#: includes/class-kaupang-retail-locations.php:116
+#: includes/class-kaupang-retail-locations.php:117
 msgid "Search Categories"
 msgstr "Søk i kategorier"
 
-#: includes/class-kaupang-retail-locations.php:117
+#: includes/class-kaupang-retail-locations.php:118
 msgid "All Categories"
 msgstr "Alle kategorier"
 
-#: includes/class-kaupang-retail-locations.php:118
+#: includes/class-kaupang-retail-locations.php:119
 msgid "Edit Category"
 msgstr "Rediger kategori"
 
-#: includes/class-kaupang-retail-locations.php:119
+#: includes/class-kaupang-retail-locations.php:120
 msgid "Add New Category"
 msgstr "Legg til ny kategori"
 
-#: includes/class-kaupang-retail-locations.php:129
+#: includes/class-kaupang-retail-locations.php:130
 msgid "Areas"
 msgstr "Områder"
 
-#: includes/class-kaupang-retail-locations.php:130
+#: includes/class-kaupang-retail-locations.php:131
 msgid "Area"
 msgstr "Område"
 
-#: includes/class-kaupang-retail-locations.php:131
+#: includes/class-kaupang-retail-locations.php:132
 msgid "Search Areas"
 msgstr "Søk i områder"
 
-#: includes/class-kaupang-retail-locations.php:132
+#: includes/class-kaupang-retail-locations.php:133
 msgid "All Areas"
 msgstr "Alle områder"
 
-#: includes/class-kaupang-retail-locations.php:133
+#: includes/class-kaupang-retail-locations.php:134
 msgid "Edit Area"
 msgstr "Rediger område"
 
-#: includes/class-kaupang-retail-locations.php:134
+#: includes/class-kaupang-retail-locations.php:135
 msgid "Add New Area"
 msgstr "Legg til nytt område"
 
-#: includes/class-kaupang-retail-locations.php:223
+#: includes/class-kaupang-retail-locations.php:224
 msgid "Get Directions"
 msgstr "Veibeskrivelse"
 
-#: includes/class-kaupang-retail-locations.php:224
+#: includes/class-kaupang-retail-locations.php:225
 msgid "View Details"
 msgstr "Vis detaljer"
 
-#: includes/class-kaupang-retail-locations.php:225
+#: includes/class-kaupang-retail-locations.php:226
 msgid "Map:"
 msgstr "Kart:"
 
-#: includes/class-kaupang-retail-locations.php:226
-#: includes/class-kaupang-retail-locations.php:1157
+#: includes/class-kaupang-retail-locations.php:227
+#: includes/class-kaupang-retail-locations.php:1158
 msgid "Open in Google Maps"
 msgstr "Åpne i Google Maps"
 
-#: includes/class-kaupang-retail-locations.php:227
-#: includes/class-kaupang-retail-locations.php:1160
+#: includes/class-kaupang-retail-locations.php:228
+#: includes/class-kaupang-retail-locations.php:1161
 msgid "Open in Apple Maps"
 msgstr "Åpne i Apple Maps"
 
-#: includes/class-kaupang-retail-locations.php:299
 #: includes/class-kaupang-retail-locations.php:300
+#: includes/class-kaupang-retail-locations.php:301
 msgid "Settings"
 msgstr "Innstillinger"
 
-#: includes/class-kaupang-retail-locations.php:308
-#: includes/class-kaupang-retail-locations.php:373
+#: includes/class-kaupang-retail-locations.php:309
+#: includes/class-kaupang-retail-locations.php:374
 msgid "Export Taxonomies"
 msgstr "Eksporter taksonomier"
 
-#: includes/class-kaupang-retail-locations.php:309
+#: includes/class-kaupang-retail-locations.php:310
 msgid "Export"
 msgstr "Eksporter"
 
-#: includes/class-kaupang-retail-locations.php:325
+#: includes/class-kaupang-retail-locations.php:326
 msgid "Retail Locations Settings"
 msgstr "Innstillinger for utsalgssteder"
 
-#: includes/class-kaupang-retail-locations.php:330
+#: includes/class-kaupang-retail-locations.php:331
 msgid "Google Maps API Key"
 msgstr "Google Maps API-nøkkel"
 
-#: includes/class-kaupang-retail-locations.php:333
+#: includes/class-kaupang-retail-locations.php:334
 msgid "Enter your Google Maps API key."
 msgstr "Skriv inn din Google Maps API-nøkkel."
 
-#: includes/class-kaupang-retail-locations.php:337
+#: includes/class-kaupang-retail-locations.php:338
 msgid "URL Slug"
 msgstr "URL-slug"
 
-#: includes/class-kaupang-retail-locations.php:340
+#: includes/class-kaupang-retail-locations.php:341
 msgid "The URL slug for locations (default: location)."
 msgstr "URL-slug for utsalgssteder (standard: location)."
 
-#: includes/class-kaupang-retail-locations.php:374
+#: includes/class-kaupang-retail-locations.php:375
 msgid "Export your location categories and areas to a JSON file for backup or migration to another site."
 msgstr "Eksporter kategorier og områder til en JSON-fil for sikkerhetskopi eller flytting til et annet nettsted."
 
-#: includes/class-kaupang-retail-locations.php:381
+#: includes/class-kaupang-retail-locations.php:382
 msgid "Export Data"
 msgstr "Eksporter data"
 
-#: includes/class-kaupang-retail-locations.php:383
+#: includes/class-kaupang-retail-locations.php:384
 msgid "This will export:"
 msgstr "Dette eksporterer:"
 
-#: includes/class-kaupang-retail-locations.php:385
+#: includes/class-kaupang-retail-locations.php:386
 msgid "All location categories with hierarchy"
 msgstr "Alle kategorier med hierarki"
 
-#: includes/class-kaupang-retail-locations.php:386
+#: includes/class-kaupang-retail-locations.php:387
 msgid "All location areas with coordinates and zoom levels"
 msgstr "Alle områder med koordinater og zoomnivåer"
 
-#: includes/class-kaupang-retail-locations.php:388
+#: includes/class-kaupang-retail-locations.php:389
 msgid "Note: This exports taxonomy terms only. Use WordPress's built-in export for location posts."
 msgstr "Merk: Dette eksporterer kun taksonomitermer. Bruk WordPress' innebygde eksport for selve utsalgsstedene."
 
-#: includes/class-kaupang-retail-locations.php:393
+#: includes/class-kaupang-retail-locations.php:394
 msgid "Download Export File"
 msgstr "Last ned eksportfil"
 
-#: includes/class-kaupang-retail-locations.php:398
-#: includes/class-kaupang-retail-locations.php:431
+#: includes/class-kaupang-retail-locations.php:399
+#: includes/class-kaupang-retail-locations.php:432
 msgid "Import Taxonomies"
 msgstr "Importer taksonomier"
 
-#: includes/class-kaupang-retail-locations.php:403
+#: includes/class-kaupang-retail-locations.php:404
 msgid "Import successful!"
 msgstr "Import fullført!"
 
 #. translators: %d is the number of categories imported.
-#: includes/class-kaupang-retail-locations.php:405
+#: includes/class-kaupang-retail-locations.php:406
 #, php-format
 msgid "Categories imported: %d"
 msgstr "Kategorier importert: %d"
 
 #. translators: %d is the number of areas imported.
-#: includes/class-kaupang-retail-locations.php:406
+#: includes/class-kaupang-retail-locations.php:407
 #, php-format
 msgid "Areas imported: %d"
 msgstr "Områder importert: %d"
 
-#: includes/class-kaupang-retail-locations.php:411
+#: includes/class-kaupang-retail-locations.php:412
 msgid "Import failed:"
 msgstr "Import mislyktes:"
 
-#: includes/class-kaupang-retail-locations.php:416
+#: includes/class-kaupang-retail-locations.php:417
 msgid "Upload a JSON file exported from another Retail Locations installation."
 msgstr "Last opp en JSON-fil eksportert fra en annen Utsalgssteder-installasjon."
 
-#: includes/class-kaupang-retail-locations.php:423
+#: includes/class-kaupang-retail-locations.php:424
 msgid "Import File"
 msgstr "Importfil"
 
-#: includes/class-kaupang-retail-locations.php:426
+#: includes/class-kaupang-retail-locations.php:427
 msgid "Select a JSON file exported from Retail Locations."
 msgstr "Velg en JSON-fil eksportert fra Utsalgssteder."
 
-#: includes/class-kaupang-retail-locations.php:442
+#: includes/class-kaupang-retail-locations.php:443
 msgid "No file uploaded or upload error occurred."
 msgstr "Ingen fil ble lastet opp, eller det oppstod en feil under opplasting."
 
-#: includes/class-kaupang-retail-locations.php:451
+#: includes/class-kaupang-retail-locations.php:452
 msgid "Invalid JSON file."
 msgstr "Ugyldig JSON-fil."
 
-#: includes/class-kaupang-retail-locations.php:457
+#: includes/class-kaupang-retail-locations.php:458
 msgid "Invalid export file format."
 msgstr "Ugyldig eksportfilformat."
 
-#: includes/class-kaupang-retail-locations.php:592
+#: includes/class-kaupang-retail-locations.php:593
 msgid "Location Details"
 msgstr "Detaljer for utsalgssted"
 
-#: includes/class-kaupang-retail-locations.php:613
+#: includes/class-kaupang-retail-locations.php:614
 msgid "Address"
 msgstr "Adresse"
 
-#: includes/class-kaupang-retail-locations.php:617
-#: includes/class-kaupang-retail-locations.php:723
-#: includes/class-kaupang-retail-locations.php:743
+#: includes/class-kaupang-retail-locations.php:618
+#: includes/class-kaupang-retail-locations.php:724
+#: includes/class-kaupang-retail-locations.php:744
 msgid "Latitude"
 msgstr "Breddegrad"
 
-#: includes/class-kaupang-retail-locations.php:621
-#: includes/class-kaupang-retail-locations.php:727
-#: includes/class-kaupang-retail-locations.php:747
+#: includes/class-kaupang-retail-locations.php:622
+#: includes/class-kaupang-retail-locations.php:728
+#: includes/class-kaupang-retail-locations.php:748
 msgid "Longitude"
 msgstr "Lengdegrad"
 
-#: includes/class-kaupang-retail-locations.php:626
+#: includes/class-kaupang-retail-locations.php:627
 msgid "Links"
 msgstr "Lenker"
 
-#: includes/class-kaupang-retail-locations.php:628
+#: includes/class-kaupang-retail-locations.php:629
 msgid "Website URL"
 msgstr "Nettadresse"
 
-#: includes/class-kaupang-retail-locations.php:632
+#: includes/class-kaupang-retail-locations.php:633
 msgid "Instagram Handle"
 msgstr "Instagram-brukernavn"
 
-#: includes/class-kaupang-retail-locations.php:634
+#: includes/class-kaupang-retail-locations.php:635
 msgid "Enter with or without @"
 msgstr "Skriv med eller uten @"
 
-#: includes/class-kaupang-retail-locations.php:637
+#: includes/class-kaupang-retail-locations.php:638
 msgid "Contact Info"
 msgstr "Kontaktinformasjon"
 
-#: includes/class-kaupang-retail-locations.php:641
+#: includes/class-kaupang-retail-locations.php:642
 msgid "Label"
 msgstr "Etikett"
 
-#: includes/class-kaupang-retail-locations.php:642
+#: includes/class-kaupang-retail-locations.php:643
 msgid "Value"
 msgstr "Verdi"
 
-#: includes/class-kaupang-retail-locations.php:643
+#: includes/class-kaupang-retail-locations.php:644
 msgid "Link (optional)"
 msgstr "Lenke (valgfritt)"
 
-#: includes/class-kaupang-retail-locations.php:648
+#: includes/class-kaupang-retail-locations.php:649
 msgid "+ Add Contact"
 msgstr "+ Legg til kontakt"
 
-#: includes/class-kaupang-retail-locations.php:650
+#: includes/class-kaupang-retail-locations.php:651
 msgid "Business Hours"
 msgstr "Åpningstider"
 
-#: includes/class-kaupang-retail-locations.php:654
+#: includes/class-kaupang-retail-locations.php:655
 msgid "Day"
 msgstr "Dag"
 
-#: includes/class-kaupang-retail-locations.php:655
+#: includes/class-kaupang-retail-locations.php:656
 msgid "Open"
 msgstr "Åpner"
 
-#: includes/class-kaupang-retail-locations.php:656
+#: includes/class-kaupang-retail-locations.php:657
 msgid "Close"
 msgstr "Stenger"
 
-#: includes/class-kaupang-retail-locations.php:661
+#: includes/class-kaupang-retail-locations.php:662
 msgid "+ Add Hours"
 msgstr "+ Legg til åpningstid"
 
-#: includes/class-kaupang-retail-locations.php:731
-#: includes/class-kaupang-retail-locations.php:751
+#: includes/class-kaupang-retail-locations.php:732
+#: includes/class-kaupang-retail-locations.php:752
 msgid "Map Zoom"
 msgstr "Zoomnivå"
 
-#: includes/class-kaupang-retail-locations.php:925
-#: includes/class-kaupang-retail-locations.php:1038
+#: includes/class-kaupang-retail-locations.php:926
+#: includes/class-kaupang-retail-locations.php:1039
 msgid "Other"
 msgstr "Andre"
 
-#: includes/class-kaupang-retail-locations.php:1006
+#: includes/class-kaupang-retail-locations.php:1007
 msgid "Click to focus map"
 msgstr "Klikk for å sentrere kartet"
 
-#: includes/class-kaupang-retail-locations.php:1167
+#: includes/class-kaupang-retail-locations.php:1168
 msgid "Website"
 msgstr "Nettside"
 
@@ -474,11 +474,11 @@ msgstr "Gruppert etter kategori"
 msgid "Layout: "
 msgstr "Oppsett: "
 
-#: includes/class-kaupang-retail-locations.php:344
+#: includes/class-kaupang-retail-locations.php:345
 msgid "Google Maps Map ID"
 msgstr ""
 
-#: includes/class-kaupang-retail-locations.php:347
+#: includes/class-kaupang-retail-locations.php:348
 msgid "Google Cloud Map ID for Advanced Markers and custom map styling. Leave blank to use Google's rate-limited DEMO_MAP_ID."
 msgstr ""
 

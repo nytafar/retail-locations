@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-09-29
+
 Renamed Retail Locations → **Kaupang Retail Locations**. Never deployed to production (libraluxe.soppify.no is retired), so
 identity moved with no back-compat aliases; the content and front-end contract stays frozen. The myrvann theme already
 listens on the new hook name; kaupang-wholesale already reads the key through the new seam.

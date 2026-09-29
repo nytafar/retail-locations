@@ -1,4 +1,4 @@
-=== Retail Locations ===
+=== Kaupang Retail Locations ===
 Contributors: lassejellum
 Tags: store locator, google maps, locations, stores, map
 Requires at least: 6.0
@@ -16,7 +16,7 @@ Retail Locations is a clean, professional store locator plugin designed for busi
 
 == Installation ==
 
-1. Upload the `retail-locations` folder to `/wp-content/plugins/`
+1. Upload the `kaupang-retail-locations` folder to `/wp-content/plugins/`
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to **Retail Locations → Settings**
 4. Add your Google Maps API Key ([Get one here](https://developers.google.com/maps/documentation/javascript/get-api-key))
@@ -46,7 +46,7 @@ Yes. Use the shortcodes in any page builder that supports them, or use the Guten
 Yes. The plugin uses standard WordPress classes and can be styled with custom CSS.
 
 **Is it translation-ready?**
-Yes. The plugin uses the `retail-locations` text domain and is fully translatable.
+Yes. The plugin uses the `kaupang-retail-locations` text domain and is fully translatable.
 
 **Can I group locations by region?**
 Yes. Use the Areas taxonomy to create geographic regions, then use `group_by_area="yes"` in the shortcode or enable it in the block settings.

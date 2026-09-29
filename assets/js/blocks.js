@@ -14,7 +14,7 @@
 
     // Map Block
     blocks.registerBlockType('retail-locations/map', {
-        title: __('Locations Map', 'retail-locations'),
+        title: __('Locations Map', 'kaupang-retail-locations'),
         icon: 'location-alt',
         category: 'widgets',
         attributes: {
@@ -33,42 +33,42 @@
 
             return el('div', { className: 'retail-locations-block-wrapper' },
                 el(InspectorControls, {},
-                    el(PanelBody, { title: __('Map Settings', 'retail-locations'), initialOpen: true },
+                    el(PanelBody, { title: __('Map Settings', 'kaupang-retail-locations'), initialOpen: true },
                         el(TextControl, {
-                            label: __('Category Slug', 'retail-locations'),
+                            label: __('Category Slug', 'kaupang-retail-locations'),
                             value: attributes.category,
                             onChange: function(val) { setAttributes({ category: val }); }
                         }),
                         el(TextControl, {
-                            label: __('Width', 'retail-locations'),
+                            label: __('Width', 'kaupang-retail-locations'),
                             value: attributes.width,
                             onChange: function(val) { setAttributes({ width: val }); }
                         }),
                         el(TextControl, {
-                            label: __('Height', 'retail-locations'),
+                            label: __('Height', 'kaupang-retail-locations'),
                             value: attributes.height,
                             onChange: function(val) { setAttributes({ height: val }); }
                         }),
                         el(ToggleControl, {
-                            label: __('Map Controls', 'retail-locations'),
+                            label: __('Map Controls', 'kaupang-retail-locations'),
                             checked: attributes.map_controls === 'yes',
                             onChange: function(val) { setAttributes({ map_controls: val ? 'yes' : 'no' }); }
                         }),
                         el(ToggleControl, {
-                            label: __('Scrollwheel Zoom', 'retail-locations'),
+                            label: __('Scrollwheel Zoom', 'kaupang-retail-locations'),
                             checked: attributes.scrollwheel === 'yes',
                             onChange: function(val) { setAttributes({ scrollwheel: val ? 'yes' : 'no' }); }
                         }),
                         el(ToggleControl, {
-                            label: __('Mobile Draggable', 'retail-locations'),
+                            label: __('Mobile Draggable', 'kaupang-retail-locations'),
                             checked: attributes.mobile_draggable === 'yes',
                             onChange: function(val) { setAttributes({ mobile_draggable: val ? 'yes' : 'no' }); }
                         }),
                         el(ToggleControl, {
-                            label: __('Sticky Position', 'retail-locations'),
+                            label: __('Sticky Position', 'kaupang-retail-locations'),
                             checked: attributes.sticky === 'yes',
                             onChange: function(val) { setAttributes({ sticky: val ? 'yes' : 'no' }); },
-                            help: __('Map stays fixed while scrolling the list', 'retail-locations')
+                            help: __('Map stays fixed while scrolling the list', 'kaupang-retail-locations')
                         })
                     )
                 ),
@@ -86,7 +86,7 @@
                     }
                 },
                     el('span', { className: 'dashicons dashicons-location-alt', style: { fontSize: '48px', color: '#666' } }),
-                    el('p', { style: { margin: '10px 0 0', color: '#666' } }, __('Locations Map', 'retail-locations')),
+                    el('p', { style: { margin: '10px 0 0', color: '#666' } }, __('Locations Map', 'kaupang-retail-locations')),
                     el('small', { style: { color: '#999' } }, attributes.width + ' × ' + attributes.height)
                 )
             );
@@ -99,7 +99,7 @@
 
     // Stores List Block
     blocks.registerBlockType('retail-locations/stores', {
-        title: __('Locations List', 'retail-locations'),
+        title: __('Locations List', 'kaupang-retail-locations'),
         icon: 'list-view',
         category: 'widgets',
         attributes: {
@@ -124,20 +124,20 @@
 
             return el('div', { className: 'retail-locations-block-wrapper' },
                 el(InspectorControls, {},
-                    el(PanelBody, { title: __('List Settings', 'retail-locations'), initialOpen: true },
+                    el(PanelBody, { title: __('List Settings', 'kaupang-retail-locations'), initialOpen: true },
                         el(TextControl, {
-                            label: __('Category Slug', 'retail-locations'),
+                            label: __('Category Slug', 'kaupang-retail-locations'),
                             value: attributes.category,
                             onChange: function(val) { setAttributes({ category: val }); }
                         }),
                         el(TextControl, {
-                            label: __('Posts Per Page', 'retail-locations'),
+                            label: __('Posts Per Page', 'kaupang-retail-locations'),
                             value: attributes.posts_per_page,
                             onChange: function(val) { setAttributes({ posts_per_page: val }); },
-                            help: __('-1 for all posts', 'retail-locations')
+                            help: __('-1 for all posts', 'kaupang-retail-locations')
                         }),
                         el(SelectControl, {
-                            label: __('Layout', 'retail-locations'),
+                            label: __('Layout', 'kaupang-retail-locations'),
                             value: attributes.layout,
                             options: [
                                 { label: 'Full Width', value: 'fullwidth' },
@@ -148,31 +148,31 @@
                             onChange: function(val) { setAttributes({ layout: val }); }
                         })
                     ),
-                    el(PanelBody, { title: __('Display Options', 'retail-locations'), initialOpen: false },
+                    el(PanelBody, { title: __('Display Options', 'kaupang-retail-locations'), initialOpen: false },
                         el(ToggleControl, {
-                            label: __('Show Image', 'retail-locations'),
+                            label: __('Show Image', 'kaupang-retail-locations'),
                             checked: attributes.show_image === 'yes',
                             onChange: function(val) { setAttributes({ show_image: val ? 'yes' : 'no' }); }
                         }),
                         el(ToggleControl, {
-                            label: __('Show Description', 'retail-locations'),
+                            label: __('Show Description', 'kaupang-retail-locations'),
                             checked: attributes.show_description === 'yes',
                             onChange: function(val) { setAttributes({ show_description: val ? 'yes' : 'no' }); }
                         }),
                         el(ToggleControl, {
-                            label: __('Show Contact', 'retail-locations'),
+                            label: __('Show Contact', 'kaupang-retail-locations'),
                             checked: attributes.show_contact === 'yes',
                             onChange: function(val) { setAttributes({ show_contact: val ? 'yes' : 'no' }); }
                         }),
                         el(ToggleControl, {
-                            label: __('Show Hours', 'retail-locations'),
+                            label: __('Show Hours', 'kaupang-retail-locations'),
                             checked: attributes.show_hours === 'yes',
                             onChange: function(val) { setAttributes({ show_hours: val ? 'yes' : 'no' }); }
                         })
                     ),
-                    el(PanelBody, { title: __('Grouping', 'retail-locations'), initialOpen: false },
+                    el(PanelBody, { title: __('Grouping', 'kaupang-retail-locations'), initialOpen: false },
                         el(ToggleControl, {
-                            label: __('Group by Area', 'retail-locations'),
+                            label: __('Group by Area', 'kaupang-retail-locations'),
                             checked: attributes.group_by_area === 'yes',
                             onChange: function(val) { 
                                 setAttributes({ group_by_area: val ? 'yes' : 'no' }); 
@@ -180,10 +180,10 @@
                                     setAttributes({ collapsible: 'no', exclusive_accordion: 'no' });
                                 }
                             },
-                            help: __('Group stores by geographic area', 'retail-locations')
+                            help: __('Group stores by geographic area', 'kaupang-retail-locations')
                         }),
                         el(ToggleControl, {
-                            label: __('Group by Category', 'retail-locations'),
+                            label: __('Group by Category', 'kaupang-retail-locations'),
                             checked: attributes.group_by_category === 'yes',
                             onChange: function(val) { 
                                 setAttributes({ group_by_category: val ? 'yes' : 'no' }); 
@@ -193,7 +193,7 @@
                             }
                         }),
                         isGrouped && el(ToggleControl, {
-                            label: __('Collapsible Groups', 'retail-locations'),
+                            label: __('Collapsible Groups', 'kaupang-retail-locations'),
                             checked: isCollapsible,
                             onChange: function(val) { 
                                 setAttributes({ collapsible: val ? 'yes' : 'no' });
@@ -201,13 +201,13 @@
                                     setAttributes({ exclusive_accordion: 'no' });
                                 }
                             },
-                            help: __('Click group titles to expand/collapse', 'retail-locations')
+                            help: __('Click group titles to expand/collapse', 'kaupang-retail-locations')
                         }),
                         isGrouped && isCollapsible && el(ToggleControl, {
-                            label: __('Exclusive Accordion', 'retail-locations'),
+                            label: __('Exclusive Accordion', 'kaupang-retail-locations'),
                             checked: attributes.exclusive_accordion === 'yes',
                             onChange: function(val) { setAttributes({ exclusive_accordion: val ? 'yes' : 'no' }); },
-                            help: __('Only one group open at a time', 'retail-locations')
+                            help: __('Only one group open at a time', 'kaupang-retail-locations')
                         })
                     )
                 ),
@@ -223,11 +223,11 @@
                     }
                 },
                     el('span', { className: 'dashicons dashicons-list-view', style: { fontSize: '32px', color: '#666' } }),
-                    el('p', { style: { fontWeight: 'bold', margin: '10px 0 5px' } }, __('Locations List', 'retail-locations')),
+                    el('p', { style: { fontWeight: 'bold', margin: '10px 0 5px' } }, __('Locations List', 'kaupang-retail-locations')),
                     el('small', { style: { color: '#666' } },
-                        attributes.group_by_area === 'yes' ? __('Grouped by Area', 'retail-locations') + (isCollapsible ? ' (Collapsible)' : '') :
-                        attributes.group_by_category === 'yes' ? __('Grouped by Category', 'retail-locations') + (isCollapsible ? ' (Collapsible)' : '') :
-                        __('Layout: ', 'retail-locations') + attributes.layout
+                        attributes.group_by_area === 'yes' ? __('Grouped by Area', 'kaupang-retail-locations') + (isCollapsible ? ' (Collapsible)' : '') :
+                        attributes.group_by_category === 'yes' ? __('Grouped by Category', 'kaupang-retail-locations') + (isCollapsible ? ' (Collapsible)' : '') :
+                        __('Layout: ', 'kaupang-retail-locations') + attributes.layout
                     )
                 )
             );

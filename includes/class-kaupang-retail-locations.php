@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class Retail_Locations {
+class Kaupang_Retail_Locations {
 
     private static $instance = null;
     
@@ -29,6 +29,7 @@ class Retail_Locations {
         add_action( 'init', array( $this, 'register_shortcodes' ) );
         add_action( 'init', array( $this, 'maybe_flush_rewrite' ) );
         add_action( 'init', array( $this, 'maybe_disable_single_pages' ) );
+        add_filter( 'kaupang/retail-locations/maps_api_key', array( $this, 'default_api_key' ), 5 );
         
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend' ) );
         add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor' ) );
@@ -52,18 +53,18 @@ class Retail_Locations {
     }
 
     public function load_textdomain() {
-        load_plugin_textdomain( 'retail-locations', false, dirname( plugin_basename( RETAIL_LOCATIONS_FILE ) ) . '/languages' );
+        load_plugin_textdomain( 'kaupang-retail-locations', false, dirname( plugin_basename( KAUPANG_RETAIL_LOCATIONS_FILE ) ) . '/languages' );
     }
 
     public function maybe_flush_rewrite() {
-        if ( get_option( 'retail_locations_flush_rewrite' ) ) {
+        if ( get_option( 'kaupang_retail_locations_flush_rewrite' ) ) {
             flush_rewrite_rules();
-            delete_option( 'retail_locations_flush_rewrite' );
+            delete_option( 'kaupang_retail_locations_flush_rewrite' );
         }
     }
 
     public function maybe_disable_single_pages() {
-        if ( ! apply_filters( 'retail_locations_enable_single_pages', true ) ) {
+        if ( ! apply_filters( 'kaupang/retail-locations/enable_single_pages', true ) ) {
             add_action( 'template_redirect', array( $this, 'redirect_single_pages' ) );
         }
     }
@@ -82,18 +83,18 @@ class Retail_Locations {
         $this->post_slug = $slug ?: 'location';
 
         $labels = array(
-            'name'               => __( 'Retail Locations', 'retail-locations' ),
-            'singular_name'      => __( 'Location', 'retail-locations' ),
-            'menu_name'          => __( 'Retail Locations', 'retail-locations' ),
-            'add_new'            => __( 'Add New', 'retail-locations' ),
-            'add_new_item'       => __( 'Add New Location', 'retail-locations' ),
-            'edit_item'          => __( 'Edit Location', 'retail-locations' ),
-            'new_item'           => __( 'New Location', 'retail-locations' ),
-            'view_item'          => __( 'View Location', 'retail-locations' ),
-            'all_items'          => __( 'All Locations', 'retail-locations' ),
-            'search_items'       => __( 'Search Locations', 'retail-locations' ),
-            'not_found'          => __( 'No locations found.', 'retail-locations' ),
-            'not_found_in_trash' => __( 'No locations found in Trash.', 'retail-locations' ),
+            'name'               => __( 'Retail Locations', 'kaupang-retail-locations' ),
+            'singular_name'      => __( 'Location', 'kaupang-retail-locations' ),
+            'menu_name'          => __( 'Retail Locations', 'kaupang-retail-locations' ),
+            'add_new'            => __( 'Add New', 'kaupang-retail-locations' ),
+            'add_new_item'       => __( 'Add New Location', 'kaupang-retail-locations' ),
+            'edit_item'          => __( 'Edit Location', 'kaupang-retail-locations' ),
+            'new_item'           => __( 'New Location', 'kaupang-retail-locations' ),
+            'view_item'          => __( 'View Location', 'kaupang-retail-locations' ),
+            'all_items'          => __( 'All Locations', 'kaupang-retail-locations' ),
+            'search_items'       => __( 'Search Locations', 'kaupang-retail-locations' ),
+            'not_found'          => __( 'No locations found.', 'kaupang-retail-locations' ),
+            'not_found_in_trash' => __( 'No locations found in Trash.', 'kaupang-retail-locations' ),
         );
 
         register_post_type( $this->post_type, array(
@@ -111,12 +112,12 @@ class Retail_Locations {
     public function register_taxonomies() {
         register_taxonomy( 'location_category', $this->post_type, array(
             'labels' => array(
-                'name'          => __( 'Categories', 'retail-locations' ),
-                'singular_name' => __( 'Category', 'retail-locations' ),
-                'search_items'  => __( 'Search Categories', 'retail-locations' ),
-                'all_items'     => __( 'All Categories', 'retail-locations' ),
-                'edit_item'     => __( 'Edit Category', 'retail-locations' ),
-                'add_new_item'  => __( 'Add New Category', 'retail-locations' ),
+                'name'          => __( 'Categories', 'kaupang-retail-locations' ),
+                'singular_name' => __( 'Category', 'kaupang-retail-locations' ),
+                'search_items'  => __( 'Search Categories', 'kaupang-retail-locations' ),
+                'all_items'     => __( 'All Categories', 'kaupang-retail-locations' ),
+                'edit_item'     => __( 'Edit Category', 'kaupang-retail-locations' ),
+                'add_new_item'  => __( 'Add New Category', 'kaupang-retail-locations' ),
             ),
             'hierarchical'      => true,
             'show_in_rest'      => true,
@@ -126,12 +127,12 @@ class Retail_Locations {
 
         register_taxonomy( 'location_area', $this->post_type, array(
             'labels' => array(
-                'name'          => __( 'Areas', 'retail-locations' ),
-                'singular_name' => __( 'Area', 'retail-locations' ),
-                'search_items'  => __( 'Search Areas', 'retail-locations' ),
-                'all_items'     => __( 'All Areas', 'retail-locations' ),
-                'edit_item'     => __( 'Edit Area', 'retail-locations' ),
-                'add_new_item'  => __( 'Add New Area', 'retail-locations' ),
+                'name'          => __( 'Areas', 'kaupang-retail-locations' ),
+                'singular_name' => __( 'Area', 'kaupang-retail-locations' ),
+                'search_items'  => __( 'Search Areas', 'kaupang-retail-locations' ),
+                'all_items'     => __( 'All Areas', 'kaupang-retail-locations' ),
+                'edit_item'     => __( 'Edit Area', 'kaupang-retail-locations' ),
+                'add_new_item'  => __( 'Add New Area', 'kaupang-retail-locations' ),
             ),
             'hierarchical'      => true,
             'show_in_rest'      => true,
@@ -178,14 +179,14 @@ class Retail_Locations {
     }
 
     public function enqueue_frontend() {
-        $api_key = get_option( 'retail_locations_api_key', '' );
+        $api_key = self::get_api_key();
         if ( empty( $api_key ) ) return;
 
         // Output hidden SVG symbols in the footer
-        add_action('wp_footer', 'retail_locations_render_svg_symbols');
+        add_action('wp_footer', 'kaupang_retail_locations_render_svg_symbols');
 
-        $js_file = RETAIL_LOCATIONS_DIR . 'assets/js/frontend.js';
-        $css_file = RETAIL_LOCATIONS_DIR . 'assets/css/frontend.css';
+        $js_file = KAUPANG_RETAIL_LOCATIONS_DIR . 'assets/js/frontend.js';
+        $css_file = KAUPANG_RETAIL_LOCATIONS_DIR . 'assets/css/frontend.css';
 
         // Map ID for AdvancedMarkerElement. Configurable under
         // Settings → Retail Locations. A blank value (including an admin who
@@ -206,9 +207,9 @@ class Retail_Locations {
 
         wp_enqueue_script(
             'retail-locations',
-            RETAIL_LOCATIONS_URI . 'assets/js/frontend.js',
+            KAUPANG_RETAIL_LOCATIONS_URI . 'assets/js/frontend.js',
             array( 'jquery', 'google-maps' ),
-            file_exists( $js_file ) ? filemtime( $js_file ) : RETAIL_LOCATIONS_VERSION,
+            file_exists( $js_file ) ? filemtime( $js_file ) : KAUPANG_RETAIL_LOCATIONS_VERSION,
             true
         );
 
@@ -216,46 +217,46 @@ class Retail_Locations {
             'ajaxurl'         => admin_url( 'admin-ajax.php' ),
             'apiKey'          => $api_key,
             'mapId'           => $map_id,
-            'showViewDetails' => apply_filters( 'retail_locations_show_view_details', true ),
+            'showViewDetails' => apply_filters( 'kaupang/retail-locations/show_view_details', true ),
             // Strings used by the map info window — translated server-side so the
             // script needs no separate JS translation files.
             'i18n'            => array(
-                'getDirections'    => __( 'Get Directions', 'retail-locations' ),
-                'viewDetails'      => __( 'View Details', 'retail-locations' ),
-                'mapLabel'         => __( 'Map:', 'retail-locations' ),
-                'openInGoogleMaps' => __( 'Open in Google Maps', 'retail-locations' ),
-                'openInAppleMaps'  => __( 'Open in Apple Maps', 'retail-locations' ),
+                'getDirections'    => __( 'Get Directions', 'kaupang-retail-locations' ),
+                'viewDetails'      => __( 'View Details', 'kaupang-retail-locations' ),
+                'mapLabel'         => __( 'Map:', 'kaupang-retail-locations' ),
+                'openInGoogleMaps' => __( 'Open in Google Maps', 'kaupang-retail-locations' ),
+                'openInAppleMaps'  => __( 'Open in Apple Maps', 'kaupang-retail-locations' ),
             ),
         ));
 
         wp_enqueue_style(
             'retail-locations',
-            RETAIL_LOCATIONS_URI . 'assets/css/frontend.css',
+            KAUPANG_RETAIL_LOCATIONS_URI . 'assets/css/frontend.css',
             array(),
-            file_exists( $css_file ) ? filemtime( $css_file ) : RETAIL_LOCATIONS_VERSION
+            file_exists( $css_file ) ? filemtime( $css_file ) : KAUPANG_RETAIL_LOCATIONS_VERSION
         );
     }
 
     public function enqueue_block_editor() {
-        $js_file = RETAIL_LOCATIONS_DIR . 'assets/js/blocks.js';
-        $css_file = RETAIL_LOCATIONS_DIR . 'assets/css/blocks.css';
+        $js_file = KAUPANG_RETAIL_LOCATIONS_DIR . 'assets/js/blocks.js';
+        $css_file = KAUPANG_RETAIL_LOCATIONS_DIR . 'assets/css/blocks.css';
         
         wp_enqueue_script(
-            'retail-locations-blocks',
-            RETAIL_LOCATIONS_URI . 'assets/js/blocks.js',
+            'kaupang-retail-locations-blocks',
+            KAUPANG_RETAIL_LOCATIONS_URI . 'assets/js/blocks.js',
             array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-block-editor', 'wp-i18n' ),
-            file_exists( $js_file ) ? filemtime( $js_file ) : RETAIL_LOCATIONS_VERSION,
+            file_exists( $js_file ) ? filemtime( $js_file ) : KAUPANG_RETAIL_LOCATIONS_VERSION,
             true
         );
 
         // Block editor labels translate via JSON in /languages (see make-json).
-        wp_set_script_translations( 'retail-locations-blocks', 'retail-locations', RETAIL_LOCATIONS_DIR . 'languages' );
+        wp_set_script_translations( 'kaupang-retail-locations-blocks', 'kaupang-retail-locations', KAUPANG_RETAIL_LOCATIONS_DIR . 'languages' );
 
         wp_enqueue_style(
-            'retail-locations-blocks',
-            RETAIL_LOCATIONS_URI . 'assets/css/blocks.css',
+            'kaupang-retail-locations-blocks',
+            KAUPANG_RETAIL_LOCATIONS_URI . 'assets/css/blocks.css',
             array(),
-            file_exists( $css_file ) ? filemtime( $css_file ) : RETAIL_LOCATIONS_VERSION
+            file_exists( $css_file ) ? filemtime( $css_file ) : KAUPANG_RETAIL_LOCATIONS_VERSION
         );
     }
 
@@ -263,7 +264,7 @@ class Retail_Locations {
         global $post_type;
         if ( $post_type !== $this->post_type ) return;
 
-        $api_key = get_option( 'retail_locations_api_key', '' );
+        $api_key = self::get_api_key();
         if ( ! empty( $api_key ) ) {
             wp_enqueue_script(
                 'google-maps',
@@ -274,30 +275,30 @@ class Retail_Locations {
             );
         }
 
-        $js_file = RETAIL_LOCATIONS_DIR . 'assets/js/admin.js';
-        $css_file = RETAIL_LOCATIONS_DIR . 'assets/css/admin.css';
+        $js_file = KAUPANG_RETAIL_LOCATIONS_DIR . 'assets/js/admin.js';
+        $css_file = KAUPANG_RETAIL_LOCATIONS_DIR . 'assets/css/admin.css';
 
         wp_enqueue_script(
-            'retail-locations-admin',
-            RETAIL_LOCATIONS_URI . 'assets/js/admin.js',
+            'kaupang-retail-locations-admin',
+            KAUPANG_RETAIL_LOCATIONS_URI . 'assets/js/admin.js',
             array( 'jquery' ),
-            file_exists( $js_file ) ? filemtime( $js_file ) : RETAIL_LOCATIONS_VERSION,
+            file_exists( $js_file ) ? filemtime( $js_file ) : KAUPANG_RETAIL_LOCATIONS_VERSION,
             true
         );
 
         wp_enqueue_style(
-            'retail-locations-admin',
-            RETAIL_LOCATIONS_URI . 'assets/css/admin.css',
+            'kaupang-retail-locations-admin',
+            KAUPANG_RETAIL_LOCATIONS_URI . 'assets/css/admin.css',
             array(),
-            file_exists( $css_file ) ? filemtime( $css_file ) : RETAIL_LOCATIONS_VERSION
+            file_exists( $css_file ) ? filemtime( $css_file ) : KAUPANG_RETAIL_LOCATIONS_VERSION
         );
     }
 
     public function admin_menu() {
         add_submenu_page(
             'edit.php?post_type=' . $this->post_type,
-            __( 'Settings', 'retail-locations' ),
-            __( 'Settings', 'retail-locations' ),
+            __( 'Settings', 'kaupang-retail-locations' ),
+            __( 'Settings', 'kaupang-retail-locations' ),
             'manage_options',
             'retail-locations-settings',
             array( $this, 'settings_page' )
@@ -305,8 +306,8 @@ class Retail_Locations {
         
         add_submenu_page(
             'edit.php?post_type=' . $this->post_type,
-            __( 'Export Taxonomies', 'retail-locations' ),
-            __( 'Export', 'retail-locations' ),
+            __( 'Export Taxonomies', 'kaupang-retail-locations' ),
+            __( 'Export', 'kaupang-retail-locations' ),
             'manage_options',
             'retail-locations-export',
             array( $this, 'export_page' )
@@ -322,29 +323,29 @@ class Retail_Locations {
     public function settings_page() {
         ?>
         <div class="wrap">
-            <h1><?php _e( 'Retail Locations Settings', 'retail-locations' ); ?></h1>
+            <h1><?php _e( 'Retail Locations Settings', 'kaupang-retail-locations' ); ?></h1>
             <form method="post" action="options.php">
                 <?php settings_fields( 'retail_locations' ); ?>
                 <table class="form-table">
                     <tr>
-                        <th scope="row"><label for="retail_locations_api_key"><?php _e( 'Google Maps API Key', 'retail-locations' ); ?></label></th>
+                        <th scope="row"><label for="retail_locations_api_key"><?php _e( 'Google Maps API Key', 'kaupang-retail-locations' ); ?></label></th>
                         <td>
                             <input type="text" id="retail_locations_api_key" name="retail_locations_api_key" value="<?php echo esc_attr( get_option( 'retail_locations_api_key', '' ) ); ?>" class="regular-text" />
-                            <p class="description"><?php _e( 'Enter your Google Maps API key.', 'retail-locations' ); ?></p>
+                            <p class="description"><?php _e( 'Enter your Google Maps API key.', 'kaupang-retail-locations' ); ?></p>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="retail_locations_slug"><?php _e( 'URL Slug', 'retail-locations' ); ?></label></th>
+                        <th scope="row"><label for="retail_locations_slug"><?php _e( 'URL Slug', 'kaupang-retail-locations' ); ?></label></th>
                         <td>
                             <input type="text" id="retail_locations_slug" name="retail_locations_slug" value="<?php echo esc_attr( get_option( 'retail_locations_slug', 'location' ) ); ?>" class="regular-text" />
-                            <p class="description"><?php _e( 'The URL slug for locations (default: location).', 'retail-locations' ); ?></p>
+                            <p class="description"><?php _e( 'The URL slug for locations (default: location).', 'kaupang-retail-locations' ); ?></p>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="retail_locations_map_id"><?php _e( 'Google Maps Map ID', 'retail-locations' ); ?></label></th>
+                        <th scope="row"><label for="retail_locations_map_id"><?php _e( 'Google Maps Map ID', 'kaupang-retail-locations' ); ?></label></th>
                         <td>
                             <input type="text" id="retail_locations_map_id" name="retail_locations_map_id" value="<?php echo esc_attr( get_option( 'retail_locations_map_id', '' ) ); ?>" class="regular-text" />
-                            <p class="description"><?php _e( 'Google Cloud Map ID for Advanced Markers and custom map styling. Leave blank to use Google\'s rate-limited DEMO_MAP_ID.', 'retail-locations' ); ?></p>
+                            <p class="description"><?php _e( 'Google Cloud Map ID for Advanced Markers and custom map styling. Leave blank to use Google\'s rate-limited DEMO_MAP_ID.', 'kaupang-retail-locations' ); ?></p>
                         </td>
                     </tr>
                 </table>
@@ -356,7 +357,7 @@ class Retail_Locations {
 
     public function handle_export_request() {
         // Handle export action early, before any HTML output
-        if ( isset( $_POST['retail_locations_export'] ) && check_admin_referer( 'retail_locations_export_taxonomies' ) ) {
+        if ( isset( $_POST['retail_locations_export'] ) && check_admin_referer( 'kaupang_retail_locations_export_taxonomies' ) ) {
             $this->export_taxonomies();
             exit;
         }
@@ -364,71 +365,71 @@ class Retail_Locations {
 
     public function export_page() {
         // Handle import action
-        if ( isset( $_POST['retail_locations_import'] ) && check_admin_referer( 'retail_locations_import_taxonomies' ) ) {
+        if ( isset( $_POST['retail_locations_import'] ) && check_admin_referer( 'kaupang_retail_locations_import_taxonomies' ) ) {
             $import_result = $this->import_taxonomies();
         }
         
         ?>
         <div class="wrap">
-            <h1><?php _e( 'Export Taxonomies', 'retail-locations' ); ?></h1>
-            <p><?php _e( 'Export your location categories and areas to a JSON file for backup or migration to another site.', 'retail-locations' ); ?></p>
+            <h1><?php _e( 'Export Taxonomies', 'kaupang-retail-locations' ); ?></h1>
+            <p><?php _e( 'Export your location categories and areas to a JSON file for backup or migration to another site.', 'kaupang-retail-locations' ); ?></p>
             
             <form method="post" action="">
-                <?php wp_nonce_field( 'retail_locations_export_taxonomies' ); ?>
+                <?php wp_nonce_field( 'kaupang_retail_locations_export_taxonomies' ); ?>
                 
                 <table class="form-table">
                     <tr>
-                        <th scope="row"><?php _e( 'Export Data', 'retail-locations' ); ?></th>
+                        <th scope="row"><?php _e( 'Export Data', 'kaupang-retail-locations' ); ?></th>
                         <td>
-                            <p><?php _e( 'This will export:', 'retail-locations' ); ?></p>
+                            <p><?php _e( 'This will export:', 'kaupang-retail-locations' ); ?></p>
                             <ul style="list-style: disc; margin-left: 20px;">
-                                <li><?php _e( 'All location categories with hierarchy', 'retail-locations' ); ?></li>
-                                <li><?php _e( 'All location areas with coordinates and zoom levels', 'retail-locations' ); ?></li>
+                                <li><?php _e( 'All location categories with hierarchy', 'kaupang-retail-locations' ); ?></li>
+                                <li><?php _e( 'All location areas with coordinates and zoom levels', 'kaupang-retail-locations' ); ?></li>
                             </ul>
-                            <p class="description"><?php _e( 'Note: This exports taxonomy terms only. Use WordPress\'s built-in export for location posts.', 'retail-locations' ); ?></p>
+                            <p class="description"><?php _e( 'Note: This exports taxonomy terms only. Use WordPress\'s built-in export for location posts.', 'kaupang-retail-locations' ); ?></p>
                         </td>
                     </tr>
                 </table>
                 
-                <?php submit_button( __( 'Download Export File', 'retail-locations' ), 'primary', 'retail_locations_export' ); ?>
+                <?php submit_button( __( 'Download Export File', 'kaupang-retail-locations' ), 'primary', 'retail_locations_export' ); ?>
             </form>
             
             <hr>
             
-            <h2><?php _e( 'Import Taxonomies', 'retail-locations' ); ?></h2>
+            <h2><?php _e( 'Import Taxonomies', 'kaupang-retail-locations' ); ?></h2>
             
             <?php if ( isset( $import_result ) ) : ?>
                 <?php if ( $import_result['success'] ) : ?>
                     <div class="notice notice-success">
-                        <p><strong><?php _e( 'Import successful!', 'retail-locations' ); ?></strong></p>
+                        <p><strong><?php _e( 'Import successful!', 'kaupang-retail-locations' ); ?></strong></p>
                         <ul style="list-style: disc; margin-left: 20px;">
-                            <li><?php /* translators: %d is the number of categories imported. */ printf( __( 'Categories imported: %d', 'retail-locations' ), $import_result['categories'] ); ?></li>
-                            <li><?php /* translators: %d is the number of areas imported. */ printf( __( 'Areas imported: %d', 'retail-locations' ), $import_result['areas'] ); ?></li>
+                            <li><?php /* translators: %d is the number of categories imported. */ printf( __( 'Categories imported: %d', 'kaupang-retail-locations' ), $import_result['categories'] ); ?></li>
+                            <li><?php /* translators: %d is the number of areas imported. */ printf( __( 'Areas imported: %d', 'kaupang-retail-locations' ), $import_result['areas'] ); ?></li>
                         </ul>
                     </div>
                 <?php else : ?>
                     <div class="notice notice-error">
-                        <p><strong><?php _e( 'Import failed:', 'retail-locations' ); ?></strong> <?php echo esc_html( $import_result['error'] ); ?></p>
+                        <p><strong><?php _e( 'Import failed:', 'kaupang-retail-locations' ); ?></strong> <?php echo esc_html( $import_result['error'] ); ?></p>
                     </div>
                 <?php endif; ?>
             <?php endif; ?>
             
-            <p><?php _e( 'Upload a JSON file exported from another Retail Locations installation.', 'retail-locations' ); ?></p>
+            <p><?php _e( 'Upload a JSON file exported from another Retail Locations installation.', 'kaupang-retail-locations' ); ?></p>
             
             <form method="post" action="" enctype="multipart/form-data">
-                <?php wp_nonce_field( 'retail_locations_import_taxonomies' ); ?>
+                <?php wp_nonce_field( 'kaupang_retail_locations_import_taxonomies' ); ?>
                 
                 <table class="form-table">
                     <tr>
-                        <th scope="row"><label for="import_file"><?php _e( 'Import File', 'retail-locations' ); ?></label></th>
+                        <th scope="row"><label for="import_file"><?php _e( 'Import File', 'kaupang-retail-locations' ); ?></label></th>
                         <td>
                             <input type="file" name="import_file" id="import_file" accept=".json" required />
-                            <p class="description"><?php _e( 'Select a JSON file exported from Retail Locations.', 'retail-locations' ); ?></p>
+                            <p class="description"><?php _e( 'Select a JSON file exported from Retail Locations.', 'kaupang-retail-locations' ); ?></p>
                         </td>
                     </tr>
                 </table>
                 
-                <?php submit_button( __( 'Import Taxonomies', 'retail-locations' ), 'secondary', 'retail_locations_import' ); ?>
+                <?php submit_button( __( 'Import Taxonomies', 'kaupang-retail-locations' ), 'secondary', 'retail_locations_import' ); ?>
             </form>
         </div>
         <?php
@@ -439,7 +440,7 @@ class Retail_Locations {
         
         // Check file upload
         if ( ! isset( $_FILES['import_file'] ) || $_FILES['import_file']['error'] !== UPLOAD_ERR_OK ) {
-            $result['error'] = __( 'No file uploaded or upload error occurred.', 'retail-locations' );
+            $result['error'] = __( 'No file uploaded or upload error occurred.', 'kaupang-retail-locations' );
             return $result;
         }
         
@@ -448,13 +449,13 @@ class Retail_Locations {
         $import_data = json_decode( $json_content, true );
         
         if ( json_last_error() !== JSON_ERROR_NONE ) {
-            $result['error'] = __( 'Invalid JSON file.', 'retail-locations' );
+            $result['error'] = __( 'Invalid JSON file.', 'kaupang-retail-locations' );
             return $result;
         }
         
         // Validate data structure
         if ( ! isset( $import_data['categories'] ) || ! isset( $import_data['areas'] ) ) {
-            $result['error'] = __( 'Invalid export file format.', 'retail-locations' );
+            $result['error'] = __( 'Invalid export file format.', 'kaupang-retail-locations' );
             return $result;
         }
         
@@ -522,7 +523,7 @@ class Retail_Locations {
 
     private function export_taxonomies() {
         $export_data = array(
-            'version' => RETAIL_LOCATIONS_VERSION,
+            'version' => KAUPANG_RETAIL_LOCATIONS_VERSION,
             'export_date' => current_time( 'mysql' ),
             'site_url' => get_site_url(),
             'categories' => array(),
@@ -589,7 +590,7 @@ class Retail_Locations {
     public function add_meta_boxes() {
         add_meta_box(
             'retail_location_details',
-            __( 'Location Details', 'retail-locations' ),
+            __( 'Location Details', 'kaupang-retail-locations' ),
             array( $this, 'meta_box_details' ),
             $this->post_type,
             'normal',
@@ -598,7 +599,7 @@ class Retail_Locations {
     }
 
     public function meta_box_details( $post ) {
-        wp_nonce_field( 'retail_location_meta', 'retail_location_nonce' );
+        wp_nonce_field( 'kaupang_retail_location_meta', 'kaupang_retail_location_nonce' );
         
         $address   = get_post_meta( $post->ID, '_location_address', true );
         $lat       = get_post_meta( $post->ID, '_location_lat', true );
@@ -610,61 +611,61 @@ class Retail_Locations {
         ?>
         <div class="retail-location-meta">
             <p>
-                <label for="location_address"><strong><?php _e( 'Address', 'retail-locations' ); ?></strong></label><br>
+                <label for="location_address"><strong><?php _e( 'Address', 'kaupang-retail-locations' ); ?></strong></label><br>
                 <textarea id="location_address" name="location_address" rows="3" style="width:100%;"><?php echo esc_textarea( $address ); ?></textarea>
             </p>
             <p>
-                <label for="location_lat"><strong><?php _e( 'Latitude', 'retail-locations' ); ?></strong></label><br>
+                <label for="location_lat"><strong><?php _e( 'Latitude', 'kaupang-retail-locations' ); ?></strong></label><br>
                 <input type="text" id="location_lat" name="location_lat" value="<?php echo esc_attr( $lat ); ?>" class="regular-text" />
             </p>
             <p>
-                <label for="location_lng"><strong><?php _e( 'Longitude', 'retail-locations' ); ?></strong></label><br>
+                <label for="location_lng"><strong><?php _e( 'Longitude', 'kaupang-retail-locations' ); ?></strong></label><br>
                 <input type="text" id="location_lng" name="location_lng" value="<?php echo esc_attr( $lng ); ?>" class="regular-text" />
             </p>
             <div id="location-map-preview" style="height:300px;margin:10px 0;"></div>
             
-            <h4><?php _e( 'Links', 'retail-locations' ); ?></h4>
+            <h4><?php _e( 'Links', 'kaupang-retail-locations' ); ?></h4>
             <p>
-                <label for="location_website"><strong><?php _e( 'Website URL', 'retail-locations' ); ?></strong></label><br>
+                <label for="location_website"><strong><?php _e( 'Website URL', 'kaupang-retail-locations' ); ?></strong></label><br>
                 <input type="url" id="location_website" name="location_website" value="<?php echo esc_url( $website ); ?>" class="regular-text" placeholder="https://" />
             </p>
             <p>
-                <label for="location_instagram"><strong><?php _e( 'Instagram Handle', 'retail-locations' ); ?></strong></label><br>
+                <label for="location_instagram"><strong><?php _e( 'Instagram Handle', 'kaupang-retail-locations' ); ?></strong></label><br>
                 <input type="text" id="location_instagram" name="location_instagram" value="<?php echo esc_attr( $instagram ); ?>" class="regular-text" placeholder="@username" />
-                <p class="description"><?php _e( 'Enter with or without @', 'retail-locations' ); ?></p>
+                <p class="description"><?php _e( 'Enter with or without @', 'kaupang-retail-locations' ); ?></p>
             </p>
             
-            <h4><?php _e( 'Contact Info', 'retail-locations' ); ?></h4>
+            <h4><?php _e( 'Contact Info', 'kaupang-retail-locations' ); ?></h4>
             <div id="location-contacts">
                 <?php foreach ( $contacts as $i => $contact ) : ?>
                 <div class="contact-row">
-                    <input type="text" name="location_contacts[<?php echo $i; ?>][label]" value="<?php echo esc_attr( $contact['label'] ?? '' ); ?>" placeholder="<?php _e( 'Label', 'retail-locations' ); ?>" />
-                    <input type="text" name="location_contacts[<?php echo $i; ?>][value]" value="<?php echo esc_attr( $contact['value'] ?? '' ); ?>" placeholder="<?php _e( 'Value', 'retail-locations' ); ?>" />
-                    <input type="url" name="location_contacts[<?php echo $i; ?>][link]" value="<?php echo esc_url( $contact['link'] ?? '' ); ?>" placeholder="<?php _e( 'Link (optional)', 'retail-locations' ); ?>" />
+                    <input type="text" name="location_contacts[<?php echo $i; ?>][label]" value="<?php echo esc_attr( $contact['label'] ?? '' ); ?>" placeholder="<?php _e( 'Label', 'kaupang-retail-locations' ); ?>" />
+                    <input type="text" name="location_contacts[<?php echo $i; ?>][value]" value="<?php echo esc_attr( $contact['value'] ?? '' ); ?>" placeholder="<?php _e( 'Value', 'kaupang-retail-locations' ); ?>" />
+                    <input type="url" name="location_contacts[<?php echo $i; ?>][link]" value="<?php echo esc_url( $contact['link'] ?? '' ); ?>" placeholder="<?php _e( 'Link (optional)', 'kaupang-retail-locations' ); ?>" />
                     <button type="button" class="button remove-row">&times;</button>
                 </div>
                 <?php endforeach; ?>
             </div>
-            <button type="button" class="button" id="add-contact"><?php _e( '+ Add Contact', 'retail-locations' ); ?></button>
+            <button type="button" class="button" id="add-contact"><?php _e( '+ Add Contact', 'kaupang-retail-locations' ); ?></button>
             
-            <h4><?php _e( 'Business Hours', 'retail-locations' ); ?></h4>
+            <h4><?php _e( 'Business Hours', 'kaupang-retail-locations' ); ?></h4>
             <div id="location-hours">
                 <?php foreach ( $hours as $i => $hour ) : ?>
                 <div class="hours-row">
-                    <input type="text" name="location_hours[<?php echo $i; ?>][day]" value="<?php echo esc_attr( $hour['day'] ?? '' ); ?>" placeholder="<?php _e( 'Day', 'retail-locations' ); ?>" />
-                    <input type="text" name="location_hours[<?php echo $i; ?>][open]" value="<?php echo esc_attr( $hour['open'] ?? '' ); ?>" placeholder="<?php _e( 'Open', 'retail-locations' ); ?>" />
-                    <input type="text" name="location_hours[<?php echo $i; ?>][close]" value="<?php echo esc_attr( $hour['close'] ?? '' ); ?>" placeholder="<?php _e( 'Close', 'retail-locations' ); ?>" />
+                    <input type="text" name="location_hours[<?php echo $i; ?>][day]" value="<?php echo esc_attr( $hour['day'] ?? '' ); ?>" placeholder="<?php _e( 'Day', 'kaupang-retail-locations' ); ?>" />
+                    <input type="text" name="location_hours[<?php echo $i; ?>][open]" value="<?php echo esc_attr( $hour['open'] ?? '' ); ?>" placeholder="<?php _e( 'Open', 'kaupang-retail-locations' ); ?>" />
+                    <input type="text" name="location_hours[<?php echo $i; ?>][close]" value="<?php echo esc_attr( $hour['close'] ?? '' ); ?>" placeholder="<?php _e( 'Close', 'kaupang-retail-locations' ); ?>" />
                     <button type="button" class="button remove-row">&times;</button>
                 </div>
                 <?php endforeach; ?>
             </div>
-            <button type="button" class="button" id="add-hours"><?php _e( '+ Add Hours', 'retail-locations' ); ?></button>
+            <button type="button" class="button" id="add-hours"><?php _e( '+ Add Hours', 'kaupang-retail-locations' ); ?></button>
         </div>
         <?php
     }
 
     public function save_meta( $post_id ) {
-        if ( ! isset( $_POST['retail_location_nonce'] ) || ! wp_verify_nonce( $_POST['retail_location_nonce'], 'retail_location_meta' ) ) {
+        if ( ! isset( $_POST['kaupang_retail_location_nonce'] ) || ! wp_verify_nonce( $_POST['kaupang_retail_location_nonce'], 'kaupang_retail_location_meta' ) ) {
             return;
         }
         if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
@@ -720,15 +721,15 @@ class Retail_Locations {
     public function area_add_fields() {
         ?>
         <div class="form-field">
-            <label for="area_lat"><?php _e( 'Latitude', 'retail-locations' ); ?></label>
+            <label for="area_lat"><?php _e( 'Latitude', 'kaupang-retail-locations' ); ?></label>
             <input type="text" name="area_lat" id="area_lat" />
         </div>
         <div class="form-field">
-            <label for="area_lng"><?php _e( 'Longitude', 'retail-locations' ); ?></label>
+            <label for="area_lng"><?php _e( 'Longitude', 'kaupang-retail-locations' ); ?></label>
             <input type="text" name="area_lng" id="area_lng" />
         </div>
         <div class="form-field">
-            <label for="area_zoom"><?php _e( 'Map Zoom', 'retail-locations' ); ?></label>
+            <label for="area_zoom"><?php _e( 'Map Zoom', 'kaupang-retail-locations' ); ?></label>
             <input type="number" name="area_zoom" id="area_zoom" value="12" min="1" max="20" />
         </div>
         <?php
@@ -740,15 +741,15 @@ class Retail_Locations {
         $zoom = get_term_meta( $term->term_id, 'area_zoom', true ) ?: 12;
         ?>
         <tr class="form-field">
-            <th><label for="area_lat"><?php _e( 'Latitude', 'retail-locations' ); ?></label></th>
+            <th><label for="area_lat"><?php _e( 'Latitude', 'kaupang-retail-locations' ); ?></label></th>
             <td><input type="text" name="area_lat" id="area_lat" value="<?php echo esc_attr( $lat ); ?>" /></td>
         </tr>
         <tr class="form-field">
-            <th><label for="area_lng"><?php _e( 'Longitude', 'retail-locations' ); ?></label></th>
+            <th><label for="area_lng"><?php _e( 'Longitude', 'kaupang-retail-locations' ); ?></label></th>
             <td><input type="text" name="area_lng" id="area_lng" value="<?php echo esc_attr( $lng ); ?>" /></td>
         </tr>
         <tr class="form-field">
-            <th><label for="area_zoom"><?php _e( 'Map Zoom', 'retail-locations' ); ?></label></th>
+            <th><label for="area_zoom"><?php _e( 'Map Zoom', 'kaupang-retail-locations' ); ?></label></th>
             <td><input type="number" name="area_zoom" id="area_zoom" value="<?php echo esc_attr( $zoom ); ?>" min="1" max="20" /></td>
         </tr>
         <?php
@@ -922,7 +923,7 @@ class Retail_Locations {
             $query->the_post();
             $areas = get_the_terms( get_the_ID(), 'location_area' );
             $area_key = 'uncategorized';
-            $area_name = __( 'Other', 'retail-locations' );
+            $area_name = __( 'Other', 'kaupang-retail-locations' );
             $area_meta = array();
             
             if ( $areas && ! is_wp_error( $areas ) ) {
@@ -1003,7 +1004,7 @@ class Retail_Locations {
                         data-fit="<?php echo esc_attr( $fit_bounds ); ?>"
                         <?php endif; ?>
                         <?php if ( $can_focus ) : ?>
-                        title="<?php _e( 'Click to focus map', 'retail-locations' ); ?>"
+                        title="<?php _e( 'Click to focus map', 'kaupang-retail-locations' ); ?>"
                         <?php endif; ?>
                         <?php if ( $is_collapsible ) : ?>
                         aria-expanded="false"
@@ -1035,7 +1036,7 @@ class Retail_Locations {
             $query->the_post();
             $cats = get_the_terms( get_the_ID(), 'location_category' );
             $cat_key = 'uncategorized';
-            $cat_name = __( 'Other', 'retail-locations' );
+            $cat_name = __( 'Other', 'kaupang-retail-locations' );
             
             if ( $cats && ! is_wp_error( $cats ) ) {
                 $cat = $cats[0];
@@ -1122,7 +1123,7 @@ class Retail_Locations {
             
             <div class="retail-location-content">
                 <h3 class="retail-location-title">
-                    <?php if ( apply_filters( 'retail_locations_show_view_details', true ) ) : ?>
+                    <?php if ( apply_filters( 'kaupang/retail-locations/show_view_details', true ) ) : ?>
                         <?php if ( $lat && $lng ) : ?>
                             <a href="<?php the_permalink(); ?>" class="js-focus-location" data-id="<?php echo get_the_ID(); ?>" data-lat="<?php echo esc_attr( $lat ); ?>" data-lng="<?php echo esc_attr( $lng ); ?>" data-zoom="15"><?php the_title(); ?></a>
                         <?php else : ?>
@@ -1147,29 +1148,29 @@ class Retail_Locations {
                 
                 <?php if ( $address ) : ?>
                     <div class="retail-location-address">
-                        <?php echo retail_locations_icon_map(); ?>
+                        <?php echo kaupang_retail_locations_icon_map(); ?>
                         <span><?php echo esc_html( $address ); ?></span>
                     </div>
                 <?php endif; ?>
                 
                 <div class="retail-location-links">
                     <?php if ( $address ) : ?>
-                        <a href="<?php echo esc_url( $this->get_google_maps_url( $address ) ); ?>" class="retail-location-link retail-location-link--google-maps" target="_blank" rel="noopener noreferrer" aria-label="<?php _e( 'Open in Google Maps', 'retail-locations' ); ?>">
-                            <?php echo retail_locations_icon_google_maps( '1em' ); ?>
+                        <a href="<?php echo esc_url( $this->get_google_maps_url( $address ) ); ?>" class="retail-location-link retail-location-link--google-maps" target="_blank" rel="noopener noreferrer" aria-label="<?php _e( 'Open in Google Maps', 'kaupang-retail-locations' ); ?>">
+                            <?php echo kaupang_retail_locations_icon_google_maps( '1em' ); ?>
                         </a>
-                        <a href="https://maps.apple.com/?q=<?php echo urlencode( $address ); ?>" class="retail-location-link retail-location-link--apple-maps" target="_blank" rel="noopener noreferrer" aria-label="<?php _e( 'Open in Apple Maps', 'retail-locations' ); ?>">
-                            <?php echo retail_locations_icon_apple( '1em' ); ?>
+                        <a href="https://maps.apple.com/?q=<?php echo urlencode( $address ); ?>" class="retail-location-link retail-location-link--apple-maps" target="_blank" rel="noopener noreferrer" aria-label="<?php _e( 'Open in Apple Maps', 'kaupang-retail-locations' ); ?>">
+                            <?php echo kaupang_retail_locations_icon_apple( '1em' ); ?>
                         </a>
                     <?php endif; ?>
                     <?php if ( $website ) : ?>
                         <a href="<?php echo esc_url( $website ); ?>" class="retail-location-link retail-location-link--website" target="_blank" rel="noopener noreferrer">
-                            <?php echo retail_locations_icon_website(); ?>
-                            <span><?php _e( 'Website', 'retail-locations' ); ?></span>
+                            <?php echo kaupang_retail_locations_icon_website(); ?>
+                            <span><?php _e( 'Website', 'kaupang-retail-locations' ); ?></span>
                         </a>
                     <?php endif; ?>
                     <?php if ( $instagram ) : ?>
                         <a href="https://instagram.com/<?php echo esc_attr( $instagram ); ?>" class="retail-location-link retail-location-link--instagram" target="_blank" rel="noopener noreferrer">
-                            <?php echo retail_locations_icon_instagram(); ?>
+                            <?php echo kaupang_retail_locations_icon_instagram(); ?>
                             <span><?php echo esc_html( $instagram ); ?></span>
                         </a>
                     <?php endif; ?>
@@ -1207,7 +1208,7 @@ class Retail_Locations {
                 
                 if ( $atts['show_hours'] === 'yes' && ! empty( $hours ) ) : ?>
                     <div class="retail-location-hours">
-                        <?php echo retail_locations_icon_clock(); ?>
+                        <?php echo kaupang_retail_locations_icon_clock(); ?>
                         <div class="retail-location-hours-list">
                             <?php foreach ( $hours as $hour ) : ?>
                                 <div class="retail-location-hour">
@@ -1231,10 +1232,19 @@ class Retail_Locations {
         $content = (string) get_post_field( 'post_content', $post_id );
         $has     = '' !== trim( wp_strip_all_tags( $content ) );
 
-        return (bool) apply_filters( 'retail_locations_has_details', $has, $post_id );
+        return (bool) apply_filters( 'kaupang/retail-locations/has_details', $has, $post_id );
     }
 
+    /**
+     * Google Maps key. The option stays `retail_locations_api_key`; the filter is the suite seam
+     * (kaupang-wholesale reads through it) and a way for a theme to inject a key.
+     */
     public static function get_api_key() {
-        return get_option( 'retail_locations_api_key', '' );
+        return (string) apply_filters( 'kaupang/retail-locations/maps_api_key', get_option( 'retail_locations_api_key', '' ) );
+    }
+
+    /** Provider for the seam: a consumer that filters with an empty value gets the stored key. */
+    public function default_api_key( $key ) {
+        return '' !== (string) $key ? $key : get_option( 'retail_locations_api_key', '' );
     }
 }

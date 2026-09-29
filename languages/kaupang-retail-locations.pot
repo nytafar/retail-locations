@@ -2,365 +2,368 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Retail Locations 2.2.3\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/retail-locations\n"
+"Project-Id-Version: Kaupang Retail Locations 2.2.3\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/kaupang-retail-locations\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-29T05:48:16+00:00\n"
+"POT-Creation-Date: 2026-09-29T08:09:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
-"X-Domain: retail-locations\n"
+"X-Domain: kaupang-retail-locations\n"
 
 #. Plugin Name of the plugin
-#: retail-locations.php
-#: includes/class-retail-locations.php:85
-#: includes/class-retail-locations.php:87
-msgid "Retail Locations"
+#: kaupang-retail-locations.php
+msgid "Kaupang Retail Locations"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: retail-locations.php
-msgid "https://github.com/nytafar/retail-locations"
+#: kaupang-retail-locations.php
+msgid "https://github.com/nytafar/kaupang-retail-locations"
 msgstr ""
 
 #. Description of the plugin
-#: retail-locations.php
+#: kaupang-retail-locations.php
 msgid "Display retail locations on a Google Map with filtering by category and area."
 msgstr ""
 
 #. Author of the plugin
-#: retail-locations.php
+#: kaupang-retail-locations.php
 msgid "Lasse Jellum"
 msgstr ""
 
 #. Author URI of the plugin
-#: retail-locations.php
+#: kaupang-retail-locations.php
 msgid "https://jellum.net"
 msgstr ""
 
-#: includes/class-retail-locations.php:86
+#: includes/class-kaupang-retail-locations.php:85
+#: includes/class-kaupang-retail-locations.php:87
+msgid "Retail Locations"
+msgstr ""
+
+#: includes/class-kaupang-retail-locations.php:86
 msgid "Location"
 msgstr ""
 
-#: includes/class-retail-locations.php:88
+#: includes/class-kaupang-retail-locations.php:88
 msgid "Add New"
 msgstr ""
 
-#: includes/class-retail-locations.php:89
+#: includes/class-kaupang-retail-locations.php:89
 msgid "Add New Location"
 msgstr ""
 
-#: includes/class-retail-locations.php:90
+#: includes/class-kaupang-retail-locations.php:90
 msgid "Edit Location"
 msgstr ""
 
-#: includes/class-retail-locations.php:91
+#: includes/class-kaupang-retail-locations.php:91
 msgid "New Location"
 msgstr ""
 
-#: includes/class-retail-locations.php:92
+#: includes/class-kaupang-retail-locations.php:92
 msgid "View Location"
 msgstr ""
 
-#: includes/class-retail-locations.php:93
+#: includes/class-kaupang-retail-locations.php:93
 msgid "All Locations"
 msgstr ""
 
-#: includes/class-retail-locations.php:94
+#: includes/class-kaupang-retail-locations.php:94
 msgid "Search Locations"
 msgstr ""
 
-#: includes/class-retail-locations.php:95
+#: includes/class-kaupang-retail-locations.php:95
 msgid "No locations found."
 msgstr ""
 
-#: includes/class-retail-locations.php:96
+#: includes/class-kaupang-retail-locations.php:96
 msgid "No locations found in Trash."
 msgstr ""
 
-#: includes/class-retail-locations.php:114
+#: includes/class-kaupang-retail-locations.php:114
 msgid "Categories"
 msgstr ""
 
-#: includes/class-retail-locations.php:115
+#: includes/class-kaupang-retail-locations.php:115
 msgid "Category"
 msgstr ""
 
-#: includes/class-retail-locations.php:116
+#: includes/class-kaupang-retail-locations.php:116
 msgid "Search Categories"
 msgstr ""
 
-#: includes/class-retail-locations.php:117
+#: includes/class-kaupang-retail-locations.php:117
 msgid "All Categories"
 msgstr ""
 
-#: includes/class-retail-locations.php:118
+#: includes/class-kaupang-retail-locations.php:118
 msgid "Edit Category"
 msgstr ""
 
-#: includes/class-retail-locations.php:119
+#: includes/class-kaupang-retail-locations.php:119
 msgid "Add New Category"
 msgstr ""
 
-#: includes/class-retail-locations.php:129
+#: includes/class-kaupang-retail-locations.php:129
 msgid "Areas"
 msgstr ""
 
-#: includes/class-retail-locations.php:130
+#: includes/class-kaupang-retail-locations.php:130
 msgid "Area"
 msgstr ""
 
-#: includes/class-retail-locations.php:131
+#: includes/class-kaupang-retail-locations.php:131
 msgid "Search Areas"
 msgstr ""
 
-#: includes/class-retail-locations.php:132
+#: includes/class-kaupang-retail-locations.php:132
 msgid "All Areas"
 msgstr ""
 
-#: includes/class-retail-locations.php:133
+#: includes/class-kaupang-retail-locations.php:133
 msgid "Edit Area"
 msgstr ""
 
-#: includes/class-retail-locations.php:134
+#: includes/class-kaupang-retail-locations.php:134
 msgid "Add New Area"
 msgstr ""
 
-#: includes/class-retail-locations.php:223
+#: includes/class-kaupang-retail-locations.php:223
 msgid "Get Directions"
 msgstr ""
 
-#: includes/class-retail-locations.php:224
+#: includes/class-kaupang-retail-locations.php:224
 msgid "View Details"
 msgstr ""
 
-#: includes/class-retail-locations.php:225
+#: includes/class-kaupang-retail-locations.php:225
 msgid "Map:"
 msgstr ""
 
-#: includes/class-retail-locations.php:226
-#: includes/class-retail-locations.php:1157
+#: includes/class-kaupang-retail-locations.php:226
+#: includes/class-kaupang-retail-locations.php:1157
 msgid "Open in Google Maps"
 msgstr ""
 
-#: includes/class-retail-locations.php:227
-#: includes/class-retail-locations.php:1160
+#: includes/class-kaupang-retail-locations.php:227
+#: includes/class-kaupang-retail-locations.php:1160
 msgid "Open in Apple Maps"
 msgstr ""
 
-#: includes/class-retail-locations.php:299
-#: includes/class-retail-locations.php:300
+#: includes/class-kaupang-retail-locations.php:299
+#: includes/class-kaupang-retail-locations.php:300
 msgid "Settings"
 msgstr ""
 
-#: includes/class-retail-locations.php:308
-#: includes/class-retail-locations.php:373
+#: includes/class-kaupang-retail-locations.php:308
+#: includes/class-kaupang-retail-locations.php:373
 msgid "Export Taxonomies"
 msgstr ""
 
-#: includes/class-retail-locations.php:309
+#: includes/class-kaupang-retail-locations.php:309
 msgid "Export"
 msgstr ""
 
-#: includes/class-retail-locations.php:325
+#: includes/class-kaupang-retail-locations.php:325
 msgid "Retail Locations Settings"
 msgstr ""
 
-#: includes/class-retail-locations.php:330
+#: includes/class-kaupang-retail-locations.php:330
 msgid "Google Maps API Key"
 msgstr ""
 
-#: includes/class-retail-locations.php:333
+#: includes/class-kaupang-retail-locations.php:333
 msgid "Enter your Google Maps API key."
 msgstr ""
 
-#: includes/class-retail-locations.php:337
+#: includes/class-kaupang-retail-locations.php:337
 msgid "URL Slug"
 msgstr ""
 
-#: includes/class-retail-locations.php:340
+#: includes/class-kaupang-retail-locations.php:340
 msgid "The URL slug for locations (default: location)."
 msgstr ""
 
-#: includes/class-retail-locations.php:344
+#: includes/class-kaupang-retail-locations.php:344
 msgid "Google Maps Map ID"
 msgstr ""
 
-#: includes/class-retail-locations.php:347
+#: includes/class-kaupang-retail-locations.php:347
 msgid "Google Cloud Map ID for Advanced Markers and custom map styling. Leave blank to use Google's rate-limited DEMO_MAP_ID."
 msgstr ""
 
-#: includes/class-retail-locations.php:374
+#: includes/class-kaupang-retail-locations.php:374
 msgid "Export your location categories and areas to a JSON file for backup or migration to another site."
 msgstr ""
 
-#: includes/class-retail-locations.php:381
+#: includes/class-kaupang-retail-locations.php:381
 msgid "Export Data"
 msgstr ""
 
-#: includes/class-retail-locations.php:383
+#: includes/class-kaupang-retail-locations.php:383
 msgid "This will export:"
 msgstr ""
 
-#: includes/class-retail-locations.php:385
+#: includes/class-kaupang-retail-locations.php:385
 msgid "All location categories with hierarchy"
 msgstr ""
 
-#: includes/class-retail-locations.php:386
+#: includes/class-kaupang-retail-locations.php:386
 msgid "All location areas with coordinates and zoom levels"
 msgstr ""
 
-#: includes/class-retail-locations.php:388
+#: includes/class-kaupang-retail-locations.php:388
 msgid "Note: This exports taxonomy terms only. Use WordPress's built-in export for location posts."
 msgstr ""
 
-#: includes/class-retail-locations.php:393
+#: includes/class-kaupang-retail-locations.php:393
 msgid "Download Export File"
 msgstr ""
 
-#: includes/class-retail-locations.php:398
-#: includes/class-retail-locations.php:431
+#: includes/class-kaupang-retail-locations.php:398
+#: includes/class-kaupang-retail-locations.php:431
 msgid "Import Taxonomies"
 msgstr ""
 
-#: includes/class-retail-locations.php:403
+#: includes/class-kaupang-retail-locations.php:403
 msgid "Import successful!"
 msgstr ""
 
 #. translators: %d is the number of categories imported.
-#: includes/class-retail-locations.php:405
+#: includes/class-kaupang-retail-locations.php:405
 #, php-format
 msgid "Categories imported: %d"
 msgstr ""
 
 #. translators: %d is the number of areas imported.
-#: includes/class-retail-locations.php:406
+#: includes/class-kaupang-retail-locations.php:406
 #, php-format
 msgid "Areas imported: %d"
 msgstr ""
 
-#: includes/class-retail-locations.php:411
+#: includes/class-kaupang-retail-locations.php:411
 msgid "Import failed:"
 msgstr ""
 
-#: includes/class-retail-locations.php:416
+#: includes/class-kaupang-retail-locations.php:416
 msgid "Upload a JSON file exported from another Retail Locations installation."
 msgstr ""
 
-#: includes/class-retail-locations.php:423
+#: includes/class-kaupang-retail-locations.php:423
 msgid "Import File"
 msgstr ""
 
-#: includes/class-retail-locations.php:426
+#: includes/class-kaupang-retail-locations.php:426
 msgid "Select a JSON file exported from Retail Locations."
 msgstr ""
 
-#: includes/class-retail-locations.php:442
+#: includes/class-kaupang-retail-locations.php:442
 msgid "No file uploaded or upload error occurred."
 msgstr ""
 
-#: includes/class-retail-locations.php:451
+#: includes/class-kaupang-retail-locations.php:451
 msgid "Invalid JSON file."
 msgstr ""
 
-#: includes/class-retail-locations.php:457
+#: includes/class-kaupang-retail-locations.php:457
 msgid "Invalid export file format."
 msgstr ""
 
-#: includes/class-retail-locations.php:592
+#: includes/class-kaupang-retail-locations.php:592
 msgid "Location Details"
 msgstr ""
 
-#: includes/class-retail-locations.php:613
+#: includes/class-kaupang-retail-locations.php:613
 msgid "Address"
 msgstr ""
 
-#: includes/class-retail-locations.php:617
-#: includes/class-retail-locations.php:723
-#: includes/class-retail-locations.php:743
+#: includes/class-kaupang-retail-locations.php:617
+#: includes/class-kaupang-retail-locations.php:723
+#: includes/class-kaupang-retail-locations.php:743
 msgid "Latitude"
 msgstr ""
 
-#: includes/class-retail-locations.php:621
-#: includes/class-retail-locations.php:727
-#: includes/class-retail-locations.php:747
+#: includes/class-kaupang-retail-locations.php:621
+#: includes/class-kaupang-retail-locations.php:727
+#: includes/class-kaupang-retail-locations.php:747
 msgid "Longitude"
 msgstr ""
 
-#: includes/class-retail-locations.php:626
+#: includes/class-kaupang-retail-locations.php:626
 msgid "Links"
 msgstr ""
 
-#: includes/class-retail-locations.php:628
+#: includes/class-kaupang-retail-locations.php:628
 msgid "Website URL"
 msgstr ""
 
-#: includes/class-retail-locations.php:632
+#: includes/class-kaupang-retail-locations.php:632
 msgid "Instagram Handle"
 msgstr ""
 
-#: includes/class-retail-locations.php:634
+#: includes/class-kaupang-retail-locations.php:634
 msgid "Enter with or without @"
 msgstr ""
 
-#: includes/class-retail-locations.php:637
+#: includes/class-kaupang-retail-locations.php:637
 msgid "Contact Info"
 msgstr ""
 
-#: includes/class-retail-locations.php:641
+#: includes/class-kaupang-retail-locations.php:641
 msgid "Label"
 msgstr ""
 
-#: includes/class-retail-locations.php:642
+#: includes/class-kaupang-retail-locations.php:642
 msgid "Value"
 msgstr ""
 
-#: includes/class-retail-locations.php:643
+#: includes/class-kaupang-retail-locations.php:643
 msgid "Link (optional)"
 msgstr ""
 
-#: includes/class-retail-locations.php:648
+#: includes/class-kaupang-retail-locations.php:648
 msgid "+ Add Contact"
 msgstr ""
 
-#: includes/class-retail-locations.php:650
+#: includes/class-kaupang-retail-locations.php:650
 msgid "Business Hours"
 msgstr ""
 
-#: includes/class-retail-locations.php:654
+#: includes/class-kaupang-retail-locations.php:654
 msgid "Day"
 msgstr ""
 
-#: includes/class-retail-locations.php:655
+#: includes/class-kaupang-retail-locations.php:655
 msgid "Open"
 msgstr ""
 
-#: includes/class-retail-locations.php:656
+#: includes/class-kaupang-retail-locations.php:656
 msgid "Close"
 msgstr ""
 
-#: includes/class-retail-locations.php:661
+#: includes/class-kaupang-retail-locations.php:661
 msgid "+ Add Hours"
 msgstr ""
 
-#: includes/class-retail-locations.php:731
-#: includes/class-retail-locations.php:751
+#: includes/class-kaupang-retail-locations.php:731
+#: includes/class-kaupang-retail-locations.php:751
 msgid "Map Zoom"
 msgstr ""
 
-#: includes/class-retail-locations.php:925
-#: includes/class-retail-locations.php:1038
+#: includes/class-kaupang-retail-locations.php:925
+#: includes/class-kaupang-retail-locations.php:1038
 msgid "Other"
 msgstr ""
 
-#: includes/class-retail-locations.php:1006
+#: includes/class-kaupang-retail-locations.php:1006
 msgid "Click to focus map"
 msgstr ""
 
-#: includes/class-retail-locations.php:1167
+#: includes/class-kaupang-retail-locations.php:1167
 msgid "Website"
 msgstr ""
 

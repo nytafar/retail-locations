@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 /**
  * Output SVG symbols footer
  */
-function retail_locations_render_svg_symbols()
+function kaupang_retail_locations_render_svg_symbols()
 {
     ?>
     <svg style="display: none;" aria-hidden="true" width="0" height="0">
@@ -66,47 +66,47 @@ function retail_locations_render_svg_symbols()
 /**
  * Helper to get SVG icon markup referencing symbol
  */
-function retail_locations_get_icon_markup($id, $size = '1em')
+function kaupang_retail_locations_get_icon_markup($id, $size = '1em')
 {
     return '<svg class="retail-locations-icon retail-locations-icon--' . esc_attr(str_replace('retail-icon-', '', $id)) . '" width="' . esc_attr($size) . '" height="' . esc_attr($size) . '" aria-hidden="true"><use href="#' . esc_attr($id) . '"></use></svg>';
 }
 
-function retail_locations_icon_map($size = '1em')
+function kaupang_retail_locations_icon_map($size = '1em')
 {
-    return retail_locations_get_icon_markup('retail-icon-map', $size);
+    return kaupang_retail_locations_get_icon_markup('retail-icon-map', $size);
 }
 
-function retail_locations_icon_website($size = '1em')
+function kaupang_retail_locations_icon_website($size = '1em')
 {
-    return retail_locations_get_icon_markup('retail-icon-website', $size);
+    return kaupang_retail_locations_get_icon_markup('retail-icon-website', $size);
 }
 
-function retail_locations_icon_instagram($size = '1em')
+function kaupang_retail_locations_icon_instagram($size = '1em')
 {
-    return retail_locations_get_icon_markup('retail-icon-instagram', $size);
+    return kaupang_retail_locations_get_icon_markup('retail-icon-instagram', $size);
 }
 
-function retail_locations_icon_phone($size = '1em')
+function kaupang_retail_locations_icon_phone($size = '1em')
 {
-    return retail_locations_get_icon_markup('retail-icon-phone', $size);
+    return kaupang_retail_locations_get_icon_markup('retail-icon-phone', $size);
 }
 
-function retail_locations_icon_email($size = '1em')
+function kaupang_retail_locations_icon_email($size = '1em')
 {
-    return retail_locations_get_icon_markup('retail-icon-email', $size);
+    return kaupang_retail_locations_get_icon_markup('retail-icon-email', $size);
 }
 
-function retail_locations_icon_clock($size = '1em')
+function kaupang_retail_locations_icon_clock($size = '1em')
 {
-    return retail_locations_get_icon_markup('retail-icon-clock', $size);
+    return kaupang_retail_locations_get_icon_markup('retail-icon-clock', $size);
 }
 
-function retail_locations_icon_apple($size = '1em')
+function kaupang_retail_locations_icon_apple($size = '1em')
 {
-    return retail_locations_get_icon_markup('retail-icon-apple', $size);
+    return kaupang_retail_locations_get_icon_markup('retail-icon-apple', $size);
 }
 
-function retail_locations_icon_google_maps($size = '1em')
+function kaupang_retail_locations_icon_google_maps($size = '1em')
 {
-    return retail_locations_get_icon_markup('retail-icon-google-maps', $size);
+    return kaupang_retail_locations_get_icon_markup('retail-icon-google-maps', $size);
 }

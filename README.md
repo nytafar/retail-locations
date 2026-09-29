@@ -1,4 +1,4 @@
-# Retail Locations
+# Kaupang Retail Locations
 
 **A minimal, business-focused WordPress plugin for real store locators.**
 
@@ -55,7 +55,7 @@ Most store locator plugins are overcomplicated, slow, or designed for enterprise
 
 ## Installation
 
-1. Upload the `retail-locations` folder to `/wp-content/plugins/`
+1. Upload the `kaupang-retail-locations` folder to `/wp-content/plugins/`
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to **Retail Locations → Settings**
 4. Add your Google Maps API Key ([Get one here](https://developers.google.com/maps/documentation/javascript/get-api-key))
@@ -166,7 +166,7 @@ Yes. Use the shortcodes in any page builder that supports them, or use the Guten
 Yes. The plugin uses standard WordPress classes and can be styled with custom CSS.
 
 **Is it translation-ready?**
-Yes. The plugin uses the `retail-locations` text domain and is fully translatable.
+Yes. The plugin uses the `kaupang-retail-locations` text domain and is fully translatable.
 
 **Can I group locations by region?**
 Yes. Use the Areas taxonomy to create geographic regions, then use `group_by_area="yes"` in the shortcode or enable it in the block settings.
@@ -195,13 +195,13 @@ Major update with new Gutenberg blocks, sticky maps, and improved UX.
 ## Support
 
 For support, documentation, and updates:
-- Website: [https://jellum.net/retail-locations](https://jellum.net/retail-locations)
-- GitHub: [Report issues and contribute](https://github.com/nytafar/retail-locations)
+- Website: [https://jellum.net](https://jellum.net)
+- GitHub: [Report issues and contribute](https://github.com/nytafar/kaupang-retail-locations)
 
 ## Releasing
 
 Suite kit: https://github.com/nytafar/kaupang-docs/tree/main/kit. The header `Version:` is the only version source; the
-pre-commit hook syncs `RETAIL_LOCATIONS_VERSION` and regenerates readme.txt (never edit it). Add lines under
+pre-commit hook syncs `KAUPANG_RETAIL_LOCATIONS_VERSION` and regenerates readme.txt (never edit it). Add lines under
 `## [Unreleased]` in CHANGELOG.md, then release with `sudo -u myrvann tools/release patch|minor|major [--push]`.
 
 ## Credits

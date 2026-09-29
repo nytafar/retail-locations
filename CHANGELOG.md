@@ -1,11 +1,35 @@
 # Changelog
 
-All notable changes to Retail Locations are documented in this file.
+All notable changes to Kaupang Retail Locations are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+Renamed Retail Locations → **Kaupang Retail Locations**. Never deployed to production (libraluxe.soppify.no is retired), so
+identity moved with no back-compat aliases; the content and front-end contract stays frozen. The myrvann theme already
+listens on the new hook name; kaupang-wholesale already reads the key through the new seam.
+
+### Added
+- Filter `kaupang/retail-locations/maps_api_key`: the one place the plugin reads its Google Maps key, the seam
+  kaupang-wholesale reads it through, and the plugin provides the stored `retail_locations_api_key` to any consumer that
+  filters with an empty value.
+
+### Changed
+- **Breaking — moved:** folder/main file/text domain `kaupang-retail-locations` (languages files renamed, block-editor JSON
+  regenerated), constants `KAUPANG_RETAIL_LOCATIONS_*`, class `Kaupang_Retail_Locations` (`includes/class-kaupang-retail-locations.php`),
+  functions `kaupang_retail_locations()` and `kaupang_retail_locations_{render_svg_symbols,get_icon_markup,icon_*}()`,
+  public hooks `retail_locations_{enable_single_pages,has_details,show_view_details}` → `kaupang/retail-locations/*`,
+  admin nonces `kaupang_retail_locations_{export,import}_taxonomies` and `kaupang_retail_location_meta`/`_nonce`,
+  admin handles `kaupang-retail-locations-{admin,blocks}`, internal flag `kaupang_retail_locations_flush_rewrite`
+  (activation deletes the old `retail_locations_flush_rewrite` row). Header per suite standard (GitHub Plugin URI,
+  `@package Kaupang\RetailLocations`); no WooCommerce headers, the plugin is Woo-independent.
+- **Kept (frozen contract):** block names `retail-locations/{map,stores}`, shortcodes `[retail_locations_map]`/`[retail_locations]`,
+  nopriv AJAX `retail_locations_get_stores`, options `retail_locations_{api_key,slug,map_id}` and settings group `retail_locations`,
+  CPT `retail_location`, taxonomies, `_location_*` meta, URL slugs, front-end handle `retail-locations` and localized
+  `retailLocations`, `window.RetailLocations`, `.retail-locations-*`/`.retail-location-*`/`--rl-*` CSS, `#retail-icon-*` symbols,
+  admin page slugs `retail-locations-{settings,export}`.
 
 ## [2.2.3] - 2026-09-29
 

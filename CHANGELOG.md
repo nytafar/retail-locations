@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Frontend CSS updates; sepia filter removed from the map canvas.
 - Docs use the `retail_locations_` shortcode prefix (was `tsl_`).
 - Adopted suite kit v2: version synced from the header, generated readme.txt, `tools/release`; standard header (GitHub Plugin URI, License GPL-2.0-or-later).
+- Suite kit v2.1 (tooling, generated readme.txt); no runtime change.
 
 ### Fixed
 - Clicking an area label focuses the map again (auto-fit fallback).
